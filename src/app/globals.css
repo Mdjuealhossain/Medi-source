@@ -1,0 +1,27 @@
+@import url("https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    @apply font-hind;
+    @apply text-body1;
+    @apply font-medium;
+    @apply bg-default_bg;
+    @apply text-primary;
+}
+
+.no-scrollbar {
+    overflow: auto; /* Enables scrolling */
+    -ms-overflow-style: none; /* Hides scrollbar in IE and Edge */
+    scrollbar-width: none; /* Hides scrollbar in Firefox */
+}
+
+.no-scrollbar::-webkit-scrollbar {
+    display: none; /* Hides scrollbar in Chrome, Safari, and Opera */
+}
