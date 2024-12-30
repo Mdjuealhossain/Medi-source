@@ -91,7 +91,7 @@ module.exports = {
         },
         backgroundImage: {
             xs: "linear-gradient(180deg, #827DFB 0%, #5852FA 47%,#221DA8 100%)",
-            "custom-gradient": "linear-gradient(45deg, hsl(60deg 47% 93%) 0%, hsl(68deg 48% 93%) 11%, hsl(75deg 48% 94%) 22%, hsl(83deg 48% 95%) 33%, hsl(92deg 47% 95%) 44%, hsl(101deg 46% 96%) 56%, hsl(111deg 44% 96%) 67%, hsl(122deg 42% 97%) 78%, hsl(132deg 43% 97%) 89%, hsl(140deg 43% 97%) 100%)",
+            "slim-nav": "linear-gradient(90deg, #D90068 3.51%, #EF0073 38.69%, #9E42E7 71.85%, #820CDE 99.99%)",
             "mega-gradient": "linear-gradient(to right, rgba(139, 196, 63, .1) 50%, #ffffff 50%)",
             "emplyee-card": "linear-gradient(to bottom, #ffffff 5%, #EEEEEE 95%)",
             leader: "linear-gradient(to top left, #ffffff 5%, rgba(139, 196, 63, .4) 95%)",
@@ -225,7 +225,7 @@ module.exports = {
                 ".text-body2": {
                     fontSize: theme("fontSize.xs"),
                     "@screen 2xl": {
-                        fontSize: theme("fontSize.sm"), // Large screen
+                        fontSize: theme("fontSize.xs"), // Large screen
                     },
                 },
                 ".text-caption": {
