@@ -25,3 +25,19 @@ body {
 .no-scrollbar::-webkit-scrollbar {
     display: none; /* Hides scrollbar in Chrome, Safari, and Opera */
 }
+
+/* For scrollbar */
+@layer utilities {
+    .scrollbar::-webkit-scrollbar {
+        @apply w-1; /* Width of the scrollbar */
+    }
+    .scrollbar::-webkit-scrollbar-thumb {
+        @apply bg-success_main rounded-md; /* Thumb color and shape */
+    }
+    .scrollbar::-webkit-scrollbar-track {
+        @apply bg-transparent; /* Track color */
+    }
+    .scrollbar:hover::-webkit-scrollbar-thumb {
+        @apply bg-warning_main; /* Darker thumb on hover */
+    }
+}

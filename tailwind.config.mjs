@@ -58,45 +58,50 @@ module.exports = {
             // Text color start
             primary: "#101828",
             secondary: "rgb(71, 84, 103)",
-            gray_800: "rgb(29, 41, 57)",
-            gray_700: "rgb(44, 57, 75)",
-            gray_600: "rgb(102, 112, 133)",
-            gray_500: "#eaecf0",
-            gray_400: "rgb(208 213 221)",
-            gray_300: "rgb(229, 231, 235)",
+
             // Text color end
             //colors start
             // Text color end
             //colors start
             primary_light: "rgba(69, 144, 214, 0.253)",
-            primary_main: "#17a2b8",
-            primary_dark: "#00f",
+            primary_main: "#1898C5",
+            primary_dark: "#058AB7",
             secondary_main: "",
             secondary_li: "rgb(218 228 255)",
-            success_light: "rgb(246, 254, 249)",
-            success_main: "rgb(32, 180, 134)",
-            success_dark: "#28a745",
+            success_light: "#C6DA39",
+            success_main: "#A1D03B",
+            success_dark: "#89C842",
             info_light: "rgb(233 239 255)",
             info_main: "rgb(68 120 255)",
             info_dark: "#00f",
             error_light: "rgb(255 232 219)",
             error_main: "rgb(240, 68, 56)",
-            warning_light: "rgb(255 251 238)",
-            warning_main: "rgb(255, 205, 51)",
-            warning_dark: "rgb(255, 192, 0)",
+            warning_extra_light: "#FFF9F4",
+            warning_light: "#F9D114",
+            warning_main: "#FF9800",
+            warning_dark: "#EF8F21",
 
             //colors end
 
-            divider: "rgb(152 162 179)",
+            divider: "rgb(208 213 221)",
         },
         backgroundImage: {
             xs: "linear-gradient(180deg, #827DFB 0%, #5852FA 47%,#221DA8 100%)",
-            "slim-nav": "linear-gradient(90deg, #D90068 3.51%, #EF0073 38.69%, #9E42E7 71.85%, #820CDE 99.99%)",
+            "slim-nav": "linear-gradient(90deg, #EF8F21 3.51%, #FF9800 8.69%, #A1D03B 71.85%, #1898C5 99.99%)",
             "mega-gradient": "linear-gradient(to right, rgba(139, 196, 63, .1) 50%, #ffffff 50%)",
             "emplyee-card": "linear-gradient(to bottom, #ffffff 5%, #EEEEEE 95%)",
             leader: "linear-gradient(to top left, #ffffff 5%, rgba(139, 196, 63, .4) 95%)",
             // leader: "linear-gradient(to top left, #007aff 20%,#FF0000 40%, #8BC43F 80%)",
             app_banner: "url('/assets/image/home/app_bg_img.webp')",
+        },
+        keyframes: {
+            textanim: {
+                "0%": { backgroundPosition: "0% 50%" },
+                "100%": { backgroundPosition: "200% 50%" },
+            },
+        },
+        animation: {
+            textanim: "textanim 2s linear infinite",
         },
         boxShadow: {
             sm: "0px_4px_4px_0px_rgba(0,0,0,0.08)",
@@ -108,6 +113,8 @@ module.exports = {
             input: "0 0 8px rgba(139, 196, 63, .4)",
             social: "0px 0px 15px 3px rgba(143, 198, 69, 0.8);",
             playBtn: "0px 0px 25px 3px rgba(143, 198, 69, 0.8)",
+            // flash: "#F9D114 0px 8px 12px -5px, #F9D114 0px 10px 10px -5px",
+            flash: "#F9D114 0px 2px 5px 0px",
         },
         fontSize: {
             xxs: ".5rem", // 8px         caption p

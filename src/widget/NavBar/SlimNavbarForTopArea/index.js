@@ -6,7 +6,7 @@ import { HiDevicePhoneMobile, HiMiniPhoneArrowUpRight } from "react-icons/hi2";
 
 const SlimNavbarForTopArea = () => {
     return (
-        <div className="h-[36px] bg-gradient-to-tr bg-slim-nav bg-cover">
+        <div className="h-[36px] bg-slim-nav bg-[length:200%_auto] animate-textanim">
             <div className="container mx-auto max-w-xl px-4 h-full flex justify-between  items-center text-white font-semibold text-subtitle2">
                 <div>
                     <Typewriter words={["Great Festive Sale Deals You Can’t Miss", "Welcome to my App"]} loop={true} cursor cursorStyle="|" typeSpeed={50} deleteSpeed={50} delaySpeed={3000} />
