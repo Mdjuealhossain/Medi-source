@@ -6,7 +6,7 @@ import { RxBox } from "react-icons/rx";
 
 import Button from "../Button";
 
-export const FilteredPop = ({ isOpen, title, checkboxData, onClose, onOpen, onConfirm }) => {
+export const FilteredPop = ({ isOpen, title, checkboxData, onClose, onConfirm }) => {
     const [searchText, setSearchText] = useState("");
     const [filteredCheckboxes, setFilteredCheckboxes] = useState(checkboxData);
 
@@ -43,8 +43,8 @@ export const FilteredPop = ({ isOpen, title, checkboxData, onClose, onOpen, onCo
 
     return (
         <>
-            <div onClick={onClose} className="fixed inset-0 top-[12.4%] bg-black bg-opacity-50 z-10"></div>
-            <div onMouseEnter={onOpen} className="bg-white py-6 absolute top-full rounded-b shadow-lg w-300 z-50">
+            <div onClick={onClose} className="fixed inset-0 top-[11.4%] bg-black bg-opacity-30 z-10"></div>
+            <div className="bg-white py-6 absolute top-full rounded-b shadow-lg w-300 z-50">
                 <div className="flex justify-between items-center mb-4 px-6 border-b pb-2 border-divider">
                     <h2 className="text-H6 font-semibold capitalize">{title}</h2>
                     <span onClick={handleClose} className="cursor-pointer">

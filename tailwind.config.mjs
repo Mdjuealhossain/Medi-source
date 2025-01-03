@@ -30,6 +30,7 @@ module.exports = {
                 430: "26.875rem",
                 500: "31.25rem",
                 562: "35.125rem",
+                700: "43.75rem",
                 900: "60.875rem",
             },
         },
@@ -50,7 +51,7 @@ module.exports = {
             // background color start
             default_bg: "#f9f9fa",
             paper_bg: "#ffffff",
-            secondary_bg: "#rgb(243, 244, 247)",
+            secondary_bg: "rgb(243, 244, 247)",
             secondary_light: "rgb(249, 249, 250)",
             secondary_mid: "rgb(234, 236, 240)",
             transparent: "transparent",
