@@ -11,16 +11,17 @@ import Cart from "@/components/Cart";
 import "react-modern-drawer/dist/index.css";
 
 const CartDrawer = ({ open, onClose, direction, size }) => {
+    const [count, setCount] = useState(1);
     // State to manage cart data
     const [cartData, setCartData] = useState([
-        { id: 1, company: "ACI limited", name: "Avbgdd 50/10 mg", imag: "/assets/image/home/course.jpg", alt: "aci", discount: 400, price: 800 },
-        { id: 2, company: "ACI limited", name: "Avbgdd 50/10 mg", imag: "/assets/image/home/course.jpg", alt: "aci", discount: 230, price: 866 },
-        { id: 3, company: "ACI limited", name: "Avbgdd 50/10 mg", imag: "/assets/image/home/course.jpg", alt: "aci", discount: 400, price: 800 },
-        { id: 4, company: "ACI limited", name: "Avbgdd 50/10 mg", imag: "/assets/image/home/course.jpg", alt: "aci", discount: 230, price: 866 },
-        { id: 5, company: "ACI limited", name: "Avbgdd 50/10 mg", imag: "/assets/image/home/course.jpg", alt: "aci", discount: 400, price: 800 },
-        { id: 6, company: "ACI limited", name: "Avbgdd 50/10 mg", imag: "/assets/image/home/course.jpg", alt: "aci", discount: 230, price: 866 },
-        { id: 7, company: "ACI limited", name: "Avbgdd 50/10 mg", imag: "/assets/image/home/course.jpg", alt: "aci", discount: 400, price: 800 },
-        { id: 8, company: "ACI limited", name: "Avbgdd 50/10 mg", imag: "/assets/image/home/course.jpg", alt: "aci", discount: 230, price: 866 },
+        { id: 1, company: "ACI limited", name: "Avbgdd 50/10 mg", imag: "/assets/image/home/course.jpg", alt: "aci", prev: 1200, price: 800 },
+        { id: 2, company: "ACI limited", name: "Avbgdd 50/10 mg", imag: "/assets/image/home/course.jpg", alt: "aci", prev: 1230, price: 866 },
+        { id: 3, company: "ACI limited", name: "Avbgdd 50/10 mg", imag: "/assets/image/home/course.jpg", alt: "aci", prev: 1400, price: 800 },
+        { id: 4, company: "ACI limited", name: "Avbgdd 50/10 mg", imag: "/assets/image/home/course.jpg", alt: "aci", prev: 1230, price: 866 },
+        { id: 5, company: "ACI limited", name: "Avbgdd 50/10 mg", imag: "/assets/image/home/course.jpg", alt: "aci", prev: 1400, price: 800 },
+        { id: 6, company: "ACI limited", name: "Avbgdd 50/10 mg", imag: "/assets/image/home/course.jpg", alt: "aci", prev: 1230, price: 866 },
+        { id: 7, company: "ACI limited", name: "Avbgdd 50/10 mg", imag: "/assets/image/home/course.jpg", alt: "aci", prev: 1400, price: 800 },
+        { id: 8, company: "ACI limited", name: "Avbgdd 50/10 mg", imag: "/assets/image/home/course.jpg", alt: "aci", prev: 1230, price: 866 },
     ]);
 
     // Remove item from the cart
@@ -44,6 +45,12 @@ const CartDrawer = ({ open, onClose, direction, size }) => {
 
     if (!open) return null;
 
+    const subTotal = cartData.reduce((sum, item) => (sum + item.price) * count, 0);
+    const discount = cartData.reduce((sum, item) => (sum + item.prev - item.price) * count, 0);
+    const total = subTotal - discount;
+
+    console.log("jhbghkbnkjnkj", subTotal);
+
     return (
         <Drawer open={open} onClose={onClose} direction={direction} size={size}>
             <div className=" h-full">
@@ -56,20 +63,20 @@ const CartDrawer = ({ open, onClose, direction, size }) => {
                             </div>
                             <div className=" px-6 py-2 h-700 overflow-auto no-scrollbar flex flex-col gap-2">
                                 {cartData.map((data) => (
-                                    <Cart id={data.id} handleRemoveCart={handleRemoveCart} key={data.id} company={data.company} name={data.name} image={data.imag} alt={data.alt} price={data.price} discount={data.discount} />
+                                    <Cart id={data.id} count={count} setCount={setCount} handleRemoveCart={handleRemoveCart} key={data.id} company={data.company} name={data.name} image={data.imag} alt={data.alt} price={data.price} discount={data.prev} />
                                 ))}
                             </div>
                         </div>
                         <div className=" p-4 bg-warning_extra_light">
                             <div className=" mb-2 flex items-center justify-between font-semibold text-secondary">
                                 <p>Subtotal</p>
-                                <p>৳ 765.20</p>
+                                <p>৳ {subTotal}</p>
                             </div>
                             <div className=" mb-4 flex items-center justify-between font-semibold text-secondary">
                                 <p>Discount (-)</p>
-                                <p>৳ 765.20</p>
+                                <p>৳ {discount}</p>
                             </div>
-                            <Button className={" bg-warning_main hover:bg-warning_dark w-full text-white !font-semibold"}> continue to checkout: ৳ 765.20 </Button>
+                            <Button className={" bg-warning_main hover:bg-warning_dark w-full text-white !font-semibold"}> continue to checkout: ৳ {total} </Button>
                         </div>
                     </div>
                 ) : (

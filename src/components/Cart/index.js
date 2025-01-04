@@ -4,9 +4,7 @@ import { MdDelete } from "react-icons/md";
 
 import ImageURL from "../ImageUrl";
 
-const Cart = ({ company, name, image, alt, price, discount, handleRemoveCart, id }) => {
-    const [count, setCount] = useState(1);
-
+const Cart = ({ company, name, image, alt, price, discount, handleRemoveCart, id, count, setCount }) => {
     const handleQuantityChange = (delta) => {
         setCount((prev) => Math.max(1, prev + delta));
     };
