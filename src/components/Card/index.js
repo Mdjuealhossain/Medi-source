@@ -11,8 +11,8 @@ const Card = ({ image, alt, name, price, discount, extraoff, company }) => {
                 <div className={`h-200 flex justify-center items-center overflow-hidden`}>
                     <Image height={200} width={350} alt={alt} src={image} className="w-auto max-w-full max-h-full h-full object-cover" />
                 </div>
-                <div className=" absolute left-0 -top-px">
-                    <span className=" text-subtitle2 bg-error_main text-white px-2 py.5 rounded-br-lg">{extraoff}% off</span>
+                <div className=" absolute left-0 -top-0">
+                    <span className=" text-subtitle2 bg-error_main text-white px-2 py-1 rounded-br-lg">{extraoff}% off</span>
                 </div>
             </div>
             <div className=" p-4 flex-1 flex flex-col">

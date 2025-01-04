@@ -10,6 +10,9 @@ import { CgProfile } from "react-icons/cg";
 import { FaBagShopping } from "react-icons/fa6";
 import { RiLockPasswordFill } from "react-icons/ri";
 import { MdOutlineLogin } from "react-icons/md";
+import { RiTimerFlashLine } from "react-icons/ri";
+import { GoHome } from "react-icons/go";
+import { MdOutlineWorkHistory } from "react-icons/md";
 
 import { FilteredPop } from "@/components/FilteredPop";
 import GradientText from "@/components/GradiantText";
@@ -18,12 +21,16 @@ import CartDrawer from "@/widget/CartDrawer";
 import Container from "@/components/Container";
 import Button from "@/components/Button";
 import NotificationDrawer from "@/widget/NotificationDrawer";
+import { usePathname } from "next/navigation";
 
 const PcNav = () => {
     const [isPopupOpen, setIsPopupOpen] = useState(false);
     const [isDrowp, setIsDrowp] = useState(false);
     const [isOpen, setIsOpen] = React.useState(false);
     const [isNoti, setIsNoti] = React.useState(false);
+
+    const pathname = usePathname();
+
     const toggleDrawer = () => {
         setIsOpen((prevState) => !prevState);
     };
@@ -67,12 +74,12 @@ const PcNav = () => {
 
     return (
         <>
-            <div className="w-full flex items-center sticky z-50 h-full">
+            <div className=" sticky top-0 z-50  w-full shadow-lg">
                 <div className="w-full h-full  bg-paper_bg">
                     <Container>
                         <div className="w-full md:h-[4.5rem] py-2 relative flex justify-between items-center gap-2 ">
                             <div className=" flex items-center gap-4 xl:gap-16">
-                                <Link href={"/"} className=" h-10 flex items-center justify-center">
+                                <Link href={"/"} className=" md:h-10 h-6 flex items-center justify-center">
                                     <Image height={40} width={304} alt="logo" src={`/assets/logos/logo.png`} className=" min-w-100 w-auto max-h-full h-10" />
                                 </Link>
                                 <div className=" md:flex hidden items-center justify-start lg:gap-8 md:gap-4 relative ">
@@ -97,11 +104,11 @@ const PcNav = () => {
                                 />
                                 <GoSearch className=" absolute top-2 left-3 text-warning_main" />
                             </div>
-                            <div className=" md:inline-flex items-center lg:gap-8 md:gap-4 hidden">
-                                <Link href={"#"} className="group md:h-[4.5rem] flex-col flex justify-center" onClick={() => setIsDrowp((prev) => !prev)}>
+                            <div className=" md:inline-flex relative items-center lg:gap-8 md:gap-4 hidden">
+                                <Link href={"/login"} className="group md:h-[4.5rem] capitalize flex-col flex justify-center" onClick={() => setIsDrowp((prev) => !prev)}>
                                     <div className=" flex flex-col items-center justify-center text-body2">
                                         <BsPerson className="w-6 h-6" />
-                                        Account
+                                        log in
                                     </div>
                                     <span className={`  h-px bg-warning_main transition-width duration-300 ease-in-out w-0 group-hover:w-full`}></span>
                                 </Link>
@@ -110,7 +117,7 @@ const PcNav = () => {
                                     <div className=" flex flex-col items-center justify-center text-body2">
                                         <div className=" relative">
                                             <MdOutlineShoppingBag className="w-6 h-6" />
-                                            <div className=" rounded-full bg-primary_main text-white h-3 w-3 absolute -top-0 -right-0 text-xxs flex justify-center items-center">12</div>
+                                            <div className=" rounded-full bg-primary_main text-white h-3 w-3 absolute -top-1 -right-1 text-xxs flex justify-center items-center">12</div>
                                         </div>
                                         Carts
                                     </div>
@@ -120,18 +127,14 @@ const PcNav = () => {
                                     <div className=" flex flex-col items-center justify-center text-body2">
                                         <div className=" relative">
                                             <IoIosNotifications className="w-6 h-6" />
-                                            <div className=" rounded-full bg-warning_main text-white h-3 w-3 absolute -top-0 -right-0 text-xxs flex justify-center items-center">12</div>
+                                            <div className=" rounded-full bg-warning_main text-white h-3 w-3 absolute -top-1 -right-1 text-xxs flex justify-center items-center">12</div>
                                         </div>
                                         Notifications
                                     </div>
                                     <span className={`  h-px bg-warning_main transition-width duration-300 ease-in-out w-0 group-hover:w-full`}></span>
                                 </div>
-
-                                <Link href={"/login"} className=" flex">
-                                    <Button className={" bg-warning_main hover:bg-warning_dark text-white flex items-center justify-center "}>sign in</Button>
-                                </Link>
                             </div>
-                            <div className=" relative md:hidden">
+                            <div onClick={toggleNotiDrawer} className=" relative md:hidden">
                                 <IoIosNotifications className="w-6 h-6" />
                                 <div className=" rounded-full bg-warning_main text-white h-3 w-3 absolute -top-0 -right-0 text-xxs flex justify-center items-center">12</div>
                             </div>
@@ -139,8 +142,58 @@ const PcNav = () => {
                     </Container>
                 </div>
             </div>
+            <div className="md:hidden fixed bottom-0 left-0 right-0 w-full shadow-lg z-50">
+                <div className="w-full h-full  bg-paper_bg px-4">
+                    <ul className="flex items-center justify-between  py-2">
+                        <li>
+                            <Link href={"/"} className={`flex flex-col items-center justify-center text-caption ${pathname == "/" ? " text-warning_main" : "text-secondary"}`}>
+                                <GoHome className="w-4 h-4" />
+                                Home
+                            </Link>
+                        </li>
+                        <li>
+                            <Link href={"/flash-sell"} className={`flex flex-col items-center justify-center text-caption ${pathname == "/flash-sell" ? " text-warning_main" : "text-secondary"}`}>
+                                <RiTimerFlashLine className="w-4 h-4" />
+                                Flash Sell
+                            </Link>
+                        </li>
+
+                        <li>
+                            <Link href={"#"} className={`flex flex-col items-center justify-center text-caption ${pathname == "/cart" ? " text-warning_main" : "text-secondary"}`}>
+                                <div className=" relative">
+                                    <MdOutlineShoppingBag className="w-4 h-4" />
+                                    <div className=" rounded-full bg-primary_main text-white h-3 w-3 absolute -top-1 -right-1 text-xxs flex justify-center items-center">12</div>
+                                </div>
+                                Cart
+                            </Link>
+                        </li>
+                        <li>
+                            <Link href={"/history"} className={`flex flex-col items-center justify-center text-caption ${pathname == "/history" ? " text-warning_main" : "text-secondary"}`}>
+                                <div className=" relative">
+                                    <MdOutlineWorkHistory className="w-4 h-4" />
+                                    <div className=" rounded-full bg-warning_main text-white h-3 w-3 absolute -top-1 -right-1 text-xxs flex justify-center items-center">12</div>
+                                </div>
+                                History
+                            </Link>
+                        </li>
+                        <li>
+                            <Link href={"/profile"} className={`flex flex-col items-center justify-center text-caption ${pathname == "/profile" ? " text-warning_main" : "text-secondary"}`}>
+                                <BsPerson className="w-4 h-4" />
+                                Profile
+                            </Link>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div className=" hidden md:inline-block">
+                <NotificationDrawer open={isNoti} onClose={toggleNotiDrawer} direction="right" size={450} />
+            </div>
+            <div className=" md:hidden">
+                <NotificationDrawer open={isNoti} onClose={toggleNotiDrawer} direction="right" size="100%" />
+            </div>
+
             <CartDrawer open={isOpen} onClose={toggleDrawer} direction="right" size={450} />
-            <NotificationDrawer open={isNoti} onClose={toggleNotiDrawer} direction="right" size={450} />
         </>
     );
 };
