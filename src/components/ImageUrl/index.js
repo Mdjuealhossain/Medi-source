@@ -14,7 +14,7 @@ const ImageURL = ({ style, image, className, height, width }) => {
         <>
             {image && (
                 <Image
-                    className={className}
+                    className={`${className} max-h-full h-auto max-w-full w-auto`}
                     height={height}
                     width={width}
                     src={`${image}`}

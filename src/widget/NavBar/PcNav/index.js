@@ -15,11 +15,13 @@ import { FilteredPop } from "@/components/FilteredPop";
 import GradientText from "@/components/GradiantText";
 import Dropdown from "@/components/Dropdown";
 import CartDrawer from "@/widget/CartDrawer";
+import Container from "@/components/Container";
+import Button from "@/components/Button";
 
 const PcNav = () => {
     const [isPopupOpen, setIsPopupOpen] = useState(false);
     const [isDrowp, setIsDrowp] = useState(false);
-    const [isOpen, setIsOpen] = React.useState(true);
+    const [isOpen, setIsOpen] = React.useState(false);
     const toggleDrawer = () => {
         setIsOpen((prevState) => !prevState);
     };
@@ -62,7 +64,7 @@ const PcNav = () => {
         <>
             <div className="w-full flex items-center sticky z-50 top-0 transition-all duration-400 ease-out">
                 <div className="w-full h-full  bg-paper_bg">
-                    <div className="w-full max-w-xl mx-auto px-4">
+                    <Container>
                         <div className="w-full md:h-[4.5rem] py-2 relative flex justify-between items-center gap-2 ">
                             <div className=" flex items-center gap-4 xl:gap-16">
                                 <Link href={"/"} className=" h-10 flex items-center justify-center">
@@ -117,16 +119,16 @@ const PcNav = () => {
                                     <span className={`  h-px bg-warning_main transition-width duration-300 ease-in-out w-0 group-hover:w-full`}></span>
                                 </Link>
 
-                                {/* <Link href={"/login"} className=" flex">
-                                <Button className={" bg-warning_main hover:bg-warning_dark text-white flex items-center justify-center "}>sign in</Button>
-                            </Link> */}
+                                <Link href={"/login"} className=" flex">
+                                    <Button className={" bg-warning_main hover:bg-warning_dark text-white flex items-center justify-center "}>sign in</Button>
+                                </Link>
                             </div>
                             <div className=" relative md:hidden">
                                 <IoIosNotifications className="w-6 h-6" />
                                 <div className=" rounded-full bg-warning_main text-white h-3 w-3 absolute -top-0 -right-0 text-xxs flex justify-center items-center">12</div>
                             </div>
                         </div>
-                    </div>
+                    </Container>
                 </div>
             </div>
             <CartDrawer open={isOpen} onClose={toggleDrawer} direction="right" size={450} />

@@ -3,9 +3,6 @@ module.exports = {
     content: ["./src/pages/**/*.{js,ts,jsx,tsx,mdx}", "./src/components/**/*.{js,ts,jsx,tsx,mdx}", "./src/widget/**/*.{js,ts,jsx,tsx,mdx}", "./src/app/**/*.{js,ts,jsx,tsx,mdx}"],
     theme: {
         extend: {
-            fontFamily: {
-                hind: ['"Hind Siliguri"', "sans-serif"],
-            },
             height: {
                 "screen-minus-116": "calc(100vh - 6.25rem)",
             },
@@ -75,6 +72,7 @@ module.exports = {
             info_light: "rgb(233 239 255)",
             info_main: "rgb(68 120 255)",
             info_dark: "#00f",
+            error_extra_light: "#FEF7FF",
             error_light: "rgb(255 232 219)",
             error_main: "rgb(240, 68, 56)",
             warning_extra_light: "#FFF9F4",
