@@ -4,10 +4,13 @@ import { MdDelete } from "react-icons/md";
 
 import ImageURL from "../ImageUrl";
 
-const Cart = ({ company, name, image, alt, price, discount, handleRemoveCart, id, count, setCount }) => {
+const Cart = ({ company, name, image, alt, price, discount, handleRemoveCart, id, handleCount }) => {
+    const [count, setCount] = useState(1);
+
     const handleQuantityChange = (delta) => {
         setCount((prev) => Math.max(1, prev + delta));
     };
+    handleCount(count);
 
     return (
         <div className=" relative flex gap-4 items-center bg-white p-3 rounded-lg">

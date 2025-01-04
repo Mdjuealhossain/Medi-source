@@ -11,7 +11,8 @@ import Cart from "@/components/Cart";
 import "react-modern-drawer/dist/index.css";
 
 const CartDrawer = ({ open, onClose, direction, size }) => {
-    const [count, setCount] = useState(1);
+    const [isCount, setIsCount] = useState(null);
+
     // State to manage cart data
     const [cartData, setCartData] = useState([
         { id: 1, company: "ACI limited", name: "Avbgdd 50/10 mg", imag: "/assets/image/home/course.jpg", alt: "aci", prev: 1200, price: 800 },
@@ -23,6 +24,10 @@ const CartDrawer = ({ open, onClose, direction, size }) => {
         { id: 7, company: "ACI limited", name: "Avbgdd 50/10 mg", imag: "/assets/image/home/course.jpg", alt: "aci", prev: 1400, price: 800 },
         { id: 8, company: "ACI limited", name: "Avbgdd 50/10 mg", imag: "/assets/image/home/course.jpg", alt: "aci", prev: 1230, price: 866 },
     ]);
+
+    const handleCount = (num) => {
+        setIsCount(num);
+    };
 
     // Remove item from the cart
     const handleRemoveCart = (id) => {
@@ -45,8 +50,8 @@ const CartDrawer = ({ open, onClose, direction, size }) => {
 
     if (!open) return null;
 
-    const subTotal = cartData.reduce((sum, item) => (sum + item.price) * count, 0);
-    const discount = cartData.reduce((sum, item) => (sum + item.prev - item.price) * count, 0);
+    const subTotal = cartData.reduce((sum, item) => (sum + item.price) * isCount, 0);
+    const discount = cartData.reduce((sum, item) => (sum + item.prev - item.price) * isCount, 0);
     const total = subTotal - discount;
 
     console.log("jhbghkbnkjnkj", subTotal);
@@ -63,7 +68,7 @@ const CartDrawer = ({ open, onClose, direction, size }) => {
                             </div>
                             <div className=" px-6 py-2 h-700 overflow-auto no-scrollbar flex flex-col gap-2">
                                 {cartData.map((data) => (
-                                    <Cart id={data.id} count={count} setCount={setCount} handleRemoveCart={handleRemoveCart} key={data.id} company={data.company} name={data.name} image={data.imag} alt={data.alt} price={data.price} discount={data.prev} />
+                                    <Cart id={data.id} handleCount={handleCount} handleRemoveCart={handleRemoveCart} key={data.id} company={data.company} name={data.name} image={data.imag} alt={data.alt} price={data.price} discount={data.prev} />
                                 ))}
                             </div>
                         </div>
