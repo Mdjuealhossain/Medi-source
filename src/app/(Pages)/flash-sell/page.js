@@ -13,9 +13,9 @@ const FlashSell = () => {
             </div>
             <section className=" py-6 md:py-12">
                 <Container>
-                    <div className="pb-4 lg:pb-0 flex md:justify-center items-center gap-4 whitespace-nowrap md:scroll-container overflow-x-auto md:overflow-x-hidden no-scrollbar">
+                    <div className="flex sm:justify-center items-center gap-4 whitespace-nowrap md:scroll-container overflow-x-auto md:overflow-x-hidden no-scrollbar">
                         {tabs.map((tab) => (
-                            <span key={tab.id} className={`py-3 px-4 md:px-5 capitalize font-medium cursor-pointer text-body1 rounded-lg border border-success_main transition-all duration-400 focus:outline-none  ${activeTab === tab.id ? " bg-success_main hover:bg-success_dark text-white" : ` bg-white text-primary`}`} onClick={() => setActiveTab(tab.id)}>
+                            <span key={tab.id} className={`py-2 px-4 md:px-5 capitalize font-medium cursor-pointer text-body1 rounded-lg border border-success_main transition-all duration-400 focus:outline-none  ${activeTab === tab.id ? " bg-success_main hover:bg-success_dark text-white" : ` bg-white text-primary`}`} onClick={() => setActiveTab(tab.id)}>
                                 <span>{tab.label}</span>
                             </span>
                         ))}
@@ -24,7 +24,7 @@ const FlashSell = () => {
             </section>
             <section>
                 <Container>
-                    <div className=" grid xl:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 gap-8">
+                    <div className=" grid xl:grid-cols-4 md:grid-cols-3 grid-cols-2 xs:grid-cols-3 lg:gap-8 md:gap-4 gap-2">
                         <Card image={"/assets/image/home/course.jpg"} alt={"medicin"} name={"Minoxidil 5 mg"} price={765} discount={250} extraoff={18.0} company={"lazpharma limited"} />
                         <Card image={"/assets/image/home/course.jpg"} alt={"medicin"} name={"Minoxidil 5 mg"} price={765} discount={250} extraoff={18.0} company={"lazpharma limited"} />
                         <Card image={"/assets/image/home/course.jpg"} alt={"medicin"} name={"Minoxidil 5 mg"} price={765} discount={250} extraoff={18.0} company={"lazpharma limited"} />

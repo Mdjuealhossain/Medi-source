@@ -77,9 +77,9 @@ const PcNav = () => {
             <div className=" sticky top-0 z-50  w-full shadow-lg">
                 <div className="w-full h-full  bg-paper_bg">
                     <Container>
-                        <div className="w-full md:h-[4.5rem] py-2 relative flex justify-between items-center gap-2 ">
+                        <div className="w-full md:h-[4.5rem] py-2 relative flex justify-between items-center gap-1 ">
                             <div className=" flex items-center gap-4 xl:gap-16">
-                                <Link href={"/"} className=" md:h-10 h-6 flex items-center justify-center">
+                                <Link href={"/"} className=" md:h-10 h-5 flex items-center justify-center">
                                     <Image height={40} width={304} alt="logo" src={`/assets/logos/logo.png`} className=" min-w-100 w-auto max-h-full h-10" />
                                 </Link>
                                 <div className=" md:flex hidden items-center justify-start lg:gap-8 md:gap-4 relative ">
@@ -87,20 +87,20 @@ const PcNav = () => {
                                         Company
                                         <span className={`  h-px bg-warning_main transition-width duration-300 ease-in-out w-0 group-hover:w-full`}></span>
                                     </Link>
-                                    <FilteredPop title="filtered by" isOpen={isPopupOpen} checkboxData={initialCheckboxData} onClose={handleClosePopup} onConfirm={handleConfirm} />
                                     <Link href={"/flash-sell"} className="group flex-col hidden md:flex">
                                         <span className={"border-warning_light shadow-flash px-4 py-1 !rounded-full transform transition duration-500 hover:-translate-y-1"}>
                                             <GradientText text={"Flash Sell"} />
                                         </span>
                                     </Link>
                                 </div>
+                                <FilteredPop title="filtered by" isOpen={isPopupOpen} checkboxData={initialCheckboxData} onClose={handleClosePopup} onConfirm={handleConfirm} />
                             </div>
                             <div className=" relative">
                                 <input
                                     placeholder="Search product..."
                                     type="text"
                                     name="name"
-                                    className={`pr-4 pl-8 focus:ring-1 xl:w-430 md:w-270 lg:w-300 text-body1 placeholder:font-normal font-normal focus:ring-warning_main hover:ring-warning_main hover:shadow-input focus:shadow-input py-1 bg-warning_extra_light rounded-full ring-warning_main focus:outline-none ring-1  placeholder:text-warning_main focus:border-transparent`}
+                                    className={`pr-4 pl-8 focus:ring-1 xl:w-430 md:w-270 lg:w-300 w-full text-body1 placeholder:font-normal font-normal focus:ring-warning_main hover:ring-warning_main hover:shadow-input focus:shadow-input py-1 bg-warning_extra_light rounded-full ring-warning_main focus:outline-none ring-1  placeholder:text-warning_main focus:border-transparent`}
                                 />
                                 <GoSearch className=" absolute top-2 left-3 text-warning_main" />
                             </div>
@@ -134,9 +134,11 @@ const PcNav = () => {
                                     <span className={`  h-px bg-warning_main transition-width duration-300 ease-in-out w-0 group-hover:w-full`}></span>
                                 </div>
                             </div>
-                            <div onClick={toggleNotiDrawer} className=" relative md:hidden">
-                                <IoIosNotifications className="w-6 h-6" />
-                                <div className=" rounded-full bg-warning_main text-white h-3 w-3 absolute -top-0 -right-0 text-xxs flex justify-center items-center">12</div>
+                            <div onClick={toggleNotiDrawer} className="md:hidden bg-warning_main p-2 rounded-lg">
+                                <IoIosNotifications className="w-5 h-5 text-white" />
+                            </div>
+                            <div onClick={handleOpenPopup} className="md:hidden bg-warning_main p-2 rounded-lg">
+                                <Image src={"/assets/icons/filter.svg"} alt="filter" height={20} width={20} className="!h-5 !w-5" />
                             </div>
                         </div>
                     </Container>

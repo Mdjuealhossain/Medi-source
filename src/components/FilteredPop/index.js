@@ -50,7 +50,7 @@ export const FilteredPop = ({ isOpen, title, checkboxData, onClose, onConfirm })
     return (
         <>
             <div onClick={onClose} className="fixed inset-0 top-[6.75rem] bg-black bg-opacity-50 z-10"></div>
-            <div className="bg-white py-6 absolute top-full rounded-b shadow-lg w-300 z-50">
+            <div className="bg-white py-6 absolute top-full rounded-b md:left-[10%] shadow-lg md:w-300 w-full z-50 -px-4">
                 <div className="flex justify-between items-center mb-4 px-6 border-b pb-2 border-divider">
                     <h2 className="text-H6 font-semibold capitalize">{title}</h2>
                     <span onClick={handleClose} className="cursor-pointer">
