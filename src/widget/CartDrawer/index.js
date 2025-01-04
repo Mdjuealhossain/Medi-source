@@ -3,7 +3,7 @@ import Button from "@/components/Button";
 import Link from "next/link";
 import dynamic from "next/dynamic";
 import React, { useEffect, useState } from "react";
-import Lottie from "lottie-react";
+const Lottie = dynamic(() => import("lottie-react"), { ssr: false });
 const Drawer = dynamic(() => import("react-modern-drawer"), { ssr: false });
 
 import cartLottie from "../../../public/assets/LottieAnimations/emptyCart.json";

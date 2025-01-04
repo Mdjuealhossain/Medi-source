@@ -67,7 +67,7 @@ const PcNav = () => {
 
     return (
         <>
-            <div className="w-full flex items-center sticky z-50 top-0 transition-all duration-400 ease-out">
+            <div className="w-full flex items-center sticky z-50 h-full">
                 <div className="w-full h-full  bg-paper_bg">
                     <Container>
                         <div className="w-full md:h-[4.5rem] py-2 relative flex justify-between items-center gap-2 ">
@@ -81,7 +81,7 @@ const PcNav = () => {
                                         <span className={`  h-px bg-warning_main transition-width duration-300 ease-in-out w-0 group-hover:w-full`}></span>
                                     </Link>
                                     <FilteredPop title="filtered by" isOpen={isPopupOpen} checkboxData={initialCheckboxData} onClose={handleClosePopup} onConfirm={handleConfirm} />
-                                    <Link href={"/"} className="group flex-col hidden md:flex">
+                                    <Link href={"/flash-sell"} className="group flex-col hidden md:flex">
                                         <span className={"border-warning_light shadow-flash px-4 py-1 !rounded-full transform transition duration-500 hover:-translate-y-1"}>
                                             <GradientText text={"Flash Sell"} />
                                         </span>
