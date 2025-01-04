@@ -2,7 +2,7 @@
 import Button from "@/components/Button";
 import Link from "next/link";
 import dynamic from "next/dynamic";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Lottie from "lottie-react";
 const Drawer = dynamic(() => import("react-modern-drawer"), { ssr: false });
 
@@ -29,6 +29,20 @@ const CartDrawer = ({ open, onClose, direction, size }) => {
     };
     // Check if the cart is empty
     const hasCartItem = cartData.length > 0;
+
+    useEffect(() => {
+        if (open) {
+            document.body.classList.add("overflow-hidden");
+        } else {
+            document.body.classList.remove("overflow-hidden");
+        }
+
+        return () => {
+            document.body.classList.remove("overflow-hidden");
+        };
+    }, [open]);
+
+    if (!open) return null;
 
     return (
         <Drawer open={open} onClose={onClose} direction={direction} size={size}>

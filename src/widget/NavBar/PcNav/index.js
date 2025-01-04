@@ -17,13 +17,18 @@ import Dropdown from "@/components/Dropdown";
 import CartDrawer from "@/widget/CartDrawer";
 import Container from "@/components/Container";
 import Button from "@/components/Button";
+import NotificationDrawer from "@/widget/NotificationDrawer";
 
 const PcNav = () => {
     const [isPopupOpen, setIsPopupOpen] = useState(false);
     const [isDrowp, setIsDrowp] = useState(false);
     const [isOpen, setIsOpen] = React.useState(false);
+    const [isNoti, setIsNoti] = React.useState(false);
     const toggleDrawer = () => {
         setIsOpen((prevState) => !prevState);
+    };
+    const toggleNotiDrawer = () => {
+        setIsNoti((prevState) => !prevState);
     };
 
     const initialCheckboxData = [
@@ -75,7 +80,7 @@ const PcNav = () => {
                                         Company
                                         <span className={`  h-px bg-warning_main transition-width duration-300 ease-in-out w-0 group-hover:w-full`}></span>
                                     </Link>
-                                    <FilteredPop isOpen={isPopupOpen} title="filtered by" checkboxData={initialCheckboxData} onClose={handleClosePopup} onOpen={handleOpenPopup} onConfirm={handleConfirm} />
+                                    <FilteredPop title="filtered by" isOpen={isPopupOpen} checkboxData={initialCheckboxData} onClose={handleClosePopup} onConfirm={handleConfirm} />
                                     <Link href={"/"} className="group flex-col hidden md:flex">
                                         <span className={"border-warning_light shadow-flash px-4 py-1 !rounded-full transform transition duration-500 hover:-translate-y-1"}>
                                             <GradientText text={"Flash Sell"} />
@@ -103,12 +108,15 @@ const PcNav = () => {
                                 {isDrowp && <Dropdown options={options} onClose={() => setIsDrowp((prev) => !prev)} />}
                                 <Link href={"#"} onClick={toggleDrawer} className="group  flex flex-col ">
                                     <div className=" flex flex-col items-center justify-center text-body2">
-                                        <MdOutlineShoppingBag className="w-6 h-6" />
+                                        <div className=" relative">
+                                            <MdOutlineShoppingBag className="w-6 h-6" />
+                                            <div className=" rounded-full bg-primary_main text-white h-3 w-3 absolute -top-0 -right-0 text-xxs flex justify-center items-center">12</div>
+                                        </div>
                                         Carts
                                     </div>
                                     <span className={`  h-px bg-warning_main transition-width duration-300 ease-in-out w-0 group-hover:w-full`}></span>
                                 </Link>
-                                <Link href={"#"} className="group  flex flex-col">
+                                <div onClick={toggleNotiDrawer} className="group  flex flex-col cursor-pointer">
                                     <div className=" flex flex-col items-center justify-center text-body2">
                                         <div className=" relative">
                                             <IoIosNotifications className="w-6 h-6" />
@@ -117,7 +125,7 @@ const PcNav = () => {
                                         Notifications
                                     </div>
                                     <span className={`  h-px bg-warning_main transition-width duration-300 ease-in-out w-0 group-hover:w-full`}></span>
-                                </Link>
+                                </div>
 
                                 <Link href={"/login"} className=" flex">
                                     <Button className={" bg-warning_main hover:bg-warning_dark text-white flex items-center justify-center "}>sign in</Button>
@@ -132,6 +140,7 @@ const PcNav = () => {
                 </div>
             </div>
             <CartDrawer open={isOpen} onClose={toggleDrawer} direction="right" size={450} />
+            <NotificationDrawer open={isNoti} onClose={toggleNotiDrawer} direction="right" size={450} />
         </>
     );
 };

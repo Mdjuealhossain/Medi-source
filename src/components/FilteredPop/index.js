@@ -14,7 +14,13 @@ export const FilteredPop = ({ isOpen, title, checkboxData, onClose, onConfirm })
         if (isOpen) {
             setSearchText("");
             setFilteredCheckboxes(checkboxData);
+            document.body.classList.add("overflow-hidden");
+        } else {
+            document.body.classList.remove("overflow-hidden");
         }
+        return () => {
+            document.body.classList.remove("overflow-hidden");
+        };
     }, [isOpen, checkboxData]);
 
     const handleSearch = (e) => {
@@ -43,7 +49,7 @@ export const FilteredPop = ({ isOpen, title, checkboxData, onClose, onConfirm })
 
     return (
         <>
-            <div onClick={onClose} className="fixed inset-0 top-[11.4%] bg-black bg-opacity-30 z-10"></div>
+            <div onClick={onClose} className="fixed inset-0 top-[6.75rem] bg-black bg-opacity-50 z-10"></div>
             <div className="bg-white py-6 absolute top-full rounded-b shadow-lg w-300 z-50">
                 <div className="flex justify-between items-center mb-4 px-6 border-b pb-2 border-divider">
                     <h2 className="text-H6 font-semibold capitalize">{title}</h2>
