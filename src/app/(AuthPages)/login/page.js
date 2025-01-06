@@ -35,7 +35,6 @@ const LogIn = () => {
         if (result.responseData.status) {
             router.push("/");
         }
-        console.log("data", result.responseData.status);
         reset();
     };
 

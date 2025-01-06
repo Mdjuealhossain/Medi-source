@@ -1,16 +1,16 @@
-// hooks/useRegister.js
+// hooks/useOTP.js
 
 import { BASE_URL } from "../utilities/base-url";
 
-const useRegister = () => {
-    const registation = async (userData) => {
+const useOTP = () => {
+    const otpCode = async (userData) => {
         let loading = true;
         let error = null;
         let success = false;
         let responseData = null;
 
         try {
-            const response = await fetch(`${BASE_URL}/api/register`, {
+            const response = await fetch(`${BASE_URL}/api/verify-otp`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -35,10 +35,10 @@ const useRegister = () => {
             loading = false;
         }
 
-        // Return the result after the async function has run
         return { loading, success, error, responseData };
     };
-    return { registation };
+
+    return { otpCode };
 };
 
-export default useRegister;
+export default useOTP;

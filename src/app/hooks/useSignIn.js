@@ -29,15 +29,12 @@ const useSignIn = () => {
             if (responseData.token) {
                 localStorage.setItem("authToken", responseData.token);
             }
-            console.log("Registration successful:", responseData);
         } catch (err) {
             error = err.message;
-            console.error("Error during registration:", err.message);
         } finally {
             loading = false;
         }
 
-        // Return the result after the async function has run
         return { loading, success, error, responseData };
     };
 
