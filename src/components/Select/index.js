@@ -1,3 +1,4 @@
+"use client";
 import { useState, useEffect, useRef } from "react";
 
 import { MdClose, MdKeyboardArrowDown, MdKeyboardArrowUp } from "react-icons/md";
@@ -9,7 +10,7 @@ const Select = ({ options = [], multipleValu, value = [], onChange, placeholder,
     const overlayRef = useRef(null);
 
     const handleRemoveTag = (valueToRemove) => {
-        onChange(value.filter((item) => item !== valueToRemove));
+        onChange(value.filter((item) => item.id !== valueToRemove));
     };
 
     const handleSearchChange = (event) => {
@@ -18,16 +19,16 @@ const Select = ({ options = [], multipleValu, value = [], onChange, placeholder,
 
     const handleSelect = (selectedValue) => {
         if (multipleValu) {
-            if (!value.includes(selectedValue)) {
-                onChange([...value, selectedValue]); // Add to array for multi-select
+            if (!value.some((item) => item.id === selectedValue.id)) {
+                onChange([...value, selectedValue]);
             }
         } else {
-            onChange(selectedValue); // Store single value as a string for single select
-            setIsOpen(false); // Close dropdown after selection in single select
+            onChange(selectedValue);
+            setIsOpen(false);
         }
     };
 
-    const filteredOptions = Array.isArray(options) ? options.filter((option) => option.label.toLowerCase().includes(searchTerm.toLowerCase())) : [];
+    const filteredOptions = Array.isArray(options) ? options.filter((option) => option.name.toLowerCase().includes(searchTerm.toLowerCase())) : [];
 
     const handleClickOutside = (event) => {
         if (selectRef.current && !selectRef.current.contains(event.target) && overlayRef.current && !overlayRef.current.contains(event.target)) {
@@ -52,16 +53,17 @@ const Select = ({ options = [], multipleValu, value = [], onChange, placeholder,
                 <div className="flex flex-wrap gap-2 items-center">
                     {multipleValu
                         ? value.map((val) => {
-                              const option = options.find((option) => option.value === val);
+                              const option = options.find((option) => option.id === val.id);
+
                               return (
                                   option && (
-                                      <div key={val} className="flex items-center px-2 py-1 rounded-full bg-success_light text-success_main">
-                                          {option.label}
+                                      <div key={val.id} className="flex items-center px-2 py-1 rounded-full bg-success_light ">
+                                          {option.name}
                                           <span
                                               className="ml-2 cursor-pointer"
                                               onClick={(e) => {
                                                   e.stopPropagation();
-                                                  handleRemoveTag(val);
+                                                  handleRemoveTag(val.id);
                                               }}
                                           >
                                               <MdClose size={12} />
@@ -81,8 +83,8 @@ const Select = ({ options = [], multipleValu, value = [], onChange, placeholder,
                     <input type="text" className="w-full px-4 py-2 border-b border-warning_main focus:outline-none" placeholder="Search..." value={searchTerm} onChange={handleSearchChange} />
                     <ul className="max-h-48 overflow-y-auto scrollbar ">
                         {filteredOptions.map((option) => (
-                            <li key={option.value} onClick={() => handleSelect(option.value)} className="px-4 py-2 hover:bg-secondary_bg cursor-pointer capitalize">
-                                {option.label}
+                            <li key={option.id} onClick={() => handleSelect({ id: option.id, name: option.name })} className="px-4 py-2 hover:bg-secondary_bg cursor-pointer capitalize">
+                                {option.name}
                             </li>
                         ))}
                     </ul>
