@@ -9,13 +9,15 @@ import { BsCheck } from "react-icons/bs";
 import { HiOutlineArrowLeft } from "react-icons/hi2";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import * as Yup from "yup";
 
 import Button from "@/components/Button";
 import Container from "@/components/Container";
 import Select from "@/components/Select";
 import useRegister from "@/app/hooks/useRegistration ";
 import { useGetDistrict } from "@/app/hooks/useDistrict";
+import { useArea } from "@/app/hooks/useArea";
+import { useRouter } from "next/navigation";
+import { validationSchema } from "@/app/staticData/registration";
 
 const LogOut = () => {
     const [districtVal, setDistrictVal] = useState({});
@@ -23,15 +25,7 @@ const LogOut = () => {
     const [isShowPassword, setIsShowPassword] = useState(false);
     const [selectedCheckbox, setSelectedCheckbox] = useState(false);
     const { registation } = useRegister();
-
-    const validationSchema = Yup.object({
-        name: Yup.string().required("Required"),
-        number: Yup.string()
-            .matches(/^[0-9]{11}$/, "Phone number must be exactly 10 digits") // ফোন নম্বর ১০ ডিজিট হতে হবে
-            .required("Phone number is required"),
-
-        password: Yup.string().min(6, "Password must be at least 6 characters").required("Password is required"),
-    });
+    const router = useRouter();
 
     const {
         register,
@@ -42,20 +36,31 @@ const LogOut = () => {
         resolver: yupResolver(validationSchema),
     });
 
+    const inputArea = {
+        district_id: districtVal.id,
+        area_id: area.id,
+    };
+
     const onSubmit = async (formdata) => {
         const finalForm = {
             ...formdata,
-            districtVal,
-            area,
+            ...inputArea,
         };
         const result = await registation(finalForm);
-        console.log("data", result.responseData);
+        if (result.responseData.status) {
+            router.push("/");
+        }
+
+        console.log("data");
         setArea("");
         setDistrictVal("");
         reset();
     };
 
-    const { data, loading, error } = useGetDistrict();
+    const { data } = useGetDistrict();
+    const { data: areaData } = useArea();
+
+    // console.log("first", area);
 
     return (
         <div className=" py-100 flex justify-center items-center">
@@ -98,11 +103,11 @@ const LogOut = () => {
                                         </label>
                                         <input
                                             type="number" // Change type to text to allow leading zeros
-                                            {...register("number")}
+                                            {...register("phone")}
                                             placeholder="Enter your phone number"
                                             className="p-2 w-full rounded bg-white ring-warning_main text-black text-body2 focus:ring-1 focus:ring-warning_main focus:outline-none ring-1"
                                         />
-                                        {errors.number && <div className=" text-body2 text-error_main mt-1">{errors.number.message}</div>}
+                                        {errors.phone && <div className=" text-body2 text-error_main mt-1">{errors.phone.message}</div>}
                                     </div>
                                     <div className="mb-5">
                                         <label>
@@ -114,7 +119,7 @@ const LogOut = () => {
                                         <label>
                                             <span className="flex font-semibold mb-3">Area</span>
                                         </label>
-                                        <Select value={area} placeholder={"select area"} multipleValu={true} onChange={setArea} options={district} inputClass={"p-2 w-full rounded bg-white ring-warning_main text-black text-body2 focus:ring-1 focus:ring-warning_main focus:outline-none ring-1"} />
+                                        <Select value={area.name} placeholder={"select area"} multipleValu={false} onChange={setArea} options={areaData?.data} inputClass={"p-2 w-full rounded bg-white ring-warning_main text-black text-body2 focus:ring-1 focus:ring-warning_main focus:outline-none ring-1"} />
                                     </div>
                                     <div className="mb-5">
                                         <label>

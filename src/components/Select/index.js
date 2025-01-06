@@ -83,7 +83,7 @@ const Select = ({ options = [], multipleValu, value = [], onChange, placeholder,
                     <input type="text" className="w-full px-4 py-2 border-b border-warning_main focus:outline-none" placeholder="Search..." value={searchTerm} onChange={handleSearchChange} />
                     <ul className="max-h-48 overflow-y-auto scrollbar ">
                         {filteredOptions.map((option) => (
-                            <li key={option.id} onClick={() => handleSelect({ id: option.id, name: option.name })} className="px-4 py-2 hover:bg-secondary_bg cursor-pointer capitalize">
+                            <li key={option.id} onClick={() => handleSelect(option)} className="px-4 py-2 hover:bg-secondary_bg cursor-pointer capitalize">
                                 {option.name}
                             </li>
                         ))}

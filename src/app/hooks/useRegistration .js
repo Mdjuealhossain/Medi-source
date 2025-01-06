@@ -25,6 +25,7 @@ const useRegister = () => {
 
             responseData = await response.json();
             success = true;
+
             if (responseData.token) {
                 localStorage.setItem("authToken", responseData.token);
             }
