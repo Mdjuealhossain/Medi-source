@@ -1,14 +1,15 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
 import { FaStarOfLife } from "react-icons/fa";
 import { IoEyeSharp } from "react-icons/io5";
 import { IoEyeOff } from "react-icons/io5";
 import { BsCheck } from "react-icons/bs";
 import { HiOutlineArrowLeft } from "react-icons/hi2";
-import { useForm } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
 
 import Button from "@/components/Button";
 import Container from "@/components/Container";
@@ -16,7 +17,6 @@ import Select from "@/components/Select";
 import useRegister from "@/app/hooks/useRegistration ";
 import { useGetDistrict } from "@/app/hooks/useDistrict";
 import { useArea } from "@/app/hooks/useArea";
-import { useRouter } from "next/navigation";
 import { validationSchema } from "@/app/staticData/registration";
 
 const LogOut = () => {
@@ -50,8 +50,6 @@ const LogOut = () => {
         if (result.responseData.status) {
             router.push("/");
         }
-
-        console.log("data");
         setArea("");
         setDistrictVal("");
         reset();
