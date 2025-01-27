@@ -1,10 +1,11 @@
+"use client";
 import React from "react";
 import Image from "next/image";
 import { MdOutlineShoppingCart } from "react-icons/md";
 
 import Button from "../Button";
 
-const Card = ({ image, alt, name, price, discount, extraoff, company }) => {
+const Card = ({ image, alt, name, price, discount, extraoff, company, id, handleSelectedItem }) => {
     return (
         <div className="border bg-white border-divider flex flex-col h-full rounded-lg overflow-hidden">
             <div className=" relative">
@@ -28,7 +29,7 @@ const Card = ({ image, alt, name, price, discount, extraoff, company }) => {
                     </span>
                 </div>
             </div>
-            <Button className={" bg-warning_main hover:bg-warning_dark text-white !rounded-none"}>
+            <Button onClick={() => handleSelectedItem(id)} className={" bg-warning_main hover:bg-warning_dark text-white !rounded-none"}>
                 <MdOutlineShoppingCart size={18} />
                 Add to card
             </Button>
