@@ -2,41 +2,13 @@
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
-import { FaStarOfLife } from "react-icons/fa";
 import { HiOutlineArrowLeft } from "react-icons/hi";
-import { useForm } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
 
-import useForgetPassword from "@/app/hooks/useForgetPassword";
-import { validationSchema } from "@/app/staticData/forget-password";
-import Button from "@/components/Button";
 import Divider from "@/components/Divider";
-import ImageURL from "@/components/ImageUrl";
 import Container from "@/components/Container";
+import ForgetForm from "@/widget/ForgetForm";
 
 const ForgetPassword = () => {
-    const { forgetPassword } = useForgetPassword();
-    const router = useRouter();
-
-    const {
-        register,
-        handleSubmit,
-        formState: { errors },
-        reset,
-    } = useForm({
-        resolver: yupResolver(validationSchema),
-    });
-
-    const onSubmit = async (formdata) => {
-        const result = await forgetPassword(formdata);
-        if (result.responseData.status) {
-            router.push("/otp");
-        }
-        console.log("data", result);
-        reset();
-    };
-
     return (
         <div className=" h-screen flex justify-center items-center">
             <Container className={"!max-w-lg "}>
@@ -53,26 +25,7 @@ const ForgetPassword = () => {
                         <div className="pt-2 px-2 pb-2 xs:px-5 md:pt-3 md:px-7 md:pb-5 lg:pt-6 lg:px-[60px] lg:pb-10">
                             <h3 className="mb-3 lg:mb-6 text-warning_main font-semibold text-H3">Forgot Password</h3>
                             <p className="mb-5 lg:mb-8 text-body2 text-secondary">Enter the email address you used when you joined and we’ll send you instructions to reset your password.</p>
-                            <form onSubmit={handleSubmit(onSubmit)}>
-                                <div>
-                                    <div className="mb-5">
-                                        <label>
-                                            <span className="flex font-semibold mb-3">
-                                                Phone Number
-                                                <FaStarOfLife size={6} className="text-error_main" />
-                                            </span>
-                                        </label>
-                                        <input type="number" {...register("phone")} placeholder="Enter your phone number" className="p-2 w-full rounded bg-white border border-divider text-black text-body2 " />
-                                        {errors.phone && <div className=" text-body2 text-error_main mt-1">{errors.phone.message}</div>}
-                                    </div>
-                                    <div className="mb-3 lg:mb-6">
-                                        <Button type="submit" className={"bg-warning_main w-full hover:bg-warning_dark text-white capitalize"}>
-                                            Send code
-                                        </Button>
-                                    </div>
-                                </div>
-                            </form>
-
+                            <ForgetForm />
                             <Divider />
                             <div>
                                 <p className="text-center text-subtitle2">
@@ -83,9 +36,6 @@ const ForgetPassword = () => {
                                 </p>
                             </div>
                         </div>
-                    </div>
-                    <div className=" hidden md:flex h-500 items-center justify-center">
-                        <ImageURL image={"/assets/image/register/sign-in.gif"} alt="sign in" height={500} width={500} />
                     </div>
                 </div>
             </Container>

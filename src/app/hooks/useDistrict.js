@@ -1,31 +1,39 @@
-const { BASE_URL } = require("../utilities/base-url");
+import { useEffect, useState } from "react";
+import { useApi } from "./useApi";
 
-// hooks/useFetchData.js
-import { useState, useEffect } from "react";
+const useGetDistrict = () => {
+    const { apiRequest } = useApi();
+    const [data, setData] = useState(null); // Stores the fetched data
+    const [loading, setLoading] = useState(false); // Loading state
+    const [error, setError] = useState(null); // Error state
 
-export const useGetDistrict = () => {
-    const [data, setData] = useState(null);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
+    const fetchDestrict = async () => {
+        setLoading(true);
+        setError(null);
+
+        const {
+            success,
+            responseData,
+            error: fetchError,
+        } = await apiRequest({
+            endpoint: "/district",
+            method: "GET",
+        });
+
+        if (success) {
+            setData(responseData);
+        } else {
+            setError(fetchError);
+        }
+
+        setLoading(false);
+    };
 
     useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const response = await fetch(`${BASE_URL}/api/district`);
-                if (!response.ok) {
-                    throw new Error("Failed to fetch data");
-                }
-                const result = await response.json();
-                setData(result);
-            } catch (err) {
-                setError(err.message);
-            } finally {
-                setLoading(false);
-            }
-        };
-
-        fetchData();
+        fetchDestrict();
     }, []);
 
     return { data, loading, error };
 };
+
+export default useGetDistrict;
