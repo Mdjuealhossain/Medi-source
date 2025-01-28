@@ -34,7 +34,7 @@ const Banner = () => {
             >
                 {data?.data.map((item, index) => (
                     <SwiperSlide key={index}>
-                        <Link href={"#"}>
+                        <Link href={"#"} target="_blank">
                             <div className="relative w-full md:h-370 h-150 rounded-lg object-fill overflow-hidden">
                                 <ImageURL className="!h-full !w-full" image={item.image} height={370} width={1360} alt={"slider"} />
                             </div>

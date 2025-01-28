@@ -33,6 +33,8 @@ const Products = () => {
         }
     }, []);
 
+    // handle add to cart data
+
     const handleSelectedItem = (id) => {
         const cart_data = products?.data?.data.filter((cart) => cart.id == id);
         const isItemAlreadyAdded = storedData.some((item) => item.id === id);
