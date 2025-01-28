@@ -20,10 +20,10 @@ const CartDrawer = ({ open, onClose, direction, size }) => {
 
     // Quantity কমানো
     const decrementQuantity = (id) => {
-        // setProducts((prevProducts) => prevProducts.map((product) => (product.id === id ? { ...product, quantity: product.quantity - 1 } : product)));
-        const updatedProducts = products.filter((product) => product.id !== id);
-        setProducts(updatedProducts);
-        localStorage.setItem("stor_cart_data", JSON.stringify(updatedProducts));
+        setProducts((prevProducts) => prevProducts.map((product) => (product.id === id ? { ...product, quantity: product.quantity - 1 } : product)));
+        // const updatedProducts = products.filter((product) => product.id !== id);
+        // setProducts(updatedProducts);
+        // localStorage.setItem("stor_cart_data", JSON.stringify(updatedProducts));
     };
 
     const productQuantity = (id, count) => {

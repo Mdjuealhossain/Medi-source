@@ -22,7 +22,6 @@ export const useApi = () => {
                     headers.Authorization = `Bearer ${token}`;
                 }
             }
-
             // Prepare fetch options
             const options = {
                 method,

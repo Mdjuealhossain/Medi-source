@@ -32,7 +32,7 @@ const Cart = ({ company, name, image, alt, price, discount, handleRemoveCart, id
                             <FiMinus size={12} className="text-warning_dark" />
                         </button>
                         <div className=" w-px bg-divider"></div>
-                        <input maxLength={3} value={quantity || ""} onChange={(e) => productQuantity(id, e.target.value)} className=" h-5 w-10 appearance-none text-center text-body2 focus:border-transparent focus:ring-transparent ring-transparent focus:outline-none ring-1" />
+                        <input maxLength={3} value={quantity || "1"} onChange={(e) => productQuantity(id, e.target.value)} className=" h-5 w-10 appearance-none text-center text-body2 focus:border-transparent focus:ring-transparent ring-transparent focus:outline-none ring-1" />
                         <div className=" w-px bg-divider"></div>
                         <button onClick={() => incrementQuantity(id)} className={`bg-warning_extra_light h-5 w-5 flex items-center justify-center cursor-pointer`}>
                             <IoAdd size={12} className="text-warning_dark" />

@@ -6,7 +6,7 @@ import { RxBox } from "react-icons/rx";
 
 import Button from "../Button";
 
-export const FilteredPop = ({ isOpen, title, checkboxData, onClose, onConfirm }) => {
+export const FilteredPop = ({ isOpen, title, checkboxData = [], onClose, onConfirm }) => {
     const [searchText, setSearchText] = useState("");
     const [filteredCheckboxes, setFilteredCheckboxes] = useState(checkboxData);
 
@@ -26,7 +26,7 @@ export const FilteredPop = ({ isOpen, title, checkboxData, onClose, onConfirm })
     const handleSearch = (e) => {
         const text = e.target.value.toLowerCase();
         setSearchText(text);
-        setFilteredCheckboxes(checkboxData.filter((item) => item.label.toLowerCase().includes(text)));
+        setFilteredCheckboxes(checkboxData.filter((item) => item.name.toLowerCase().includes(text)));
     };
 
     const handleCheckboxChange = (id) => {
@@ -61,13 +61,7 @@ export const FilteredPop = ({ isOpen, title, checkboxData, onClose, onConfirm })
                     <div className="mb-4 flex flex-col gap-2">
                         <label className="capitalize">company</label>
                         <div className="relative">
-                            <input
-                                placeholder="Search company..."
-                                value={searchText}
-                                onChange={handleSearch}
-                                type="text"
-                                className={`pr-4 pl-8 focus:ring-1 w-full py-0.5 text-body1 placeholder:!font-normal font-normal focus:ring-warning_main hover:ring-warning_main hover:shadow-input focus:shadow-input rounded-full focus:outline-none bg-warning_extra_light ring-1 ring-warning_main placeholder:text-warning_main focus:border-transparent`}
-                            />
+                            <input placeholder="Search company..." value={searchText} onChange={handleSearch} type="text" className={`pr-4 pl-8 focus:ring-1 w-full py-0.5 text-body1 placeholder:!font-normal font-normal focus:ring-warning_main hover:ring-warning_main hover:shadow-input focus:shadow-input rounded-full focus:outline-none bg-warning_extra_light ring-1 ring-warning_main placeholder:text-warning_main focus:border-transparent`} />
                             <GoSearch className="absolute top-1.5 left-3 text-warning_main" />
                         </div>
                     </div>
@@ -79,7 +73,7 @@ export const FilteredPop = ({ isOpen, title, checkboxData, onClose, onConfirm })
                                     {item.checked ? <ImCheckboxChecked size={12} className=" text-warning_main" /> : <RxBox size={14} className="" />}
                                 </label>
                                 <label htmlFor={`checkbox-${item.id}`} className="font-light text-subtitle2">
-                                    {item.label}
+                                    {item.name}
                                 </label>
                             </div>
                         ))}

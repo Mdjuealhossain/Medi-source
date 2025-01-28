@@ -1,6 +1,6 @@
 import Image from "next/image";
 
-const ImageURL = ({ style, image, className, height, width }) => {
+const ImageURL = ({ style, image, className, height, width, alt }) => {
     // const {ref, inView} = useInView({
     //     triggerOnce: true,
     //     delay: 500
@@ -17,8 +17,8 @@ const ImageURL = ({ style, image, className, height, width }) => {
                     className={`${className} max-h-full h-auto max-w-full w-auto`}
                     height={height}
                     width={width}
-                    src={`${image}`}
-                    alt="image"
+                    src={`https://medisourcebd.com/${image}`}
+                    alt={alt}
                     style={style}
                     // onError={handleError}
                 />

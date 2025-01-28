@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
@@ -8,8 +9,11 @@ import "swiper/css/effect-fade"; // Import fade effect styles
 import { Autoplay, Pagination, EffectFade } from "swiper/modules";
 import ImageURL from "@/components/ImageUrl";
 import Link from "next/link";
+import useSlider from "@/app/hooks/useSlider";
 
 const Banner = () => {
+    const { data, loading, error } = useSlider();
+
     return (
         <>
             <Swiper
@@ -28,11 +32,11 @@ const Banner = () => {
                 modules={[Autoplay, Pagination, EffectFade]}
                 className="mySwiper"
             >
-                {banners.map((item, index) => (
+                {data?.data.map((item, index) => (
                     <SwiperSlide key={index}>
                         <Link href={"#"}>
                             <div className="relative w-full md:h-370 h-150 rounded-lg object-fill overflow-hidden">
-                                <ImageURL className="!h-full !w-full" image={item?.image && item?.image} height={370} width={1360} />
+                                <ImageURL className="!h-full !w-full" image={item.image} height={370} width={1360} alt={"slider"} />
                             </div>
                         </Link>
                     </SwiperSlide>
@@ -43,10 +47,3 @@ const Banner = () => {
 };
 
 export default Banner;
-
-const banners = [
-    { id: 1, image: "/assets/image/home/image1.jpg", alt: "image1" },
-    { id: 2, image: "/assets/image/home/image2.jpeg", alt: "image2" },
-    { id: 3, image: "/assets/image/home/image3.jpeg", alt: "image3" },
-    { id: 4, image: "/assets/image/home/image4.jpeg", alt: "image4" },
-];

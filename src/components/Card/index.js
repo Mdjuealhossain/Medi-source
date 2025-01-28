@@ -4,13 +4,14 @@ import Image from "next/image";
 import { MdOutlineShoppingCart } from "react-icons/md";
 
 import Button from "../Button";
+import ImageURL from "../ImageUrl";
 
 const Card = ({ image, alt, name, price, discount, extraoff, company, id, handleSelectedItem }) => {
     return (
         <div className="border bg-white border-divider flex flex-col h-full rounded-lg overflow-hidden">
             <div className=" relative">
                 <div className={`lg:h-200 md:h-150 h-100 flex justify-center items-center overflow-hidden`}>
-                    <Image height={200} width={350} alt={alt} src={image} className="w-full max-w-full max-h-full h-full object-cover" />
+                    <ImageURL height={200} width={350} alt={alt} image={image} />
                 </div>
                 <div className=" absolute left-0 -top-0">
                     <span className=" text-subtitle2 bg-error_main text-white px-2 py-1 rounded-br-lg">{extraoff ? `${extraoff}% off` : "No available offer"}</span>

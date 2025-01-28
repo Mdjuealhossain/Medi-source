@@ -19,12 +19,14 @@ import NotificationDrawer from "@/widget/NotificationDrawer";
 import { usePathname, useRouter } from "next/navigation";
 import { getToken } from "@/app/utilities/token";
 import { getUser } from "@/app/utilities/user";
+import useCompany from "@/app/hooks/useCompany";
 
 const PcNav = () => {
     const [isPopupOpen, setIsPopupOpen] = useState(false);
     const [isDrowp, setIsDrowp] = useState(false);
     const [isOpen, setIsOpen] = React.useState(false);
     const [isNoti, setIsNoti] = React.useState(false);
+    const [isCompanies, setIsCompanies] = useState([]);
     const [user, setUser] = useState(null);
 
     const pathname = usePathname();
@@ -60,11 +62,9 @@ const PcNav = () => {
     const handleClosePopup = () => setIsPopupOpen(false);
 
     const handleConfirm = (selectedOptions) => {
-        alert(`নির্বাচিত অপশন: ${selectedOptions.map((cb) => cb.label).join(", ") || "কোনোটি নয়"}`);
-        console.log("নির্বাচিত অপশন:", selectedOptions);
+        const selected = selectedOptions.map((item) => item.id);
+        setIsCompanies(selected);
     };
-
-    // receive user data
     useEffect(() => {
         // const token = getToken();
         const storUser = getUser();
@@ -76,8 +76,9 @@ const PcNav = () => {
         }
     }, [router]);
 
-    console.log("user:-", user);
+    const { data } = useCompany();
 
+    console.log("first", isCompanies);
     return (
         <>
             <div className=" sticky top-0 z-50  w-full shadow-lg">
@@ -99,7 +100,7 @@ const PcNav = () => {
                                         </span>
                                     </Link>
                                 </div>
-                                <FilteredPop title="filtered by" isOpen={isPopupOpen} checkboxData={initialCheckboxData} onClose={handleClosePopup} onConfirm={handleConfirm} />
+                                <FilteredPop title="filtered by" isOpen={isPopupOpen} checkboxData={data?.data?.data} onClose={handleClosePopup} onConfirm={handleConfirm} />
                             </div>
                             <div className=" relative">
                                 <input placeholder="Search product..." type="text" name="name" className={`pr-4 pl-8 focus:ring-1 xl:w-430 md:w-270 lg:w-300 w-full text-body1 placeholder:font-normal font-normal focus:ring-warning_main hover:ring-warning_main hover:shadow-input focus:shadow-input py-1 bg-warning_extra_light rounded-full ring-warning_main focus:outline-none ring-1  placeholder:text-warning_main focus:border-transparent`} />

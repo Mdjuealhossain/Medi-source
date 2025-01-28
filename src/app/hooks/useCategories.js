@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
 import { useApi } from "./useApi";
 
-const useArea = () => {
+const useCategories = () => {
     const { apiRequest } = useApi();
     const [data, setData] = useState(null); // Stores the fetched data
     const [loading, setLoading] = useState(false); // Loading state
     const [error, setError] = useState(null); // Error state
 
-    const fetchArea = async () => {
+    const fetchCategories = async () => {
         setLoading(true);
         setError(null);
 
@@ -16,9 +16,8 @@ const useArea = () => {
             responseData,
             error: fetchError,
         } = await apiRequest({
-            endpoint: "/area/1",
+            endpoint: "/categories",
             method: "GET",
-            auth: false,
         });
 
         if (success) {
@@ -31,10 +30,10 @@ const useArea = () => {
     };
 
     useEffect(() => {
-        fetchArea();
+        fetchCategories();
     }, []);
 
     return { data, loading, error };
 };
 
-export default useArea;
+export default useCategories;
