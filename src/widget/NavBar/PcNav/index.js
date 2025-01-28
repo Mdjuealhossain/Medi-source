@@ -1,15 +1,11 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { BsPerson } from "react-icons/bs";
 import { MdOutlineShoppingBag } from "react-icons/md";
 import { IoIosNotifications } from "react-icons/io";
 import { GoSearch } from "react-icons/go";
-import { CgProfile } from "react-icons/cg";
-import { FaBagShopping } from "react-icons/fa6";
-import { RiLockPasswordFill } from "react-icons/ri";
-import { MdOutlineLogin } from "react-icons/md";
 import { RiTimerFlashLine } from "react-icons/ri";
 import { GoHome } from "react-icons/go";
 import { MdOutlineWorkHistory } from "react-icons/md";
@@ -19,17 +15,20 @@ import GradientText from "@/components/GradiantText";
 import Dropdown from "@/components/Dropdown";
 import CartDrawer from "@/widget/CartDrawer";
 import Container from "@/components/Container";
-import Button from "@/components/Button";
 import NotificationDrawer from "@/widget/NotificationDrawer";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
+import { getToken } from "@/app/utilities/token";
+import { getUser } from "@/app/utilities/user";
 
 const PcNav = () => {
     const [isPopupOpen, setIsPopupOpen] = useState(false);
     const [isDrowp, setIsDrowp] = useState(false);
     const [isOpen, setIsOpen] = React.useState(false);
     const [isNoti, setIsNoti] = React.useState(false);
+    const [user, setUser] = useState(null);
 
     const pathname = usePathname();
+    const router = useRouter();
 
     const toggleDrawer = () => {
         setIsOpen((prevState) => !prevState);
@@ -57,13 +56,6 @@ const PcNav = () => {
         { id: 19, label: "ACI limited", checked: false },
     ];
 
-    const options = [
-        { name: "profile", icon: <CgProfile className=" text-warning_main" />, url: "/profile" },
-        { name: "order history", icon: <FaBagShopping className=" text-warning_main" />, url: "/order-history" },
-        { name: "change password", icon: <RiLockPasswordFill className=" text-warning_main" />, url: "/change-password" },
-        { name: "log out", icon: <MdOutlineLogin className=" text-warning_main" />, url: "/logout" },
-    ];
-
     const handleOpenPopup = () => setIsPopupOpen((prev) => !prev);
     const handleClosePopup = () => setIsPopupOpen(false);
 
@@ -71,6 +63,20 @@ const PcNav = () => {
         alert(`নির্বাচিত অপশন: ${selectedOptions.map((cb) => cb.label).join(", ") || "কোনোটি নয়"}`);
         console.log("নির্বাচিত অপশন:", selectedOptions);
     };
+
+    // receive user data
+    useEffect(() => {
+        // const token = getToken();
+        const storUser = getUser();
+        if (storUser) {
+            const userData = JSON.parse(storUser);
+            setUser(userData);
+        } else {
+            router.push("/login");
+        }
+    }, [router]);
+
+    console.log("user:-", user);
 
     return (
         <>
@@ -100,14 +106,31 @@ const PcNav = () => {
                                 <GoSearch className=" absolute top-2 left-3 text-warning_main" />
                             </div>
                             <div className=" md:inline-flex relative items-center lg:gap-8 md:gap-4 hidden">
-                                <Link href={"/login"} className="group md:h-[4.5rem] capitalize flex-col flex justify-center" onClick={() => setIsDrowp((prev) => !prev)}>
+                                <Link href={"#"} className="group md:h-[4.5rem] capitalize flex-col flex justify-center" onClick={() => setIsDrowp((prev) => !prev)}>
                                     <div className=" flex flex-col items-center justify-center text-body2">
-                                        <BsPerson className="w-6 h-6" />
-                                        log in
+                                        <Image src={"/assets/icons/default.png"} height={24} width={24} alt="person" className="w-6 h-6" />
+                                        Profile
                                     </div>
                                     <span className={`  h-px bg-warning_main transition-width duration-300 ease-in-out w-0 group-hover:w-full`}></span>
                                 </Link>
-                                {isDrowp && <Dropdown options={options} onClose={() => setIsDrowp((prev) => !prev)} />}
+                                {/* {user ? (
+                                    <Link href={"#"} className="group md:h-[4.5rem] capitalize flex-col flex justify-center" onClick={() => setIsDrowp((prev) => !prev)}>
+                                        <div className=" flex flex-col items-center justify-center text-body2">
+                                            <Image src={"/assets/icons/default.png"} height={24} width={24} alt="person" className="w-6 h-6" />
+                                            Profile
+                                        </div>
+                                        <span className={`  h-px bg-warning_main transition-width duration-300 ease-in-out w-0 group-hover:w-full`}></span>
+                                    </Link>
+                                ) : (
+                                    <Link href={"/login"} className="group md:h-[4.5rem] capitalize flex-col flex justify-center">
+                                        <div className=" flex flex-col items-center justify-center text-body2">
+                                            <BsPerson className="w-6 h-6" />
+                                            Log In
+                                        </div>
+                                        <span className={`  h-px bg-warning_main transition-width duration-300 ease-in-out w-0 group-hover:w-full`}></span>
+                                    </Link>
+                                )} */}
+                                {isDrowp && <Dropdown user={user} onClose={() => setIsDrowp((prev) => !prev)} />}
                                 <Link href={"#"} onClick={toggleDrawer} className="group  flex flex-col ">
                                     <div className=" flex flex-col items-center justify-center text-body2">
                                         <div className=" relative">

@@ -25,10 +25,9 @@ const OTPForm = () => {
 
     const onSubmit = async (formdata) => {
         const { loading, success, error, responseData } = await otpCode(formdata);
-        if (responseData.status) {
+        if (success) {
             router.push("/reset-password");
         }
-        console.log("data", result);
         reset();
     };
 

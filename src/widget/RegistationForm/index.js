@@ -6,7 +6,6 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { FaStarOfLife } from "react-icons/fa";
 import { IoEyeSharp } from "react-icons/io5";
 import { IoEyeOff } from "react-icons/io5";
-import { BsCheck } from "react-icons/bs";
 
 import { validationSchema } from "@/app/staticData/registration";
 import useRegister from "@/app/hooks/useRegistration ";
@@ -14,12 +13,13 @@ import useArea from "@/app/hooks/useArea";
 import useGetDistrict from "@/app/hooks/useDistrict";
 import Select from "@/components/Select";
 import Button from "@/components/Button";
+import { setUser } from "@/app/utilities/user";
 
 const RegistationForm = () => {
     const [districtVal, setDistrictVal] = useState({});
     const [area, setArea] = useState([]);
     const [isShowPassword, setIsShowPassword] = useState(false);
-    const [selectedCheckbox, setSelectedCheckbox] = useState(false);
+    // const [selectedCheckbox, setSelectedCheckbox] = useState(false);
     const { registation } = useRegister();
     const router = useRouter();
 
@@ -43,7 +43,8 @@ const RegistationForm = () => {
             ...inputArea,
         };
         const { loading, success, error, responseData } = await registation(finalForm);
-        if (responseData.status) {
+        if (success) {
+            setUser(JSON.stringify(responseData.data));
             router.push("/");
         }
         setArea("");

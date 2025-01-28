@@ -1,4 +1,3 @@
-"use client";
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
@@ -7,6 +6,7 @@ import { HiOutlineArrowLeft } from "react-icons/hi";
 import Divider from "@/components/Divider";
 import Container from "@/components/Container";
 import ForgetForm from "@/widget/ForgetForm";
+import { BsArrowLeft } from "react-icons/bs";
 
 const ForgetPassword = () => {
     return (
@@ -18,8 +18,8 @@ const ForgetPassword = () => {
                             <Link href={"/"} className=" h-10 flex items-center justify-center">
                                 <Image height={40} width={304} alt="logo" src={`/assets/logos/logo.png`} className=" min-w-100 w-auto max-h-full h-10" />
                             </Link>
-                            <Link href={"/login"} className=" absolute left-4 top-1/2">
-                                <HiOutlineArrowLeft size={18} />
+                            <Link href={"/login"} className="absolute lg:left-[60px] md:left-7 xs:left-5 left-2">
+                                <BsArrowLeft className="text-H4" />
                             </Link>
                         </div>
                         <div className="pt-2 px-2 pb-2 xs:px-5 md:pt-3 md:px-7 md:pb-5 lg:pt-6 lg:px-[60px] lg:pb-10">

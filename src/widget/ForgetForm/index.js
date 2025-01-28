@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
@@ -23,7 +24,7 @@ const ForgetForm = () => {
 
     const onSubmit = async (formdata) => {
         const { loading, success, error, responseData } = await forgetPassword(formdata);
-        if (responseData.status) {
+        if (success) {
             router.push("/otp");
         }
         reset();
