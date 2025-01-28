@@ -13,7 +13,7 @@ const Card = ({ image, alt, name, price, discount, extraoff, company, id, handle
                     <Image height={200} width={350} alt={alt} src={image} className="w-full max-w-full max-h-full h-full object-cover" />
                 </div>
                 <div className=" absolute left-0 -top-0">
-                    <span className=" text-subtitle2 bg-error_main text-white px-2 py-1 rounded-br-lg">{extraoff}% off</span>
+                    <span className=" text-subtitle2 bg-error_main text-white px-2 py-1 rounded-br-lg">{extraoff ? `${extraoff}% off` : "No available offer"}</span>
                 </div>
             </div>
             <div className=" md:p-4 p-2 flex-1 flex flex-col">

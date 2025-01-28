@@ -4,18 +4,9 @@ import { useState } from "react";
 import Card from "@/components/Card";
 import Container from "@/components/Container";
 import Banner from "@/widget/Banner";
+import Products from "@/widget/Products";
 
 const Home = () => {
-    const [activeTab, setActiveTab] = useState(tabs[0].id);
-    const filteredData = products?.data.filter((data) => data.category_id == activeTab);
-    const [selectedItem, setSelectedItem] = useState(null);
-
-    // Function to handle selected item
-    const handleSelectedItem = (id) => {
-        const cart_data = products?.data.filter((cart) => cart.id == id);
-        localStorage.setItem("cart_data", cart_data);
-    };
-
     return (
         <div className=" pt-6 md:pt-12 pb-16 md:pb-12">
             <section>
@@ -25,22 +16,7 @@ const Home = () => {
             </section>
             <section className=" py-6 md:py-12">
                 <Container>
-                    <div className="flex sm:justify-center items-center gap-4 whitespace-nowrap md:scroll-container overflow-x-auto md:overflow-x-hidden no-scrollbar">
-                        {tabs.map((tab) => (
-                            <span key={tab.id} className={`py-2 px-4 md:px-5 capitalize font-medium cursor-pointer text-body1 rounded-lg border border-success_main transition-all duration-400 focus:outline-none  ${activeTab === tab.id ? " bg-success_main hover:bg-success_dark text-white" : ` bg-white text-primary`}`} onClick={() => setActiveTab(tab.id)}>
-                                <span>{tab.name}</span>
-                            </span>
-                        ))}
-                    </div>
-                </Container>
-            </section>
-            <section>
-                <Container>
-                    <div className=" grid xl:grid-cols-4 md:grid-cols-3 grid-cols-2 xs:grid-cols-3 lg:gap-8 md:gap-4 gap-2">
-                        {filteredData.map((data) => (
-                            <Card handleSelectedItem={handleSelectedItem} key={data.id} id={data.id} image={data.image} alt={data.name} name={data.name} price={data.price} discount={data.discount_price} extraoff={data.discount_percentage} company={data.company.name} />
-                        ))}
-                    </div>
+                    <Products tabs={tabs} products={products} />
                 </Container>
             </section>
         </div>
@@ -93,6 +69,8 @@ const products = {
             discount_price: 157.5,
             discount_percentage: 45,
             is_flash_sale: "0",
+
+            quantity: 1,
             status: "1",
             created_at: "2024-12-19T11:04:32.000000Z",
             updated_at: "2024-12-19T11:04:32.000000Z",
@@ -114,6 +92,8 @@ const products = {
             discount_price: 40.25999999999999801048033987171947956085205078125,
             discount_percentage: 18.300000000000000710542735760100185871124267578125,
             is_flash_sale: "0",
+
+            quantity: 1,
             status: "1",
             created_at: "2024-12-19T11:03:41.000000Z",
             updated_at: "2024-12-19T11:03:41.000000Z",
@@ -135,6 +115,8 @@ const products = {
             discount_price: 369,
             discount_percentage: 82,
             is_flash_sale: "0",
+
+            quantity: 1,
             status: "1",
             created_at: "2023-09-15T13:23:51.000000Z",
             updated_at: "2024-11-15T06:54:16.000000Z",
@@ -156,6 +138,8 @@ const products = {
             discount_price: 373.5,
             discount_percentage: 83,
             is_flash_sale: "0",
+
+            quantity: 1,
             status: "1",
             created_at: "2023-09-15T13:24:20.000000Z",
             updated_at: "2024-11-15T06:52:42.000000Z",
@@ -177,6 +161,8 @@ const products = {
             discount_price: 67.5,
             discount_percentage: 15,
             is_flash_sale: "0",
+
+            quantity: 1,
             status: "1",
             created_at: "2023-09-15T13:22:38.000000Z",
             updated_at: "2024-11-15T06:57:03.000000Z",
@@ -198,6 +184,8 @@ const products = {
             discount_price: 67.5,
             discount_percentage: 15,
             is_flash_sale: "0",
+
+            quantity: 1,
             status: "1",
             created_at: "2023-09-15T13:23:01.000000Z",
             updated_at: "2024-11-15T06:55:58.000000Z",
@@ -324,6 +312,8 @@ const products = {
             discount_price: 16,
             discount_percentage: 16,
             is_flash_sale: "0",
+
+            quantity: 1,
             status: "1",
             created_at: "2025-01-15T06:25:04.000000Z",
             updated_at: "2025-01-15T06:25:04.000000Z",
@@ -345,6 +335,8 @@ const products = {
             discount_price: 12.800000000000000710542735760100185871124267578125,
             discount_percentage: 16,
             is_flash_sale: "0",
+
+            quantity: 1,
             status: "1",
             created_at: "2025-01-15T06:36:44.000000Z",
             updated_at: "2025-01-15T06:36:44.000000Z",
@@ -366,6 +358,8 @@ const products = {
             discount_price: 5.519999999999999573674358543939888477325439453125,
             discount_percentage: 16,
             is_flash_sale: "0",
+
+            quantity: 1,
             status: "1",
             created_at: "2025-01-15T06:42:03.000000Z",
             updated_at: "2025-01-15T06:42:03.000000Z",
@@ -387,6 +381,8 @@ const products = {
             discount_price: 11.230000000000000426325641456060111522674560546875,
             discount_percentage: 16,
             is_flash_sale: "0",
+
+            quantity: 1,
             status: "1",
             created_at: "2025-01-15T06:43:51.000000Z",
             updated_at: "2025-01-15T06:43:51.000000Z",
@@ -408,6 +404,8 @@ const products = {
             discount_price: 18,
             discount_percentage: 12,
             is_flash_sale: "0",
+
+            quantity: 1,
             status: "1",
             created_at: "2025-01-25T07:38:09.000000Z",
             updated_at: "2025-01-25T07:38:09.000000Z",
@@ -429,6 +427,8 @@ const products = {
             discount_price: 13,
             discount_percentage: 11.82000000000000028421709430404007434844970703125,
             is_flash_sale: "0",
+
+            quantity: 1,
             status: "1",
             created_at: "2025-01-15T04:38:12.000000Z",
             updated_at: "2025-01-15T04:38:12.000000Z",
@@ -450,6 +450,8 @@ const products = {
             discount_price: 11.199999999999999289457264239899814128875732421875,
             discount_percentage: 16,
             is_flash_sale: "0",
+
+            quantity: 1,
             status: "1",
             created_at: "2025-01-15T06:53:11.000000Z",
             updated_at: "2025-01-15T06:53:11.000000Z",
@@ -471,6 +473,8 @@ const products = {
             discount_price: 10.800000000000000710542735760100185871124267578125,
             discount_percentage: 12,
             is_flash_sale: "0",
+
+            quantity: 1,
             status: "1",
             created_at: "2025-01-25T07:54:40.000000Z",
             updated_at: "2025-01-25T07:54:40.000000Z",
@@ -492,6 +496,8 @@ const products = {
             discount_price: 7.20000000000000017763568394002504646778106689453125,
             discount_percentage: 12,
             is_flash_sale: "0",
+
+            quantity: 1,
             status: "1",
             created_at: "2025-01-25T07:55:25.000000Z",
             updated_at: "2025-01-25T07:55:25.000000Z",
@@ -513,6 +519,8 @@ const products = {
             discount_price: 15.4000000000000003552713678800500929355621337890625,
             discount_percentage: 14,
             is_flash_sale: "0",
+
+            quantity: 1,
             status: "1",
             created_at: "2024-07-17T06:46:05.000000Z",
             updated_at: "2024-11-28T03:38:36.000000Z",
@@ -555,6 +563,8 @@ const products = {
             discount_price: 5.8499999999999996447286321199499070644378662109375,
             discount_percentage: 13,
             is_flash_sale: "0",
+
+            quantity: 1,
             status: "1",
             created_at: "2025-01-22T07:07:33.000000Z",
             updated_at: "2025-01-25T03:36:32.000000Z",
@@ -576,6 +586,8 @@ const products = {
             discount_price: 7.70000000000000017763568394002504646778106689453125,
             discount_percentage: 14,
             is_flash_sale: "0",
+
+            quantity: 1,
             status: "1",
             created_at: "2025-01-15T07:06:44.000000Z",
             updated_at: "2025-01-19T09:38:12.000000Z",
@@ -597,6 +609,8 @@ const products = {
             discount_price: 21.60000000000000142108547152020037174224853515625,
             discount_percentage: 16,
             is_flash_sale: "0",
+
+            quantity: 1,
             status: "1",
             created_at: "2025-01-15T07:09:39.000000Z",
             updated_at: "2025-01-15T07:09:39.000000Z",
@@ -618,6 +632,8 @@ const products = {
             discount_price: 3,
             discount_percentage: 12,
             is_flash_sale: "0",
+
+            quantity: 1,
             status: "1",
             created_at: "2025-01-25T11:05:22.000000Z",
             updated_at: "2025-01-25T11:05:22.000000Z",
@@ -660,6 +676,8 @@ const products = {
             discount_price: 48,
             discount_percentage: 48,
             is_flash_sale: "0",
+
+            quantity: 1,
             status: "1",
             created_at: "2023-08-28T14:24:29.000000Z",
             updated_at: "2023-09-17T23:50:07.000000Z",
@@ -681,6 +699,8 @@ const products = {
             discount_price: 0,
             discount_percentage: null,
             is_flash_sale: "0",
+
+            quantity: 1,
             status: "1",
             created_at: "2023-09-05T20:01:29.000000Z",
             updated_at: "2024-11-15T06:04:03.000000Z",
@@ -702,6 +722,8 @@ const products = {
             discount_price: 0,
             discount_percentage: null,
             is_flash_sale: "0",
+
+            quantity: 1,
             status: "1",
             created_at: "2023-09-06T14:46:56.000000Z",
             updated_at: "2024-05-22T21:16:53.000000Z",
@@ -723,6 +745,8 @@ const products = {
             discount_price: 0,
             discount_percentage: null,
             is_flash_sale: "0",
+
+            quantity: 1,
             status: "1",
             created_at: "2023-09-06T14:48:59.000000Z",
             updated_at: "2024-05-22T21:15:56.000000Z",
@@ -744,6 +768,8 @@ const products = {
             discount_price: 0,
             discount_percentage: null,
             is_flash_sale: "0",
+
+            quantity: 1,
             status: "1",
             created_at: "2023-09-06T14:47:53.000000Z",
             updated_at: "2024-05-22T21:16:22.000000Z",
@@ -765,6 +791,8 @@ const products = {
             discount_price: 0,
             discount_percentage: null,
             is_flash_sale: "0",
+
+            quantity: 1,
             status: "1",
             created_at: "2023-09-06T14:50:31.000000Z",
             updated_at: "2024-05-22T21:15:23.000000Z",
@@ -786,6 +814,8 @@ const products = {
             discount_price: 0,
             discount_percentage: null,
             is_flash_sale: "0",
+
+            quantity: 1,
             status: "1",
             created_at: "2023-09-06T14:51:50.000000Z",
             updated_at: "2024-05-22T21:14:54.000000Z",
@@ -807,6 +837,8 @@ const products = {
             discount_price: 195,
             discount_percentage: 75,
             is_flash_sale: "0",
+
+            quantity: 1,
             status: "1",
             created_at: "2024-06-02T18:54:47.000000Z",
             updated_at: "2024-06-02T18:54:47.000000Z",
@@ -828,6 +860,8 @@ const products = {
             discount_price: 197.599999999999994315658113919198513031005859375,
             discount_percentage: 76,
             is_flash_sale: "0",
+
+            quantity: 1,
             status: "1",
             created_at: "2024-06-02T18:55:25.000000Z",
             updated_at: "2024-06-02T18:55:25.000000Z",
@@ -870,6 +904,8 @@ const products = {
             discount_price: 50,
             discount_percentage: 50,
             is_flash_sale: "0",
+
+            quantity: 1,
             status: "1",
             created_at: "2023-08-31T14:18:03.000000Z",
             updated_at: "2025-01-19T09:41:35.000000Z",
@@ -912,6 +948,8 @@ const products = {
             discount_price: null,
             discount_percentage: null,
             is_flash_sale: "0",
+
+            quantity: 1,
             status: "1",
             created_at: "2023-09-06T14:32:18.000000Z",
             updated_at: "2024-11-17T03:59:22.000000Z",
@@ -933,6 +971,8 @@ const products = {
             discount_price: 0,
             discount_percentage: null,
             is_flash_sale: "0",
+
+            quantity: 1,
             status: "1",
             created_at: "2023-09-06T14:34:07.000000Z",
             updated_at: "2024-05-07T20:00:44.000000Z",
@@ -954,6 +994,8 @@ const products = {
             discount_price: 203.990000000000009094947017729282379150390625,
             discount_percentage: 48.57000000000000028421709430404007434844970703125,
             is_flash_sale: "0",
+
+            quantity: 1,
             status: "1",
             created_at: "2024-12-24T10:43:57.000000Z",
             updated_at: "2024-12-24T10:43:57.000000Z",
@@ -975,6 +1017,8 @@ const products = {
             discount_price: 12,
             discount_percentage: 13.949999999999999289457264239899814128875732421875,
             is_flash_sale: "0",
+
+            quantity: 1,
             status: "1",
             created_at: "2025-01-15T05:05:42.000000Z",
             updated_at: "2025-01-15T05:05:42.000000Z",
@@ -996,6 +1040,8 @@ const products = {
             discount_price: 80,
             discount_percentage: 16,
             is_flash_sale: "0",
+
+            quantity: 1,
             status: "1",
             created_at: "2025-01-15T05:31:36.000000Z",
             updated_at: "2025-01-15T05:31:36.000000Z",
@@ -1017,6 +1063,8 @@ const products = {
             discount_price: 37.7999999999999971578290569595992565155029296875,
             discount_percentage: 18,
             is_flash_sale: "0",
+
+            quantity: 1,
             status: "1",
             created_at: "2023-08-23T05:23:49.000000Z",
             updated_at: "2024-12-12T05:58:46.000000Z",
@@ -1038,6 +1086,8 @@ const products = {
             discount_price: 36,
             discount_percentage: 16,
             is_flash_sale: "0",
+
+            quantity: 1,
             status: "1",
             created_at: "2025-01-15T05:33:06.000000Z",
             updated_at: "2025-01-15T05:33:06.000000Z",
@@ -1059,6 +1109,8 @@ const products = {
             discount_price: 64,
             discount_percentage: 16,
             is_flash_sale: "0",
+
+            quantity: 1,
             status: "1",
             created_at: "2025-01-15T06:04:16.000000Z",
             updated_at: "2025-01-15T06:04:16.000000Z",
@@ -1080,6 +1132,8 @@ const products = {
             discount_price: 95.68000000000000682121026329696178436279296875,
             discount_percentage: 16,
             is_flash_sale: "0",
+
+            quantity: 1,
             status: "1",
             created_at: "2025-01-15T06:05:40.000000Z",
             updated_at: "2025-01-15T06:05:40.000000Z",
@@ -1101,6 +1155,8 @@ const products = {
             discount_price: 16,
             discount_percentage: 16,
             is_flash_sale: "0",
+
+            quantity: 1,
             status: "1",
             created_at: "2025-01-15T06:25:04.000000Z",
             updated_at: "2025-01-15T06:25:04.000000Z",
@@ -1122,6 +1178,8 @@ const products = {
             discount_price: 24,
             discount_percentage: 16,
             is_flash_sale: "0",
+
+            quantity: 1,
             status: "1",
             created_at: "2025-01-15T06:30:49.000000Z",
             updated_at: "2025-01-15T06:30:49.000000Z",
@@ -1143,6 +1201,8 @@ const products = {
             discount_price: 24,
             discount_percentage: 16,
             is_flash_sale: "0",
+
+            quantity: 1,
             status: "1",
             created_at: "2025-01-15T06:33:10.000000Z",
             updated_at: "2025-01-15T06:33:10.000000Z",
@@ -1160,6 +1220,7 @@ const products = {
             name: "A-Fenac SR",
             category_id: "1",
             company_id: "1",
+            quantity: 1,
             price: 350,
             discount_price: 59.85000000000000142108547152020037174224853515625,
             discount_percentage: 17.10000000000000142108547152020037174224853515625,
@@ -1185,6 +1246,7 @@ const products = {
             discount_price: 61.43999999999999772626324556767940521240234375,
             discount_percentage: 16,
             is_flash_sale: "0",
+            quantity: 1,
             status: "1",
             created_at: "2025-01-15T06:35:01.000000Z",
             updated_at: "2025-01-15T06:35:01.000000Z",
@@ -1206,6 +1268,8 @@ const products = {
             discount_price: 12.800000000000000710542735760100185871124267578125,
             discount_percentage: 16,
             is_flash_sale: "0",
+
+            quantity: 1,
             status: "1",
             created_at: "2025-01-15T06:36:44.000000Z",
             updated_at: "2025-01-15T06:36:44.000000Z",
@@ -1227,6 +1291,8 @@ const products = {
             discount_price: 121.969999999999998863131622783839702606201171875,
             discount_percentage: 18.14999999999999857891452847979962825775146484375,
             is_flash_sale: "0",
+
+            quantity: 1,
             status: "1",
             created_at: "2025-01-15T05:08:41.000000Z",
             updated_at: "2025-01-15T05:08:41.000000Z",
@@ -1248,6 +1314,8 @@ const products = {
             discount_price: 48.0799999999999982946974341757595539093017578125,
             discount_percentage: 16,
             is_flash_sale: "0",
+
+            quantity: 1,
             status: "1",
             created_at: "2025-01-15T06:38:22.000000Z",
             updated_at: "2025-01-15T06:38:22.000000Z",

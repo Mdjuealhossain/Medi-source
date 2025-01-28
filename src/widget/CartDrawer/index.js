@@ -11,50 +11,62 @@ import Cart from "@/components/Cart";
 import "react-modern-drawer/dist/index.css";
 
 const CartDrawer = ({ open, onClose, direction, size }) => {
-    const [isCount, setIsCount] = useState(null);
+    const [products, setProducts] = useState([]);
 
-    // State to manage cart data
-    const [cartData, setCartData] = useState([
-        { id: 1, company: "ACI limited", name: "Avbgdd 50/10 mg", imag: "/assets/image/home/course.jpg", alt: "aci", prev: 1200, price: 800 },
-        { id: 2, company: "ACI limited", name: "Avbgdd 50/10 mg", imag: "/assets/image/home/course.jpg", alt: "aci", prev: 1230, price: 866 },
-        { id: 3, company: "ACI limited", name: "Avbgdd 50/10 mg", imag: "/assets/image/home/course.jpg", alt: "aci", prev: 1400, price: 800 },
-        { id: 4, company: "ACI limited", name: "Avbgdd 50/10 mg", imag: "/assets/image/home/course.jpg", alt: "aci", prev: 1230, price: 866 },
-        { id: 5, company: "ACI limited", name: "Avbgdd 50/10 mg", imag: "/assets/image/home/course.jpg", alt: "aci", prev: 1400, price: 800 },
-        { id: 6, company: "ACI limited", name: "Avbgdd 50/10 mg", imag: "/assets/image/home/course.jpg", alt: "aci", prev: 1230, price: 866 },
-        { id: 7, company: "ACI limited", name: "Avbgdd 50/10 mg", imag: "/assets/image/home/course.jpg", alt: "aci", prev: 1400, price: 800 },
-        { id: 8, company: "ACI limited", name: "Avbgdd 50/10 mg", imag: "/assets/image/home/course.jpg", alt: "aci", prev: 1230, price: 866 },
-    ]);
-
-    const handleCount = (num) => {
-        setIsCount(num);
+    // Quantity বাড়ানো
+    const incrementQuantity = (id) => {
+        setProducts((prevProducts) => prevProducts.map((product) => (product.id === id ? { ...product, quantity: product.quantity + 1 } : product)));
     };
 
-    // Remove item from the cart
+    // Quantity কমানো
+    const decrementQuantity = (id) => {
+        // setProducts((prevProducts) => prevProducts.map((product) => (product.id === id ? { ...product, quantity: product.quantity - 1 } : product)));
+        const updatedProducts = products.filter((product) => product.id !== id);
+        setProducts(updatedProducts);
+        localStorage.setItem("stor_cart_data", JSON.stringify(updatedProducts));
+    };
+
+    const productQuantity = (id, count) => {
+        console.log("product", count);
+        // Convert input value to number
+        const numericValue = count === "" ? 0 : parseInt(count, 10);
+        if (!isNaN(numericValue) && numericValue >= 0) {
+            setProducts((prevProducts) => prevProducts.map((product) => (product.id === id ? { ...product, quantity: numericValue } : product)));
+        }
+    };
+
     const handleRemoveCart = (id) => {
-        setCartData((prevCartData) => prevCartData.filter((item) => item.id !== id));
+        setProducts((prevProducts) => prevProducts.filter((product) => product.id !== id));
     };
-    // Check if the cart is empty
-    const hasCartItem = cartData.length > 0;
+
+    const hasCartItem = products.length > 0;
+
+    const subTotal = products.reduce((sum, item) => sum + item.price * item.quantity, 0);
+    const discount = products.reduce((sum, item) => sum + item.discount_price, 0);
+
+    const total = subTotal - discount;
 
     useEffect(() => {
         if (open) {
             document.body.classList.add("overflow-hidden");
+            const storedCartData = localStorage.getItem("stor_cart_data");
+            if (storedCartData) {
+                setProducts(JSON.parse(storedCartData));
+            } else {
+                setProducts([]);
+            }
         } else {
+            setProducts([]);
             document.body.classList.remove("overflow-hidden");
         }
 
         return () => {
             document.body.classList.remove("overflow-hidden");
+            setProducts([]);
         };
     }, [open]);
 
     if (!open) return null;
-
-    const subTotal = cartData.reduce((sum, item) => (sum + item.price) * isCount, 0);
-    const discount = cartData.reduce((sum, item) => (sum + item.prev - item.price) * isCount, 0);
-    const total = subTotal - discount;
-
-    console.log("jhbghkbnkjnkj", subTotal);
 
     return (
         <Drawer open={open} onClose={onClose} direction={direction} size={size}>
@@ -67,8 +79,8 @@ const CartDrawer = ({ open, onClose, direction, size }) => {
                                 <p>Tue, Jan 4, 2025</p>
                             </div>
                             <div className=" px-6 py-2 h-700 overflow-auto no-scrollbar flex flex-col gap-2">
-                                {cartData.map((data) => (
-                                    <Cart id={data.id} handleCount={handleCount} handleRemoveCart={handleRemoveCart} key={data.id} company={data.company} name={data.name} image={data.imag} alt={data.alt} price={data.price} discount={data.prev} />
+                                {products.map((data) => (
+                                    <Cart key={data.id} incrementQuantity={incrementQuantity} handleRemoveCart={handleRemoveCart} decrementQuantity={decrementQuantity} productQuantity={productQuantity} id={data.id} image={data.image} quantity={data.quantity} alt={data.name} name={data.name} price={data.price} discount={data.discount_price} extraoff={data.discount_percentage} company={data.company.name} />
                                 ))}
                             </div>
                         </div>
@@ -79,7 +91,7 @@ const CartDrawer = ({ open, onClose, direction, size }) => {
                             </div>
                             <div className=" mb-4 flex items-center justify-between font-semibold text-secondary">
                                 <p>Discount (-)</p>
-                                <p>৳ {discount}</p>
+                                <p>৳ {parseFloat(discount.toFixed(2))}</p>
                             </div>
                             <Button className={" bg-warning_main hover:bg-warning_dark w-full text-white !font-semibold"}> continue to checkout: ৳ {total} </Button>
                         </div>

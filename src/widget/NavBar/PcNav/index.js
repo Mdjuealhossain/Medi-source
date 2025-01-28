@@ -96,12 +96,7 @@ const PcNav = () => {
                                 <FilteredPop title="filtered by" isOpen={isPopupOpen} checkboxData={initialCheckboxData} onClose={handleClosePopup} onConfirm={handleConfirm} />
                             </div>
                             <div className=" relative">
-                                <input
-                                    placeholder="Search product..."
-                                    type="text"
-                                    name="name"
-                                    className={`pr-4 pl-8 focus:ring-1 xl:w-430 md:w-270 lg:w-300 w-full text-body1 placeholder:font-normal font-normal focus:ring-warning_main hover:ring-warning_main hover:shadow-input focus:shadow-input py-1 bg-warning_extra_light rounded-full ring-warning_main focus:outline-none ring-1  placeholder:text-warning_main focus:border-transparent`}
-                                />
+                                <input placeholder="Search product..." type="text" name="name" className={`pr-4 pl-8 focus:ring-1 xl:w-430 md:w-270 lg:w-300 w-full text-body1 placeholder:font-normal font-normal focus:ring-warning_main hover:ring-warning_main hover:shadow-input focus:shadow-input py-1 bg-warning_extra_light rounded-full ring-warning_main focus:outline-none ring-1  placeholder:text-warning_main focus:border-transparent`} />
                                 <GoSearch className=" absolute top-2 left-3 text-warning_main" />
                             </div>
                             <div className=" md:inline-flex relative items-center lg:gap-8 md:gap-4 hidden">
@@ -134,9 +129,9 @@ const PcNav = () => {
                                     <span className={`  h-px bg-warning_main transition-width duration-300 ease-in-out w-0 group-hover:w-full`}></span>
                                 </div>
                             </div>
-                            <div onClick={toggleNotiDrawer} className="md:hidden bg-warning_main p-2 rounded-lg">
+                            <Link href={"/notifications"} className="md:hidden bg-warning_main p-2 rounded-lg">
                                 <IoIosNotifications className="w-5 h-5 text-white" />
-                            </div>
+                            </Link>
                             <div onClick={handleOpenPopup} className="md:hidden bg-warning_main p-2 rounded-lg">
                                 <Image src={"/assets/icons/filter.svg"} alt="filter" height={20} width={20} className="!h-5 !w-5" />
                             </div>
@@ -191,10 +186,6 @@ const PcNav = () => {
             <div className=" hidden md:inline-block">
                 <NotificationDrawer open={isNoti} onClose={toggleNotiDrawer} direction="right" size={450} />
             </div>
-            <div className=" md:hidden">
-                <NotificationDrawer open={isNoti} onClose={toggleNotiDrawer} direction="right" size="100%" />
-            </div>
-
             <CartDrawer open={isOpen} onClose={toggleDrawer} direction="right" size={450} />
         </>
     );
