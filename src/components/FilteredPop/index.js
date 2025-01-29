@@ -67,12 +67,12 @@ export const FilteredPop = ({ isOpen, title, checkboxData = [], onClose, onConfi
                     </div>
                     <div className="space-y-2 max-h-64 overflow-y-auto scrollbar">
                         {filteredCheckboxes.map((item) => (
-                            <div key={item.id} className="flex items-center">
-                                <label className="w-3 mr-3 relative">
+                            <div key={item.id} className="flex items-center ">
+                                <label className="w-3 mr-3 relative cursor-pointer">
                                     <input type="checkbox" id={`checkbox-${item.id}`} checked={item.checked || false} onChange={() => handleCheckboxChange(item.id)} className="hidden peer checkbox" />
                                     {item.checked ? <ImCheckboxChecked size={12} className=" text-warning_main" /> : <RxBox size={14} className="" />}
                                 </label>
-                                <label htmlFor={`checkbox-${item.id}`} className="font-light text-subtitle2">
+                                <label htmlFor={`checkbox-${item.id}`} className="font-light text-subtitle2 cursor-pointer">
                                     {item.name}
                                 </label>
                             </div>

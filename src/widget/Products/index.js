@@ -8,7 +8,7 @@ import { useCart } from "@/app/utilities/cartContex";
 
 const Products = () => {
     const [activeTab, setActiveTab] = useState(null);
-    const { cartItems, addToCart, companies } = useCart();
+    const { cartItems, addToCart, companies, isSearch } = useCart();
     const { data: tabs } = useCategories();
     useEffect(() => {
         if (tabs?.data?.length > 0) {
@@ -25,6 +25,7 @@ const Products = () => {
     const params = {
         categoryId: activeTab,
         companyIds: companies,
+        search: isSearch,
     };
 
     const { data: products, loading, error } = useProducts(params);

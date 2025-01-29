@@ -8,6 +8,7 @@ export function CartProvider({ children }) {
     const [cartItems, setCartItems] = useState([]);
     const [cartMessages, setCartMessages] = useState({}); // Store messages per product
     const [companies, setCompanies] = useState([]);
+    const [isSearch, setIsSearch] = useState("");
 
     useEffect(() => {
         const storedCart = JSON.parse(localStorage.getItem("cartItems")) || [];
@@ -61,10 +62,14 @@ export function CartProvider({ children }) {
     };
 
     const handleCompany = (id) => {
-        setCompanies(id);
+        id.length > 0 && setCompanies(`[${id.join(",")}]`);
+    };
+    const handleSearchProducts = (e) => {
+        event.preventDefault();
+        setIsSearch(e.target.value);
     };
 
-    return <CartContext.Provider value={{ companies, handleCompany, cartItems, addToCart, removeFromCart, cartMessages, incrementQuantity, decrementQuantity, productQuantity }}>{children}</CartContext.Provider>;
+    return <CartContext.Provider value={{ handleSearchProducts, isSearch, companies, handleCompany, cartItems, addToCart, removeFromCart, cartMessages, incrementQuantity, decrementQuantity, productQuantity }}>{children}</CartContext.Provider>;
 }
 
 export function useCart() {

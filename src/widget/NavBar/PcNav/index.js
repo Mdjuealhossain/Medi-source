@@ -27,7 +27,7 @@ const PcNav = () => {
     const [isOpen, setIsOpen] = React.useState(false);
     const [isNoti, setIsNoti] = React.useState(false);
     const [user, setUser] = useState(null);
-    const { cartItems, handleCompany } = useCart();
+    const { cartItems, handleCompany, handleSearchProducts, isSearch } = useCart();
 
     const pathname = usePathname();
     const router = useRouter();
@@ -46,8 +46,8 @@ const PcNav = () => {
         const selected = selectedOptions.map((item) => item.id);
         handleCompany(selected);
     };
+
     useEffect(() => {
-        // const token = getToken();
         const storUser = getUser();
         if (storUser) {
             const userData = JSON.parse(storUser);
@@ -83,7 +83,7 @@ const PcNav = () => {
                                 <FilteredPop title="filtered by" isOpen={isPopupOpen} checkboxData={data?.data?.data} onClose={handleClosePopup} onConfirm={handleConfirm} />
                             </div>
                             <div className=" relative">
-                                <input placeholder="Search product..." type="text" name="name" className={`pr-4 pl-8 focus:ring-1 xl:w-430 md:w-270 lg:w-300 w-full text-body1 placeholder:font-normal font-normal focus:ring-warning_main hover:ring-warning_main hover:shadow-input focus:shadow-input py-1 bg-warning_extra_light rounded-full ring-warning_main focus:outline-none ring-1  placeholder:text-warning_main focus:border-transparent`} />
+                                <input placeholder="Search product..." type="text" name="name" value={isSearch} onChange={(e) => handleSearchProducts(e)} className={`pr-4 pl-8 focus:ring-1 xl:w-430 md:w-270 lg:w-300 w-full text-body1 placeholder:font-normal font-normal focus:ring-warning_main hover:ring-warning_main hover:shadow-input focus:shadow-input py-1 bg-warning_extra_light rounded-full ring-warning_main focus:outline-none ring-1  placeholder:text-warning_main focus:border-transparent`} />
                                 <GoSearch className=" absolute top-2 left-3 text-warning_main" />
                             </div>
                             <div className=" md:inline-flex relative items-center lg:gap-8 md:gap-4 hidden">

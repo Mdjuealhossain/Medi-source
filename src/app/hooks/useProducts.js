@@ -7,34 +7,44 @@ const useProducts = (params = {}) => {
     const [loading, setLoading] = useState(false); // Loading state
     const [error, setError] = useState(null); // Error state
 
-    const { search, pagination, companyIds, price, discountPrice, discountPercentage, isFlashSale, categoryId } = params;
+    const { search, pagination, price, discountPrice, companyIds, discountPercentage, isFlashSale, categoryId } = params;
+    // const companyIds = [1, 3];
+
     const fetchProducts = async () => {
         setLoading(true);
         setError(null);
 
-        // Create query parameters dynamically
-        const queryParams = new URLSearchParams();
-        // Add parameters only if they have valid values
-        if (search) queryParams.append("search", search);
-        if (pagination) queryParams.append("pagination", pagination);
-        if (companyIds) queryParams.append("company_id", companyIds.join(","));
-        if (price) queryParams.append("price", price);
-        if (discountPrice) queryParams.append("discount_price", discountPrice);
-        if (discountPercentage) queryParams.append("discount_percentage", discountPercentage);
-        if (isFlashSale) queryParams.append("is_flash_sale", isFlashSale);
-        if (categoryId) queryParams.append("category_id", categoryId);
+        // Create query parameters manually
+        let queryParams = ""; // Initialize queryParams as an empty string
 
-        const newUrl = `${window.location.pathname}?${queryParams.toString()}`;
+        // Add parameters to the query string if they have valid values
+        if (search) queryParams += `search=${search}&`;
+        if (pagination) queryParams += `pagination=${pagination}&`;
+        if (companyIds && companyIds.length > 0) {
+            queryParams += `company_id=${companyIds}&`; // Manually append company_id with square brackets
+        }
+        if (price) queryParams += `price=${price}&`;
+        if (discountPrice) queryParams += `discount_price=${discountPrice}&`;
+        if (discountPercentage) queryParams += `discount_percentage=${discountPercentage}&`;
+        if (isFlashSale) queryParams += `is_flash_sale=${isFlashSale}&`;
+        if (categoryId) queryParams += `category_id=${categoryId}&`;
+
+        // Remove the trailing '&' if there is one
+        queryParams = queryParams.slice(0, -1);
+
+        // Build the full URL with the query parameters
+        const newUrl = `${window.location.pathname}?${queryParams}`;
 
         // Update the URL without page reload
         window.history.pushState(null, "", newUrl);
 
+        // Perform the API request
         const {
             success,
             responseData,
             error: fetchError,
         } = await apiRequest({
-            endpoint: `/products?${queryParams.toString()}`,
+            endpoint: `/products?${queryParams}`,
             method: "GET",
         });
 
