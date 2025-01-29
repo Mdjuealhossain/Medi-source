@@ -69,7 +69,7 @@ export function CartProvider({ children }) {
         setIsSearch(e.target.value);
     };
 
-    return <CartContext.Provider value={{ handleSearchProducts, isSearch, companies, handleCompany, cartItems, addToCart, removeFromCart, cartMessages, incrementQuantity, decrementQuantity, productQuantity }}>{children}</CartContext.Provider>;
+    return <CartContext.Provider value={{ handleSearchProducts, isSearch, setIsSearch, companies, setCompanies, handleCompany, cartItems, addToCart, removeFromCart, cartMessages, incrementQuantity, decrementQuantity, productQuantity }}>{children}</CartContext.Provider>;
 }
 
 export function useCart() {

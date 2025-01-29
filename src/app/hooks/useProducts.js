@@ -1,27 +1,26 @@
 import { useEffect, useState } from "react";
+
 import { useApi } from "./useApi";
 
 const useProducts = (params = {}) => {
     const { apiRequest } = useApi();
-    const [data, setData] = useState(null); // Stores the fetched data
-    const [loading, setLoading] = useState(false); // Loading state
-    const [error, setError] = useState(null); // Error state
+    const [data, setData] = useState(null);
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState(null);
 
-    const { search, pagination, price, discountPrice, companyIds, discountPercentage, isFlashSale, categoryId } = params;
-    // const companyIds = [1, 3];
+    const { search, pagination, price, discountPrice, companyIds, discountPercentage, categoryId, page, isFlashSale } = params;
 
     const fetchProducts = async () => {
         setLoading(true);
         setError(null);
 
-        // Create query parameters manually
-        let queryParams = ""; // Initialize queryParams as an empty string
+        let queryParams = "";
 
-        // Add parameters to the query string if they have valid values
         if (search) queryParams += `search=${search}&`;
         if (pagination) queryParams += `pagination=${pagination}&`;
+        if (page) queryParams += `page=${page}&`;
         if (companyIds && companyIds.length > 0) {
-            queryParams += `company_id=${companyIds}&`; // Manually append company_id with square brackets
+            queryParams += `company_id=${companyIds}&`;
         }
         if (price) queryParams += `price=${price}&`;
         if (discountPrice) queryParams += `discount_price=${discountPrice}&`;
@@ -60,7 +59,7 @@ const useProducts = (params = {}) => {
     // Trigger fetch when any of these params change
     useEffect(() => {
         fetchProducts();
-    }, [search, pagination, price, discountPrice, discountPercentage, isFlashSale, categoryId, companyIds]);
+    }, [search, pagination, price, discountPrice, discountPercentage, isFlashSale, categoryId, companyIds, page, isFlashSale]);
 
     return { data, loading, error };
 };
