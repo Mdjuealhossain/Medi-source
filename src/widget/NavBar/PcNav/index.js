@@ -26,9 +26,8 @@ const PcNav = () => {
     const [isDrowp, setIsDrowp] = useState(false);
     const [isOpen, setIsOpen] = React.useState(false);
     const [isNoti, setIsNoti] = React.useState(false);
-    const [isCompanies, setIsCompanies] = useState([]);
     const [user, setUser] = useState(null);
-    const { cartItems } = useCart();
+    const { cartItems, handleCompany } = useCart();
 
     const pathname = usePathname();
     const router = useRouter();
@@ -45,7 +44,7 @@ const PcNav = () => {
 
     const handleConfirm = (selectedOptions) => {
         const selected = selectedOptions.map((item) => item.id);
-        setIsCompanies(selected);
+        handleCompany(selected);
     };
     useEffect(() => {
         // const token = getToken();
@@ -60,7 +59,6 @@ const PcNav = () => {
 
     const { data } = useCompany();
 
-    console.log("first", isCompanies);
     return (
         <>
             <div className=" sticky top-0 z-50  w-full shadow-lg">

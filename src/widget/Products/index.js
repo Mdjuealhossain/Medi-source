@@ -8,19 +8,26 @@ import { useCart } from "@/app/utilities/cartContex";
 
 const Products = () => {
     const [activeTab, setActiveTab] = useState(null);
-    const { cartItems, addToCart } = useCart();
+    const { cartItems, addToCart, companies } = useCart();
     const { data: tabs } = useCategories();
-    const params = {
-        companyIds: [1],
-        categoryId: activeTab,
-    };
-    const { data: products, loading, error } = useProducts(params);
+    useEffect(() => {
+        if (tabs?.data?.length > 0) {
+            setActiveTab(tabs.data[0].id);
+        }
+    }, [tabs]);
 
     useEffect(() => {
         if (tabs?.data?.length > 0) {
             setActiveTab(tabs.data[0].id);
         }
     }, [tabs]);
+
+    const params = {
+        categoryId: activeTab,
+        companyIds: companies,
+    };
+
+    const { data: products, loading, error } = useProducts(params);
 
     return (
         <div>

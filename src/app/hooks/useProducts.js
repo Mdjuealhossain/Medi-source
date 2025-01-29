@@ -8,7 +8,6 @@ const useProducts = (params = {}) => {
     const [error, setError] = useState(null); // Error state
 
     const { search, pagination, companyIds, price, discountPrice, discountPercentage, isFlashSale, categoryId } = params;
-
     const fetchProducts = async () => {
         setLoading(true);
         setError(null);
@@ -18,12 +17,17 @@ const useProducts = (params = {}) => {
         // Add parameters only if they have valid values
         if (search) queryParams.append("search", search);
         if (pagination) queryParams.append("pagination", pagination);
-        if (companyIds && companyIds.length > 0) queryParams.append("companyIds", companyIds.join(","));
+        if (companyIds) queryParams.append("company_id", companyIds.join(","));
         if (price) queryParams.append("price", price);
-        if (discountPrice) queryParams.append("discountPrice", discountPrice);
-        if (discountPercentage) queryParams.append("discountPercentage", discountPercentage);
-        if (isFlashSale) queryParams.append("isFlashSale", isFlashSale);
-        if (categoryId) queryParams.append("categoryId", categoryId);
+        if (discountPrice) queryParams.append("discount_price", discountPrice);
+        if (discountPercentage) queryParams.append("discount_percentage", discountPercentage);
+        if (isFlashSale) queryParams.append("is_flash_sale", isFlashSale);
+        if (categoryId) queryParams.append("category_id", categoryId);
+
+        const newUrl = `${window.location.pathname}?${queryParams.toString()}`;
+
+        // Update the URL without page reload
+        window.history.pushState(null, "", newUrl);
 
         const {
             success,
@@ -43,9 +47,10 @@ const useProducts = (params = {}) => {
         setLoading(false);
     };
 
+    // Trigger fetch when any of these params change
     useEffect(() => {
         fetchProducts();
-    }, []);
+    }, [search, pagination, price, discountPrice, discountPercentage, isFlashSale, categoryId, companyIds]);
 
     return { data, loading, error };
 };

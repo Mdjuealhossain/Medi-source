@@ -45,7 +45,7 @@ const CartDrawer = ({ open, onClose, direction, size }) => {
                                 </span>
                             </div>
                         </div>
-                        <div className=" md:px-6 px-2 py-2 h-[calc(100vh-195px)] overflow-auto no-scrollbar flex flex-col gap-2">
+                        <div className=" md:px-6 px-2 py-2 h-[calc(100vh-205px)] overflow-auto no-scrollbar flex flex-col gap-2">
                             {cartItems.map((data) => (
                                 <Cart key={data.id} incrementQuantity={incrementQuantity} handleRemoveCart={removeFromCart} decrementQuantity={decrementQuantity} productQuantity={productQuantity} id={data.id} image={data.image} quantity={data.quantity} alt={data.name} name={data.name} price={data.price} discount={data.discount_price} extraoff={data.discount_percentage} company={data.company.name} />
                             ))}

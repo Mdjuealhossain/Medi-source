@@ -7,6 +7,7 @@ const CartContext = createContext();
 export function CartProvider({ children }) {
     const [cartItems, setCartItems] = useState([]);
     const [cartMessages, setCartMessages] = useState({}); // Store messages per product
+    const [companies, setCompanies] = useState([]);
 
     useEffect(() => {
         const storedCart = JSON.parse(localStorage.getItem("cartItems")) || [];
@@ -59,7 +60,11 @@ export function CartProvider({ children }) {
         }
     };
 
-    return <CartContext.Provider value={{ cartItems, addToCart, removeFromCart, cartMessages, incrementQuantity, decrementQuantity, productQuantity }}>{children}</CartContext.Provider>;
+    const handleCompany = (id) => {
+        setCompanies(id);
+    };
+
+    return <CartContext.Provider value={{ companies, handleCompany, cartItems, addToCart, removeFromCart, cartMessages, incrementQuantity, decrementQuantity, productQuantity }}>{children}</CartContext.Provider>;
 }
 
 export function useCart() {

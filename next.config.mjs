@@ -1,7 +1,12 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
     images: {
-        domains: ["medisourcebd.com"], // এখানে আপনার ডোমেইনটি যোগ করুন
+        remotePatterns: [
+            {
+                protocol: "https",
+                hostname: '"medisourcebd.com"',
+            },
+        ],
     },
 };
 
