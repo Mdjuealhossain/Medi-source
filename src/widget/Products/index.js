@@ -4,10 +4,11 @@ import { useEffect, useState } from "react";
 import Card from "@/components/Card";
 import useCategories from "@/app/hooks/useCategories";
 import useProducts from "@/app/hooks/useProducts";
+import { useCart } from "@/app/utilities/cartContex";
 
 const Products = () => {
     const [activeTab, setActiveTab] = useState(null);
-    const [storedData, setStoredData] = useState([]);
+    const { cartItems, addToCart } = useCart();
     const { data: tabs } = useCategories();
     const params = {
         companyIds: [1],
@@ -21,34 +22,6 @@ const Products = () => {
         }
     }, [tabs]);
 
-    useEffect(() => {
-        if (typeof window !== "undefined") {
-            const storedCartData = localStorage.getItem("stor_cart_data");
-
-            if (storedCartData) {
-                setStoredData(JSON.parse(storedCartData));
-            } else {
-                localStorage.setItem("stor_cart_data", JSON.stringify([]));
-            }
-        }
-    }, []);
-
-    // handle add to cart data
-
-    const handleSelectedItem = (id) => {
-        const cart_data = products?.data?.data.filter((cart) => cart.id == id);
-        const isItemAlreadyAdded = storedData.some((item) => item.id === id);
-        if (!isItemAlreadyAdded) {
-            const updatedArray = [...storedData, ...cart_data];
-            setStoredData(updatedArray); // Update state with new item
-            localStorage.setItem("stor_cart_data", JSON.stringify(updatedArray)); // Save to localStorage
-        } else {
-            alert("Item already in cart");
-        }
-    };
-
-    // const filteredData = products?.data?.data.filter((data) => data.category_id == activeTab);
-
     return (
         <div>
             <div className="flex sm:justify-center mb-6 md:mb-12 items-center gap-4 whitespace-nowrap md:scroll-container overflow-x-auto md:overflow-x-hidden no-scrollbar">
@@ -59,9 +32,10 @@ const Products = () => {
                 ))}
             </div>
             <div className=" grid xl:grid-cols-4 md:grid-cols-3 grid-cols-2 xs:grid-cols-3 lg:gap-8 md:gap-4 gap-2">
-                {products?.data?.data.map((data) => (
-                    <Card handleSelectedItem={handleSelectedItem} key={data.id} id={data.id} image={data.image} alt={data.name} name={data.name} price={data.price} discount={data.discount_price} extraoff={data.discount_percentage} company={data.company.name} />
-                ))}
+                {products?.data?.data.map((data) => {
+                    const isInCart = cartItems.some((item) => item.id === data.id);
+                    return <Card handleSelectedItem={() => addToCart(data)} isAdded={isInCart} key={data.id} id={data.id} image={data.image} alt={data.name} name={data.name} price={data.price} discount={data.discount_price} extraoff={data.discount_percentage} company={data.company.name} />;
+                })}
             </div>
         </div>
     );

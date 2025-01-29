@@ -1,12 +1,12 @@
 "use client";
 import React from "react";
-import Image from "next/image";
 import { MdOutlineShoppingCart } from "react-icons/md";
 
 import Button from "../Button";
 import ImageURL from "../ImageUrl";
 
-const Card = ({ image, alt, name, price, discount, extraoff, company, id, handleSelectedItem }) => {
+const Card = ({ image, alt, name, price, discount, extraoff, company, isAdded, handleSelectedItem }) => {
+    const previousValue = price + discount;
     return (
         <div className="border bg-white border-divider flex flex-col h-full rounded-lg overflow-hidden">
             <div className=" relative">
@@ -25,14 +25,15 @@ const Card = ({ image, alt, name, price, discount, extraoff, company, id, handle
                 <div className=" flex items-center gap-2">
                     <p className=" font-bold">৳ {price}</p>
                     <span className=" relative text-secondary">
-                        <p className=" text-subtitle2">৳ {discount}</p>
-                        <span className=" h-px bg-divider w-full absolute top-1/2"></span>
+                        <p className=" text-subtitle2">৳ {parseFloat(previousValue.toFixed(2))}</p>
+                        <span className=" h-px bg-secondary w-full absolute top-1/2"></span>
                     </span>
                 </div>
             </div>
-            <Button onClick={() => handleSelectedItem(id)} className={" bg-warning_main hover:bg-warning_dark text-white !rounded-none"}>
+
+            <Button onClick={handleSelectedItem} className={" bg-warning_main hover:bg-warning_dark text-white !rounded-none"}>
                 <MdOutlineShoppingCart size={18} />
-                Add to card
+                {isAdded ? "All Ready Added" : "Add to card"}
             </Button>
         </div>
     );

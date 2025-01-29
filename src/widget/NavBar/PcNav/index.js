@@ -17,9 +17,9 @@ import CartDrawer from "@/widget/CartDrawer";
 import Container from "@/components/Container";
 import NotificationDrawer from "@/widget/NotificationDrawer";
 import { usePathname, useRouter } from "next/navigation";
-import { getToken } from "@/app/utilities/token";
 import { getUser } from "@/app/utilities/user";
 import useCompany from "@/app/hooks/useCompany";
+import { useCart } from "@/app/utilities/cartContex";
 
 const PcNav = () => {
     const [isPopupOpen, setIsPopupOpen] = useState(false);
@@ -28,6 +28,7 @@ const PcNav = () => {
     const [isNoti, setIsNoti] = React.useState(false);
     const [isCompanies, setIsCompanies] = useState([]);
     const [user, setUser] = useState(null);
+    const { cartItems } = useCart();
 
     const pathname = usePathname();
     const router = useRouter();
@@ -38,25 +39,6 @@ const PcNav = () => {
     const toggleNotiDrawer = () => {
         setIsNoti((prevState) => !prevState);
     };
-
-    const initialCheckboxData = [
-        { id: 1, label: "ACI limited", checked: false },
-        { id: 2, label: "ACI limited", checked: false },
-        { id: 3, label: "ACI limited", checked: false },
-        { id: 4, label: "ACI limited", checked: false },
-        { id: 5, label: "ACI limited", checked: false },
-        { id: 6, label: "ACI limited", checked: false },
-        { id: 7, label: "ACI limited", checked: false },
-        { id: 8, label: "ACI limited", checked: false },
-        { id: 9, label: "ACI limited", checked: false },
-        { id: 13, label: "ACI limited", checked: false },
-        { id: 14, label: "ACI limited", checked: false },
-        { id: 15, label: "ACI limited", checked: false },
-        { id: 16, label: "ACI limited", checked: false },
-        { id: 17, label: "ACI limited", checked: false },
-        { id: 18, label: "ACI limited", checked: false },
-        { id: 19, label: "ACI limited", checked: false },
-    ];
 
     const handleOpenPopup = () => setIsPopupOpen((prev) => !prev);
     const handleClosePopup = () => setIsPopupOpen(false);
@@ -114,29 +96,12 @@ const PcNav = () => {
                                     </div>
                                     <span className={`  h-px bg-warning_main transition-width duration-300 ease-in-out w-0 group-hover:w-full`}></span>
                                 </Link>
-                                {/* {user ? (
-                                    <Link href={"#"} className="group md:h-[4.5rem] capitalize flex-col flex justify-center" onClick={() => setIsDrowp((prev) => !prev)}>
-                                        <div className=" flex flex-col items-center justify-center text-body2">
-                                            <Image src={"/assets/icons/default.png"} height={24} width={24} alt="person" className="w-6 h-6" />
-                                            Profile
-                                        </div>
-                                        <span className={`  h-px bg-warning_main transition-width duration-300 ease-in-out w-0 group-hover:w-full`}></span>
-                                    </Link>
-                                ) : (
-                                    <Link href={"/login"} className="group md:h-[4.5rem] capitalize flex-col flex justify-center">
-                                        <div className=" flex flex-col items-center justify-center text-body2">
-                                            <BsPerson className="w-6 h-6" />
-                                            Log In
-                                        </div>
-                                        <span className={`  h-px bg-warning_main transition-width duration-300 ease-in-out w-0 group-hover:w-full`}></span>
-                                    </Link>
-                                )} */}
                                 {isDrowp && <Dropdown user={user} onClose={() => setIsDrowp((prev) => !prev)} />}
                                 <Link href={"#"} onClick={toggleDrawer} className="group  flex flex-col ">
                                     <div className=" flex flex-col items-center justify-center text-body2">
                                         <div className=" relative">
                                             <MdOutlineShoppingBag className="w-6 h-6" />
-                                            <div className=" rounded-full bg-primary_main text-white h-3 w-3 absolute -top-1 -right-1 text-xxs flex justify-center items-center">12</div>
+                                            {cartItems.length > 0 && <div className=" rounded-full bg-primary_main text-white h-4 w-4 absolute -top-1 -right-1 text-xxs flex justify-center items-center">{cartItems.length}</div>}
                                         </div>
                                         Carts
                                     </div>
@@ -146,7 +111,7 @@ const PcNav = () => {
                                     <div className=" flex flex-col items-center justify-center text-body2">
                                         <div className=" relative">
                                             <IoIosNotifications className="w-6 h-6" />
-                                            <div className=" rounded-full bg-warning_main text-white h-3 w-3 absolute -top-1 -right-1 text-xxs flex justify-center items-center">12</div>
+                                            <div className=" rounded-full bg-warning_main text-white h-4 w-4 absolute -top-1 -right-1 text-xxs flex justify-center items-center">12</div>
                                         </div>
                                         Notifications
                                     </div>
@@ -180,10 +145,10 @@ const PcNav = () => {
                         </li>
 
                         <li>
-                            <Link href={"#"} className={`flex flex-col items-center justify-center text-caption ${pathname == "/cart" ? " text-warning_main" : "text-secondary"}`}>
+                            <Link href={"#"} onClick={toggleDrawer} className={`flex flex-col items-center justify-center text-caption ${pathname == "/cart" ? " text-warning_main" : "text-secondary"}`}>
                                 <div className=" relative">
                                     <MdOutlineShoppingBag className="w-4 h-4" />
-                                    <div className=" rounded-full bg-primary_main text-white h-3 w-3 absolute -top-1 -right-1 text-xxs flex justify-center items-center">12</div>
+                                    {cartItems.length > 0 && <div className=" rounded-full bg-primary_main text-white h-3 w-3 absolute -top-1 -right-1 text-xxs flex justify-center items-center">{cartItems.length}</div>}
                                 </div>
                                 Cart
                             </Link>
@@ -210,7 +175,7 @@ const PcNav = () => {
             <div className=" hidden md:inline-block">
                 <NotificationDrawer open={isNoti} onClose={toggleNotiDrawer} direction="right" size={450} />
             </div>
-            <CartDrawer open={isOpen} onClose={toggleDrawer} direction="right" size={450} />
+            <CartDrawer open={isOpen} onClose={toggleDrawer} direction="right" />
         </>
     );
 };
