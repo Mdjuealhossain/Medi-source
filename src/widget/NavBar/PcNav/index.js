@@ -86,10 +86,17 @@ const PcNav = () => {
                                 <input placeholder="Search product..." type="text" name="name" value={isSearch} onChange={(e) => handleSearchProducts(e)} className={`pr-4 pl-8 focus:ring-1 xl:w-430 md:w-270 lg:w-300 w-full text-body1 placeholder:font-normal font-normal focus:ring-warning_main hover:ring-warning_main hover:shadow-input focus:shadow-input py-1 bg-warning_extra_light rounded-full ring-warning_main focus:outline-none ring-1  placeholder:text-warning_main focus:border-transparent`} />
                                 <GoSearch className=" absolute top-2 left-3 text-warning_main" />
                             </div>
-                            <div className=" md:inline-flex relative items-center lg:gap-8 md:gap-4 hidden">
+                            <div className=" md:inline-flex relative items-center lg:gap-8 md:gap-2 hidden">
+                                <Link href={"/order-history"} className="group md:h-[4.5rem] capitalize flex-col flex justify-center">
+                                    <div className=" flex flex-col items-center justify-center text-body2">
+                                        <MdOutlineWorkHistory className="lg:w-6 lg:h-6 h-4 w-4" />
+                                        Order History
+                                    </div>
+                                    <span className={`  h-px bg-warning_main transition-width duration-300 ease-in-out w-0 group-hover:w-full`}></span>
+                                </Link>
                                 <Link href={"#"} className="group md:h-[4.5rem] capitalize flex-col flex justify-center" onClick={() => setIsDrowp((prev) => !prev)}>
                                     <div className=" flex flex-col items-center justify-center text-body2">
-                                        <Image src={"/assets/icons/default.png"} height={24} width={24} alt="person" className="w-6 h-6" />
+                                        <Image src={"/assets/icons/default.png"} height={24} width={24} alt="person" className="lg:w-6 lg:h-6 h-4 w-4" />
                                         Profile
                                     </div>
                                     <span className={`  h-px bg-warning_main transition-width duration-300 ease-in-out w-0 group-hover:w-full`}></span>
@@ -98,8 +105,8 @@ const PcNav = () => {
                                 <Link href={"#"} onClick={toggleDrawer} className="group  flex flex-col ">
                                     <div className=" flex flex-col items-center justify-center text-body2">
                                         <div className=" relative">
-                                            <MdOutlineShoppingBag className="w-6 h-6" />
-                                            {cartItems.length > 0 && <div className=" rounded-full bg-primary_main text-white h-4 w-4 absolute -top-1 -right-1 text-xxs flex justify-center items-center">{cartItems.length}</div>}
+                                            <MdOutlineShoppingBag className="lg:w-6 lg:h-6 h-4 w-4" />
+                                            {cartItems.length > 0 && <div className=" rounded-full bg-primary_main text-white lg:h-4 lg:w-4 h-3 w-3 absolute -top-1 -right-1 text-xxs flex justify-center items-center">{cartItems.length}</div>}
                                         </div>
                                         Carts
                                     </div>
@@ -108,19 +115,19 @@ const PcNav = () => {
                                 <div onClick={toggleNotiDrawer} className="group  flex flex-col cursor-pointer">
                                     <div className=" flex flex-col items-center justify-center text-body2">
                                         <div className=" relative">
-                                            <IoIosNotifications className="w-6 h-6" />
-                                            <div className=" rounded-full bg-warning_main text-white h-4 w-4 absolute -top-1 -right-1 text-xxs flex justify-center items-center">12</div>
+                                            <IoIosNotifications className="lg:w-6 lg:h-6 h-4 w-4" />
+                                            <div className=" rounded-full bg-warning_main text-white lg:h-4 lg:w-4 h-3 w-3 absolute -top-1 -right-1 text-xxs flex justify-center items-center">12</div>
                                         </div>
                                         Notifications
                                     </div>
                                     <span className={`  h-px bg-warning_main transition-width duration-300 ease-in-out w-0 group-hover:w-full`}></span>
                                 </div>
                             </div>
-                            <Link href={"/notifications"} className="md:hidden bg-warning_main p-2 rounded-lg">
-                                <IoIosNotifications className="w-5 h-5 text-white" />
+                            <Link href={"/notifications"} className="md:hidden bg-warning_main p-1.5 rounded-lg">
+                                <IoIosNotifications className="w-4 h-4 text-white" />
                             </Link>
-                            <div onClick={handleOpenPopup} className="md:hidden bg-warning_main p-2 rounded-lg">
-                                <Image src={"/assets/icons/filter.svg"} alt="filter" height={20} width={20} className="!h-5 !w-5" />
+                            <div onClick={handleOpenPopup} className="md:hidden bg-warning_main p-1.5 rounded-lg">
+                                <Image src={"/assets/icons/filter.svg"} alt="filter" height={20} width={20} className="!h-4 !w-4" />
                             </div>
                         </div>
                     </Container>
@@ -152,7 +159,7 @@ const PcNav = () => {
                             </Link>
                         </li>
                         <li>
-                            <Link href={"/history"} className={`flex flex-col items-center justify-center text-caption ${pathname == "/history" ? " text-warning_main" : "text-secondary"}`}>
+                            <Link href={"/order-history"} className={`flex flex-col items-center justify-center text-caption ${pathname == "/history" ? " text-warning_main" : "text-secondary"}`}>
                                 <div className=" relative">
                                     <MdOutlineWorkHistory className="w-4 h-4" />
                                     <div className=" rounded-full bg-warning_main text-white h-3 w-3 absolute -top-1 -right-1 text-xxs flex justify-center items-center">12</div>
@@ -170,7 +177,7 @@ const PcNav = () => {
                 </div>
             </div>
 
-            <div className=" hidden md:inline-block">
+            <div className=" hidden md:block">
                 <NotificationDrawer open={isNoti} onClose={toggleNotiDrawer} direction="right" size={450} />
             </div>
             <CartDrawer open={isOpen} onClose={toggleDrawer} direction="right" />
