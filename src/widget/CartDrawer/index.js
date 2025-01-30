@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Button from "@/components/Button";
 import Link from "next/link";
 import dynamic from "next/dynamic";
@@ -12,10 +12,17 @@ import { useCart } from "@/app/utilities/cartContex";
 import Cart from "@/components/Cart";
 import "react-modern-drawer/dist/index.css";
 import useModal from "@/app/hooks/useModal";
+import Image from "next/image";
+import { useForm } from "react-hook-form";
+import useOrder from "@/app/hooks/useOrder";
 
 const CartDrawer = ({ open, onClose, direction, size }) => {
+    const [message, setMessage] = useState("");
     const { cartItems, removeFromCart, incrementQuantity, decrementQuantity, productQuantity } = useCart();
     const { isOpen, openModal, closeModal } = useModal();
+    const { order } = useOrder();
+    const { handleSubmit } = useForm();
+
     const subTotal = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
     const discount = cartItems.reduce((sum, item) => sum + item.discount_price, 0);
     const total = subTotal - discount;
@@ -32,6 +39,25 @@ const CartDrawer = ({ open, onClose, direction, size }) => {
     }, [open]);
 
     if (!open) return null;
+
+    const onSubmit = async () => {
+        const orderData = {
+            user_name: "Test",
+            user_phone: "0123456789",
+            area_id: 1,
+            subtotal: subTotal,
+            total: total,
+            order_details: [
+                { product_id: 17, name: "Product name", qty: 2, rate: 300, discount_amount: 50, discount_percentage: 50, net_amount: 500 },
+                { product_id: 17, name: "Product name", qty: 2, rate: 300, discount_amount: 50, discount_percentage: 50, net_amount: 500 },
+            ],
+        };
+
+        const { loading, success, error, responseData } = await order(orderData);
+        if (success) {
+            setMessage(responseData.message);
+        }
+    };
 
     console.log("first", isOpen);
 
@@ -57,7 +83,7 @@ const CartDrawer = ({ open, onClose, direction, size }) => {
                             </div>
                         </div>
 
-                        <div className=" absolute bottom-0 left-0 right-0 p-4 bg-warning_extra_light">
+                        <div className=" absolute bottom-0 left-0 right-0 p-4 bg-warning_extra_light shadow-3xl">
                             <div className=" mb-2 flex items-center justify-between font-semibold text-secondary">
                                 <p>Subtotal</p>
                                 <p>৳ {subTotal}</p>
@@ -73,7 +99,23 @@ const CartDrawer = ({ open, onClose, direction, size }) => {
                         {isOpen && (
                             <div className=" fixed inset-0 flex items-center justify-center z-30">
                                 <div className="fixed inset-0 bg-[#0006] dark:bg-white/20" onClick={closeModal}></div>
-                                <div className=" bg-white opacity-100 z-50">sdgvdfgbvdfbg</div>
+                                <form onSubmit={handleSubmit(onSubmit)} className=" px-6 py-10 bg-warning_extra_light z-50 rounded-2xl">
+                                    <div className=" flex items-center justify-center mb-4">
+                                        <Image src={"/assets/icons/confirm.svg"} height={64} width={64} alt="confirm" className=" h-16 w-16" />
+                                    </div>
+                                    <h6 className=" text-H6 text-center font-bold text-warning_main leading-7 mb-12">
+                                        Are you want to confirm your <br /> order?
+                                    </h6>
+                                    <h6 className=" text-H6 text-center font-bold text-warning_main leading-7 mb-12">{message}</h6>
+                                    <div className=" flex items-center justify-around">
+                                        <Button type="submite" className={" bg-warning_main hover:bg-warning_dark  text-white !font-semibold"}>
+                                            Yes
+                                        </Button>
+                                        <Button onClick={() => closeModal()} className={" bg-warning_main hover:bg-warning_dark  text-white !font-semibold"}>
+                                            No
+                                        </Button>
+                                    </div>
+                                </form>
                             </div>
                         )}
                     </div>

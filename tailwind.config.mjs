@@ -108,10 +108,7 @@ module.exports = {
             lg: "rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.1) 0px 1px 2px -1px",
             xl: "0px_4px_8px_-8px_rgba(8,31,77,0.20)",
             xxl: "0 8px 28px 2px rgba(61, 61, 61, 0.07)",
-            "3xl": "0 35px 60px -15px rgba(0, 0, 0, 0.3)",
-            input: "0 0 8px rgba(139, 196, 63, .4)",
-            social: "0px 0px 15px 3px rgba(143, 198, 69, 0.8);",
-            playBtn: "0px 0px 25px 3px rgba(143, 198, 69, 0.8)",
+            "3xl": " 0px -12px 39px 4px rgba(0,0,0,0.1), 0px -12px 39px 4px rgba(0,0,0,0.1), 0px -12px 39px 4px rgba(0,0,0,0.1)",
             // flash: "#F9D114 0px 8px 12px -5px, #F9D114 0px 10px 10px -5px",
             flash: "#F9D114 0px 2px 5px 0px",
         },
@@ -192,7 +189,7 @@ module.exports = {
                     },
                 },
                 ".text-H6": {
-                    fontSize: theme("fontSize.lg"),
+                    fontSize: theme("fontSize.sm"),
 
                     "@screen md": {
                         fontSize: theme("fontSize.xl"), // Large screen
@@ -202,7 +199,7 @@ module.exports = {
                     },
                 },
                 ".text-subtitle1": {
-                    fontSize: theme("fontSize.base"),
+                    fontSize: theme("fontSize.sm"),
 
                     "@screen md": {
                         fontSize: theme("fontSize.lg"), // Large screen
@@ -222,7 +219,7 @@ module.exports = {
                     },
                 },
                 ".text-body1": {
-                    fontSize: theme("fontSize.sm"),
+                    fontSize: theme("fontSize.xs"),
 
                     "@screen 2xl": {
                         fontSize: theme("fontSize.base"), // Biggest screen
