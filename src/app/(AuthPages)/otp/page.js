@@ -1,7 +1,6 @@
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { HiOutlineArrowLeft } from "react-icons/hi2";
 
 import Container from "@/components/Container";
 import OTPForm from "@/widget/OTPForm";
