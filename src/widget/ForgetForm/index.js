@@ -24,8 +24,10 @@ const ForgetForm = () => {
 
     const onSubmit = async (formdata) => {
         const { loading, success, error, responseData } = await forgetPassword(formdata);
-        if (success) {
-            router.push("/otp");
+
+        console.log("responseData----", responseData);
+        if (success && responseData.data.otp && responseData.data.phone) {
+            router.push("/verify-otp");
         }
         reset();
     };

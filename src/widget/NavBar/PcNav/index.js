@@ -94,7 +94,7 @@ const PcNav = () => {
                                     </div>
                                     <span className={`  h-px bg-warning_main transition-width duration-300 ease-in-out w-0 group-hover:w-full`}></span>
                                 </Link>
-                                <Link href={"#"} className="group md:h-[4.5rem] capitalize flex-col flex justify-center" onClick={() => setIsDrowp((prev) => !prev)}>
+                                <Link href={"/user-profile"} className="group md:h-[4.5rem] capitalize flex-col flex justify-center" onClick={() => setIsDrowp((prev) => !prev)}>
                                     <div className=" flex flex-col items-center justify-center text-body2">
                                         <Image src={"/assets/icons/default.png"} height={24} width={24} alt="person" className="lg:w-6 lg:h-6 h-4 w-4" />
                                         Profile
@@ -168,7 +168,7 @@ const PcNav = () => {
                             </Link>
                         </li>
                         <li>
-                            <Link href={"/profile"} className={`flex flex-col items-center justify-center text-caption ${pathname == "/profile" ? " text-warning_main" : "text-secondary"}`}>
+                            <Link href={"/user-profile"} className={`flex flex-col items-center justify-center text-caption ${pathname == "/profile" ? " text-warning_main" : "text-secondary"}`}>
                                 <BsPerson className="w-4 h-4" />
                                 Profile
                             </Link>

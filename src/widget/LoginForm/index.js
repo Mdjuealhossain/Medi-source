@@ -12,7 +12,6 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import Button from "@/components/Button";
 import { validationSchema } from "@/app/staticData/signin";
 import useSignIn from "@/app/hooks/useSignIn";
-import { setUser } from "@/app/utilities/user";
 
 const LoginForm = () => {
     const [selectedCheckbox, setSelectedCheckbox] = useState(false);
@@ -31,9 +30,8 @@ const LoginForm = () => {
 
     const onSubmit = async (formdata) => {
         const { loading, success, error, responseData } = await signIn(formdata);
-        if (success) {
-            setUser(JSON.stringify(responseData.data));
-            router.push("/");
+        if (responseData.data.otp) {
+            router.push("/verify-otp");
         }
         reset();
     };

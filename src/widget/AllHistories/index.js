@@ -4,11 +4,7 @@ import useOrderHistory from "@/app/hooks/useOrderHistory";
 import History from "@/components/History";
 
 const AllHistories = () => {
-    const params = {
-        pagination: 20,
-    };
-
-    const { data, error, loading } = useOrderHistory(params);
+    const { data, error, loading } = useOrderHistory();
 
     return (
         <div className=" grid sm:grid-cols-2 grid-cols-1  gap-x-6 md:gap-y-3 gap-y-2">

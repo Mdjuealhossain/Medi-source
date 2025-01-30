@@ -6,6 +6,9 @@ module.exports = {
             height: {
                 "screen-minus-116": "calc(100vh - 6.25rem)",
             },
+            width: {
+                profile: "calc(100% - 18.75rem)",
+            },
             spacing: {
                 "2px": "0.125rem",
                 "10px": "0.625rem",

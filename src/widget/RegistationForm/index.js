@@ -43,9 +43,8 @@ const RegistationForm = () => {
             ...inputArea,
         };
         const { loading, success, error, responseData } = await registation(finalForm);
-        if (success) {
-            setUser(JSON.stringify(responseData.data));
-            router.push("/");
+        if (success && responseData.data.token) {
+            router.push("/login");
         }
         setArea("");
         setDistrictVal("");
@@ -127,18 +126,6 @@ const RegistationForm = () => {
                     </span>
                     {errors.password && <div className=" text-body2 text-error_main mt-1">{errors.password.message}</div>}
                 </div>
-
-                {/* <div className="flex gap-1 items-center mb-6">
-                    <label className="flex items-center hover:cursor-pointer gap-3 w-fit h-min" onChange={() => setSelectedCheckbox((prev) => !prev)}>
-                        <div className="relative flex items-center">
-                            <input type="checkbox" {...register("isCheck")} className={`rounded h-4 w-4 ${selectedCheckbox == true ? " bg-warning_main text-white" : "bg-white"} border border-warning_main appearance-none`} />
-                            <BsCheck size={16} className="absolute top-0 text-white" />
-                        </div>
-                        <p className=" font-normal">I agree have to the</p>
-                    </label>
-
-                    <p className="font-semibold text-warning_main">Privacy Policy</p>
-                </div> */}
                 <div className="mb-3 lg:mb-6">
                     <Button type="submit" className={"bg-warning_main w-full hover:bg-warning_dark capitalize text-white"}>
                         sign up
