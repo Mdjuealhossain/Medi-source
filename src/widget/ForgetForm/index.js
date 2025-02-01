@@ -9,7 +9,7 @@ import useForgetPassword from "@/app/hooks/useForgetPassword";
 import { yupResolver } from "@hookform/resolvers/yup";
 import Button from "@/components/Button";
 import useModal from "@/app/hooks/useModal";
-import ErrorModal from "@/components/ErrorModal";
+import AlartModal from "@/components/ErrorModal";
 
 const ForgetForm = () => {
     const { forgetPassword } = useForgetPassword();
@@ -58,7 +58,7 @@ const ForgetForm = () => {
                     </div>
                 </div>
             </form>
-            <ErrorModal isOpen={isOpen} openModal={openModal} closeModal={closeModal} message={message} />
+            <AlartModal isOpen={isOpen} openModal={openModal} closeModal={closeModal} message={message} />
         </>
     );
 };

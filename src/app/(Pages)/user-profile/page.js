@@ -1,7 +1,6 @@
 "use client";
 import { useState } from "react";
 import Image from "next/image";
-import Link from "next/link";
 import { CgProfile } from "react-icons/cg";
 import { FaBagShopping } from "react-icons/fa6";
 import { MdOutlineLogin } from "react-icons/md";
@@ -15,6 +14,7 @@ import { useRouter } from "next/navigation";
 
 const UserProfile = () => {
     const [activeTab, setActiveTab] = useState(options[0].name);
+
     const route = useRouter();
 
     const handleLogout = () => {

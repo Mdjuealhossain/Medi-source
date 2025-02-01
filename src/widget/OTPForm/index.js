@@ -6,7 +6,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 
 import { validationSchema } from "@/app/staticData/otp";
 import useVerifyOTP from "@/app/hooks/useVerifyOTP";
-import ErrorModal from "@/components/ErrorModal";
+import AlartModal from "@/components/ErrorModal";
 import { useRouter } from "next/navigation";
 import useModal from "@/app/hooks/useModal";
 import Button from "@/components/Button";
@@ -82,7 +82,7 @@ const OTPForm = () => {
                     </div>
                 </div>
             </form>
-            <ErrorModal isOpen={isOpen} openModal={openModal} closeModal={closeModal} message={message} />
+            <AlartModal isOpen={isOpen} openModal={openModal} closeModal={closeModal} message={message} />
         </>
     );
 };

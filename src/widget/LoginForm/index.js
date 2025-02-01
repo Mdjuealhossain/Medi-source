@@ -13,7 +13,7 @@ import Button from "@/components/Button";
 import { validationSchema } from "@/app/staticData/signin";
 import useSignIn from "@/app/hooks/useSignIn";
 import useModal from "@/app/hooks/useModal";
-import ErrorModal from "@/components/ErrorModal";
+import AlartModal from "@/components/ErrorModal";
 
 const LoginForm = () => {
     const [selectedCheckbox, setSelectedCheckbox] = useState(false);
@@ -101,7 +101,7 @@ const LoginForm = () => {
                     </div>
                 </div>
             </form>
-            <ErrorModal isOpen={isOpen} openModal={openModal} closeModal={closeModal} message={message} />
+            <AlartModal isOpen={isOpen} openModal={openModal} closeModal={closeModal} message={message} />
         </>
     );
 };

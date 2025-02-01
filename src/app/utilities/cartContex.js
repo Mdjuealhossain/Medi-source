@@ -1,5 +1,4 @@
 "use client";
-
 import { createContext, useContext, useState, useEffect } from "react";
 
 const CartContext = createContext();
@@ -69,7 +68,7 @@ export function CartProvider({ children }) {
         setIsSearch(e.target.value);
     };
 
-    return <CartContext.Provider value={{ handleSearchProducts, isSearch, setIsSearch, companies, setCompanies, handleCompany, cartItems, addToCart, removeFromCart, cartMessages, incrementQuantity, decrementQuantity, productQuantity }}>{children}</CartContext.Provider>;
+    return <CartContext.Provider value={{ handleSearchProducts, isSearch, setIsSearch, companies, setCompanies, handleCompany, cartItems, setCartItems, addToCart, removeFromCart, cartMessages, incrementQuantity, decrementQuantity, productQuantity }}>{children}</CartContext.Provider>;
 }
 
 export function useCart() {

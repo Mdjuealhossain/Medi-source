@@ -11,9 +11,11 @@ export const useApi = () => {
         let responseData = null;
 
         try {
-            const headers = {
-                "Content-Type": "application/json",
-            };
+            const headers = {};
+
+            if (!(data instanceof FormData)) {
+                headers["Content-Type"] = "application/json";
+            }
 
             // Add Authorization header if `auth` is true
             if (auth) {
@@ -29,7 +31,7 @@ export const useApi = () => {
             };
 
             if (data) {
-                options.body = JSON.stringify(data);
+                options.body = data instanceof FormData ? data : JSON.stringify(data);
             }
 
             // Fetch from API

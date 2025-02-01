@@ -8,7 +8,7 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 
 import { reset_validationSchema } from "@/app/staticData/otp";
-import ErrorModal from "@/components/ErrorModal";
+import AlartModal from "@/components/ErrorModal";
 import { setUser } from "@/app/utilities/user";
 import useReset from "@/app/hooks/useReset";
 import useModal from "@/app/hooks/useModal";
@@ -107,7 +107,7 @@ const ResetForm = () => {
                     </div>
                 </div>
             </form>
-            <ErrorModal isOpen={isOpen} openModal={openModal} closeModal={closeModal} message={message} />
+            <AlartModal isOpen={isOpen} openModal={openModal} closeModal={closeModal} message={message} />
         </>
     );
 };

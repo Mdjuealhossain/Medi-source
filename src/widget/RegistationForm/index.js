@@ -14,7 +14,7 @@ import useGetDistrict from "@/app/hooks/useDistrict";
 import Select from "@/components/Select";
 import Button from "@/components/Button";
 import { setUser } from "@/app/utilities/user";
-import ErrorModal from "@/components/ErrorModal";
+import AlartModal from "@/components/ErrorModal";
 import useModal from "@/app/hooks/useModal";
 
 const RegistationForm = () => {
@@ -140,7 +140,7 @@ const RegistationForm = () => {
                     </div>
                 </div>
             </form>
-            <ErrorModal isOpen={isOpen} openModal={openModal} closeModal={closeModal} message={message} />
+            <AlartModal isOpen={isOpen} openModal={openModal} closeModal={closeModal} message={message} />
         </>
     );
 };

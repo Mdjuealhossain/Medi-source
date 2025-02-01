@@ -1,3 +1,4 @@
+import { useState } from "react";
 import Image from "next/image";
 import { useInView } from "react-intersection-observer";
 
@@ -8,12 +9,25 @@ const ImageURL = ({ image, className, height, width, alt }) => {
         threshold: 0.5,
     });
 
-    // const handleError = (event) => {
-    //     event.target.src = imageURLErrorImage;
-    // };
+    const [isLoading, setIsLoading] = useState(true);
+
+    const handleImageLoad = () => {
+        setIsLoading(false);
+    };
 
     return (
         <div ref={ref} className="flex justify-center items-center overflow-hidden h-full w-full">
+            {isLoading && (
+                <div className="${className} max-h-full h-auto max-w-full w-auto">
+                    <Image
+                        className={` md:h-16 md:w-16 h-8 w-8`}
+                        src="/assets/icons/loading_img.svg" // Path to your loading image
+                        alt="Loading"
+                        height={24}
+                        width={24}
+                    />
+                </div>
+            )}
             {image && inView && (
                 <Image
                     className={`${className} max-h-full h-auto max-w-full w-auto`}
@@ -21,8 +35,11 @@ const ImageURL = ({ image, className, height, width, alt }) => {
                     width={width}
                     src={`https://medisourcebd.com/${image}`}
                     alt={alt}
-                    style={{ transition: "opacity 0.3s ease" }}
-                    // onError={handleError}
+                    onLoad={handleImageLoad}
+                    style={{
+                        opacity: isLoading ? 0 : 1,
+                        transition: "opacity 0.3s ease",
+                    }}
                 />
             )}
         </div>
