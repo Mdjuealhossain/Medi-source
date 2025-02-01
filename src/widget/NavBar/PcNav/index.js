@@ -12,7 +12,6 @@ import { MdOutlineWorkHistory } from "react-icons/md";
 
 import { FilteredPop } from "@/components/FilteredPop";
 import GradientText from "@/components/GradiantText";
-import Dropdown from "@/components/Dropdown";
 import CartDrawer from "@/widget/CartDrawer";
 import Container from "@/components/Container";
 import NotificationDrawer from "@/widget/NotificationDrawer";
@@ -23,7 +22,6 @@ import { useCart } from "@/app/utilities/cartContex";
 
 const PcNav = () => {
     const [isPopupOpen, setIsPopupOpen] = useState(false);
-    const [isDrowp, setIsDrowp] = useState(false);
     const [isOpen, setIsOpen] = React.useState(false);
     const [isNoti, setIsNoti] = React.useState(false);
     const [user, setUser] = useState(null);
@@ -49,10 +47,7 @@ const PcNav = () => {
 
     useEffect(() => {
         const storUser = getUser();
-        if (storUser) {
-            const userData = JSON.parse(storUser);
-            setUser(userData);
-        } else {
+        if (!storUser) {
             router.push("/login");
         }
     }, [router]);
@@ -94,14 +89,13 @@ const PcNav = () => {
                                     </div>
                                     <span className={`  h-px bg-warning_main transition-width duration-300 ease-in-out w-0 group-hover:w-full`}></span>
                                 </Link>
-                                <Link href={"/user-profile"} className="group md:h-[4.5rem] capitalize flex-col flex justify-center" onClick={() => setIsDrowp((prev) => !prev)}>
+                                <Link href={"/user-profile"} className="group md:h-[4.5rem] capitalize flex-col flex justify-center">
                                     <div className=" flex flex-col items-center justify-center text-body2">
                                         <Image src={"/assets/icons/default.png"} height={24} width={24} alt="person" className="lg:w-6 lg:h-6 h-4 w-4" />
                                         Profile
                                     </div>
                                     <span className={`  h-px bg-warning_main transition-width duration-300 ease-in-out w-0 group-hover:w-full`}></span>
                                 </Link>
-                                {isDrowp && <Dropdown user={user} onClose={() => setIsDrowp((prev) => !prev)} />}
                                 <Link href={"#"} onClick={toggleDrawer} className="group  flex flex-col ">
                                     <div className=" flex flex-col items-center justify-center text-body2">
                                         <div className=" relative">

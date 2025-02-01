@@ -32,8 +32,8 @@ const VerifyOTPForm = () => {
         const otpValue = otp.join("");
         const payload = { ...formdata, otp: otpValue, phone: "01234567890" };
         const { loading, success, error, responseData } = await verifyPTP(payload);
-        // reset();
-        // setOtp(new Array(6).fill(""));
+        reset();
+        setOtp(new Array(6).fill(""));
         if (success && responseData.data.name && responseData.data.phone) {
             setUser(JSON.stringify(responseData.data));
             router.push("/");

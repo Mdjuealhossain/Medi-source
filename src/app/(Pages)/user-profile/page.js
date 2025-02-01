@@ -9,9 +9,19 @@ import { RiLockPasswordFill } from "react-icons/ri";
 
 import Container from "@/components/Container";
 import ProfileDetails from "@/widget/ProfileDetails";
+import { clearToken } from "@/app/utilities/token";
+import { clearUser } from "@/app/utilities/user";
+import { useRouter } from "next/navigation";
 
 const UserProfile = () => {
     const [activeTab, setActiveTab] = useState(options[0].name);
+    const route = useRouter();
+
+    const handleLogout = () => {
+        clearToken();
+        clearUser();
+        route.push("/login");
+    };
 
     return (
         <>
@@ -32,10 +42,10 @@ const UserProfile = () => {
                                 </button>
                             ))}
 
-                            <Link href={"#"} className="cursor-pointer py-3  px-5 hover:bg-warning_extra_light flex items-center gap-3 capitalize">
+                            <button onClick={handleLogout} className="cursor-pointer py-3 w-full  px-5 hover:bg-warning_extra_light flex items-center gap-3 capitalize">
                                 <MdOutlineLogin size={20} className=" text-warning_main rotate-180" />
                                 <p className=" font-medium  capitalize">log out</p>
-                            </Link>
+                            </button>
                         </div>
                         <div className=" md:w-profile w-full">{activeTab == "profile details" && <ProfileDetails />}</div>
                     </div>
