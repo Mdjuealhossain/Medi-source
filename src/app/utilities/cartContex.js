@@ -28,7 +28,7 @@ export function CartProvider({ children }) {
             }));
             return;
         }
-        setCartItems([...cartItems, { ...product, quantity: 1 }]);
+        setCartItems([...cartItems, product]);
     };
 
     // Remove product from the cart and clear its message

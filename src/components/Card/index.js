@@ -33,7 +33,7 @@ const Card = ({ image, alt, name, price, discount, extraoff, company, isAdded, h
 
             <Button onClick={handleSelectedItem} className={" bg-warning_main hover:bg-warning_dark text-white !rounded-none"}>
                 <MdOutlineShoppingCart size={18} />
-                {isAdded ? "All Ready Added" : "Add to card"}
+                {isAdded ? "Added" : "Add to card"}
             </Button>
         </div>
     );

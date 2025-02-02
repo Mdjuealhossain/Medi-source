@@ -38,10 +38,20 @@ const Products = ({ flas_sell }) => {
         // setIsSearch("");
     }, [activeTab, companies, isSearch]);
 
-    // add new data
     useEffect(() => {
         if (fetchedProducts?.data?.data.length) {
-            setProducts((prevProducts) => [...prevProducts, ...fetchedProducts.data.data]);
+            const productsWithQuantity = fetchedProducts.data.data.map((product) => ({
+                ...product,
+                quantity: 1,
+                isCart: false,
+            }));
+
+            setProducts((prevProducts) => {
+                // Append new products to the existing ones (don't overwrite)
+                const newProducts = productsWithQuantity.filter((product) => !prevProducts.some((p) => p.id === product.id));
+                return [...prevProducts, ...newProducts];
+            });
+
             setLoading(false);
         }
     }, [fetchedProducts]);

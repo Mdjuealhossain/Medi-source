@@ -5,7 +5,7 @@ const AlartModal = ({ message, isOpen, openModal, closeModal, success = false })
     useEffect(() => {
         let timer;
         if (isOpen) {
-            timer = setTimeout(() => closeModal(), 1000);
+            timer = setTimeout(() => closeModal(), 2000);
         }
         return () => clearTimeout(timer);
     }, [isOpen]);
