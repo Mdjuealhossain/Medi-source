@@ -112,6 +112,7 @@ module.exports = {
             xl: "0px_4px_8px_-8px_rgba(8,31,77,0.20)",
             xxl: "0 8px 28px 2px rgba(61, 61, 61, 0.07)",
             "3xl": " 0px -12px 39px 4px rgba(0,0,0,0.1), 0px -12px 39px 4px rgba(0,0,0,0.1), 0px -12px 39px 4px rgba(0,0,0,0.1)",
+            "4xl": "rgba(0,0,0,0.1) 0px 5px 15px",
             // flash: "#F9D114 0px 8px 12px -5px, #F9D114 0px 10px 10px -5px",
             flash: "#F9D114 0px 2px 5px 0px",
         },

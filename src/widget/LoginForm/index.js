@@ -68,11 +68,11 @@ const LoginForm = () => {
                         <span className="relative">
                             <input type={isShowPassword ? "text" : "password"} {...register("password")} placeholder="Enter your password" className="p-2 w-full rounded bg-white border border-warning_main text-black text-body2" />
                             {isShowPassword ? (
-                                <span onClick={() => setIsShowPassword(false)} className="absolute right-2 top-1 hover:cursor-pointer">
+                                <span onClick={() => setIsShowPassword(false)} className="absolute right-2 top-1/2 transform -translate-y-1/2 hover:cursor-pointer">
                                     <IoEyeSharp size={16} className="text-warning_main" />
                                 </span>
                             ) : (
-                                <span onClick={() => setIsShowPassword(true)} className="absolute right-2 top-1 hover:cursor-pointer">
+                                <span onClick={() => setIsShowPassword(true)} className="absolute right-2 top-1/2 transform -translate-y-1/2 hover:cursor-pointer">
                                     <IoEyeOff size={16} className="text-warning_main" />
                                 </span>
                             )}

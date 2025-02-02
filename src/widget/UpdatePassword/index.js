@@ -63,11 +63,11 @@ const UpdatePassword = () => {
                         <span className="relative">
                             <input type={isShowOldPassword ? "text" : "password"} {...register("old_password")} placeholder="Enter your password" className="p-2 w-full rounded bg-white border border-warning_main text-black text-body2" />
                             {isShowOldPassword ? (
-                                <span onClick={() => setIsShowOldPassword(false)} className="absolute right-2 top-1 hover:cursor-pointer">
+                                <span onClick={() => setIsShowOldPassword(false)} className="absolute right-2 top-1/2 transform -translate-y-1/2 hover:cursor-pointer">
                                     <IoEyeSharp size={16} className="text-warning_main" />
                                 </span>
                             ) : (
-                                <span onClick={() => setIsShowOldPassword(true)} className="absolute right-2 top-1 hover:cursor-pointer">
+                                <span onClick={() => setIsShowOldPassword(true)} className="absolute right-2 top-1/2 transform -translate-y-1/2 hover:cursor-pointer">
                                     <IoEyeOff size={16} className="text-warning_main" />
                                 </span>
                             )}
@@ -84,11 +84,11 @@ const UpdatePassword = () => {
                         <span className="relative">
                             <input type={isShowPassword ? "text" : "password"} {...register("new_password")} placeholder="Enter your password" className="p-2 w-full rounded bg-white border border-warning_main text-black text-body2" />
                             {isShowPassword ? (
-                                <span onClick={() => setIsShowPassword(false)} className="absolute right-2 top-1 hover:cursor-pointer">
+                                <span onClick={() => setIsShowPassword(false)} className="absolute right-2 top-1/2 transform -translate-y-1/2 hover:cursor-pointer">
                                     <IoEyeSharp size={16} className="text-warning_main" />
                                 </span>
                             ) : (
-                                <span onClick={() => setIsShowPassword(true)} className="absolute right-2 top-1 hover:cursor-pointer">
+                                <span onClick={() => setIsShowPassword(true)} className="absolute right-2 top-1/2 transform -translate-y-1/2 hover:cursor-pointer">
                                     <IoEyeOff size={16} className="text-warning_main" />
                                 </span>
                             )}
@@ -105,11 +105,11 @@ const UpdatePassword = () => {
                         <span className="relative">
                             <input type={isShowConPassword ? "text" : "password"} {...register("confirm_password")} placeholder="Enter your password" className="p-2 w-full rounded bg-white border border-warning_main text-black text-body2" />
                             {isShowConPassword ? (
-                                <span onClick={() => setIsShowConPassword(false)} className="absolute right-2 top-1 hover:cursor-pointer">
+                                <span onClick={() => setIsShowConPassword(false)} className="absolute right-2 top-1/2 transform -translate-y-1/2 hover:cursor-pointer">
                                     <IoEyeSharp size={16} className="text-warning_main" />
                                 </span>
                             ) : (
-                                <span onClick={() => setIsShowConPassword(true)} className="absolute right-2 top-1 hover:cursor-pointer">
+                                <span onClick={() => setIsShowConPassword(true)} className="absolute right-2 top-1/2 transform -translate-y-1/2 hover:cursor-pointer">
                                     <IoEyeOff size={16} className="text-warning_main" />
                                 </span>
                             )}
