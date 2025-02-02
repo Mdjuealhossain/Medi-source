@@ -54,7 +54,7 @@ const ProfileDetails = () => {
                     <div className="w-24 h-24 rounded-full overflow-hidden">
                         <Image src="/assets/icons/default.png" height={64} width={64} alt="Avatar" className="w-full h-full object-cover" />
                     </div>
-                    <h4 className=" text-H4 font-semibold text-center ">{profileData?.data.name}</h4>
+                    <h4 className=" text-H4 font-semibold text-center ">{profileData?.data.name ? profileData?.data.name : "Unknown"}</h4>
                 </div>
                 <div className=" max-w-sm mx-auto md:mb-12 mb-6">
                     <div className=" flex items-center justify-between pb-2 border-b border-divider">

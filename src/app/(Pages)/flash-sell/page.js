@@ -3,7 +3,7 @@ import Products from "@/widget/Products";
 
 const FlashSell = () => {
     return (
-        <div className=" pb-6 md:pb-12 ">
+        <div>
             <div className=" flex items-center justify-center flex-col px-4 py-2 bg-warning_extra_light">
                 <h6 className=" text-H6 font-semibold text-center capitalize">flash sell</h6>
             </div>

@@ -11,6 +11,8 @@ import ProfileDetails from "@/widget/ProfileDetails";
 import { clearToken } from "@/app/utilities/token";
 import { clearUser } from "@/app/utilities/user";
 import { useRouter } from "next/navigation";
+import UpdatePassword from "@/widget/UpdatePassword";
+import PrivacyPolicy from "@/widget/PrivacyPlicy";
 
 const UserProfile = () => {
     const [activeTab, setActiveTab] = useState(options[0].name);
@@ -47,7 +49,11 @@ const UserProfile = () => {
                                 <p className=" font-medium  capitalize">log out</p>
                             </button>
                         </div>
-                        <div className=" md:w-profile w-full">{activeTab == "profile details" && <ProfileDetails />}</div>
+                        <div className=" md:w-profile w-full">
+                            {activeTab == "profile details" && <ProfileDetails />}
+                            {activeTab == "change password" && <UpdatePassword />}
+                            {activeTab == "privacy policy" && <PrivacyPolicy />}
+                        </div>
                     </div>
                 </Container>
             </div>
