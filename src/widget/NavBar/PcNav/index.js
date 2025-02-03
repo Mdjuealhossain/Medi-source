@@ -120,7 +120,7 @@ const PcNav = () => {
                                     <span className={`  h-px bg-warning_main transition-width duration-300 ease-in-out w-0 group-hover:w-full`}></span>
                                 </div>
                             </div>
-                            <Link href={"/notifications"} className="md:hidden bg-warning_main p-1.5 rounded-lg">
+                            <Link href={"#"} onClick={toggleNotiDrawer} className="md:hidden bg-warning_main p-1.5 rounded-lg">
                                 <IoIosNotifications className="w-4 h-4 text-white" />
                             </Link>
                             <div onClick={handleOpenPopup} className="md:hidden bg-warning_main p-1.5 rounded-lg">
@@ -172,10 +172,7 @@ const PcNav = () => {
                     </ul>
                 </div>
             </div>
-
-            <div className=" hidden md:block">
-                <NotificationDrawer notifications={notifications} open={isNoti} onClose={toggleNotiDrawer} direction="right" size={450} />
-            </div>
+            <NotificationDrawer notifications={notifications} open={isNoti} onClose={toggleNotiDrawer} direction="right" />
             <CartDrawer open={isOpen} onClose={toggleDrawer} direction="right" />
         </>
     );
