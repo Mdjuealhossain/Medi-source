@@ -5,26 +5,27 @@ import { generateToken, messaging } from "@/app/Notifications/firebase";
 
 const useNotifications = () => {
     const [notifications, setNotifications] = useState(() => {
-        // Initialize from localStorage if available
         const saved = localStorage.getItem("notifications");
         return saved ? JSON.parse(saved) : [];
     });
 
     useEffect(() => {
-        generateToken();
+        if (typeof window !== "undefined") {
+            generateToken();
 
-        if (messaging) {
-            onMessage(messaging, (payload) => {
-                const newNotification = payload.notification;
-                console.log("newNotification:----", newNotification);
-                setNotifications((prev) => {
-                    const updated = [...prev, newNotification];
-                    localStorage.setItem("notifications", JSON.stringify(updated));
-                    return updated;
+            if (messaging) {
+                onMessage(messaging, (payload) => {
+                    const newNotification = payload.notification;
+                    console.log("newNotification:----", newNotification);
+                    setNotifications((prev) => {
+                        const updated = [...prev, newNotification];
+                        localStorage.setItem("notifications", JSON.stringify(updated));
+                        return updated;
+                    });
                 });
-            });
-        } else {
-            console.error("Messaging object is undefined");
+            } else {
+                console.error("Messaging object is undefined");
+            }
         }
     }, []);
 

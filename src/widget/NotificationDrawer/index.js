@@ -8,7 +8,7 @@ import Notification from "@/components/Notification";
 import "react-modern-drawer/dist/index.css";
 import { formatDate } from "@/app/utilities/formatDate ";
 
-const NotificationDrawer = ({ open, onClose, direction, size, notifications }) => {
+const NotificationDrawer = ({ open, onClose, direction, size, notifications = [] }) => {
     useEffect(() => {
         if (open) {
             document.body.classList.add("overflow-hidden");
