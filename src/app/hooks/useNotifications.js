@@ -1,13 +1,18 @@
 "use client";
 import { useEffect, useState } from "react";
+
 import { onMessage } from "firebase/messaging";
 import { generateToken, messaging } from "@/app/Notifications/firebase";
 
 const useNotifications = () => {
-    const [notifications, setNotifications] = useState(() => {
-        const saved = localStorage.getItem("notifications");
-        return saved ? JSON.parse(saved) : [];
-    });
+    const [notifications, setNotifications] = useState([]);
+
+    useEffect(() => {
+        if (typeof window !== "undefined") {
+            const savedNotifications = localStorage.getItem("notifications");
+            setNotifications(savedNotifications ? JSON.parse(savedNotifications) : []);
+        }
+    }, []);
 
     useEffect(() => {
         if (typeof window !== "undefined") {
@@ -16,7 +21,8 @@ const useNotifications = () => {
             if (messaging) {
                 onMessage(messaging, (payload) => {
                     const newNotification = payload.notification;
-                    console.log("newNotification:----", newNotification);
+                    console.log("New Notification:", newNotification);
+
                     setNotifications((prev) => {
                         const updated = [...prev, newNotification];
                         localStorage.setItem("notifications", JSON.stringify(updated));
@@ -24,7 +30,7 @@ const useNotifications = () => {
                     });
                 });
             } else {
-                console.error("Messaging object is undefined");
+                console.error("Firebase messaging object is not initialized correctly.");
             }
         }
     }, []);

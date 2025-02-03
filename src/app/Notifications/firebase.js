@@ -1,7 +1,7 @@
+// src/app/Notifications/firebase.js
 import { initializeApp } from "firebase/app";
 import { getMessaging, getToken } from "firebase/messaging";
 
-// Your Firebase config object
 const firebaseConfig = {
     apiKey: "AIzaSyA-byTjP72B22_6WY0YFkR_3Jf0UnK4WuU",
     authDomain: "medi-source-850ec.firebaseapp.com",
@@ -12,9 +12,17 @@ const firebaseConfig = {
     measurementId: "G-N99HQK809M",
 };
 
-const app = initializeApp(firebaseConfig);
+let messaging;
 
-export const messaging = getMessaging(app);
+try {
+    const app = initializeApp(firebaseConfig);
+    messaging = getMessaging(app);
+    console.log("Firebase Messaging initialized");
+} catch (error) {
+    console.error("Error initializing Firebase Messaging:", error);
+}
+
+export { messaging };
 
 export const generateToken = async () => {
     try {
@@ -24,10 +32,13 @@ export const generateToken = async () => {
                 vapidKey: "BPwQtF0JTfKIarYQ5kmmxZ5v-PMK2L3o-IcOcMmrdy0vkLfktAXOLKp89cBcn00QySZ6Ee-ZNrpfHlTinAu1XbU",
             });
             if (token) {
+                console.log("FCM Token:", token);
                 localStorage.setItem("fcmToken", token);
             } else {
-                console.error("Failed to generate token");
+                console.error("Failed to get token");
             }
+        } else {
+            console.log("Notification permission denied");
         }
     } catch (error) {
         console.error("Error during token generation:", error);
