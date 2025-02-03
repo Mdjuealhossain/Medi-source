@@ -155,6 +155,7 @@ const PcNav = () => {
                                 Cart
                             </Link>
                         </li>
+
                         <li>
                             <Link href={"/order-history"} className={`flex flex-col items-center justify-center text-caption ${pathname == "/history" ? " text-warning_main" : "text-secondary"}`}>
                                 <div className=" relative">
