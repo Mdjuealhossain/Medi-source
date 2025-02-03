@@ -82,7 +82,7 @@ const Products = ({ flas_sell }) => {
     };
 
     return (
-        <div>
+        <div className=" relative">
             <div className="flex justify-center mb-6 md:mb-12 items-center md:gap-4 gap-2 whitespace-nowrap md:scroll-container overflow-x-auto md:overflow-x-hidden no-scrollbar">
                 {tabs?.data.map((tab) => (
                     <span key={tab.id} className={`md:py-2 py-1 px-3 md:px-5 capitalize font-medium cursor-pointer text-body1 rounded-lg border border-success_main transition-all duration-400 focus:outline-none ${activeTab === tab.id ? " bg-success_main hover:bg-success_dark text-white" : ` bg-white text-primary`}`} onClick={() => handleTabChange(tab.id)}>
@@ -97,21 +97,21 @@ const Products = ({ flas_sell }) => {
                 })}
             </div>
 
-            {!fetchLoading && !loading && products.length == 0 && (
-                <div className="flex justify-center flex-col items-center ">
-                    <div className=" md:h-170 h-100 flex mb-4 md:mb-6 items-center justify-between overflow-hidden">
-                        <Image height={400} width={400} src={"/assets/image/home/not_found_product.webp"} alt={"not found"} className=" max-h-full max-w-full h-auto w-auto" />
+            {fetchLoading && (
+                <div className="  h-full flex items-center justify-center">
+                    <Image src={"/assets/icons/loading_img.svg"} alt="loading" height={24} width={24} className=" md:h-16 md:w-16 h-12 w-12" />
+                </div>
+            )}
+
+            {!fetchLoading && isSearch && companies && products.length === 0 && (
+                <div className="flex justify-center flex-col items-center">
+                    <div className="md:h-170 h-100 flex mb-4 md:mb-6 items-center justify-between overflow-hidden">
+                        <Image height={400} width={400} src={"/assets/image/home/not_found_product.webp"} alt={"not found"} className="max-h-full max-w-full h-auto w-auto" />
                     </div>
                     <h4 className="text-H4 font-semibold mb-2 text-center capitalize text-secondary">Product is not available</h4>
                     <p className="text-center text-secondary">
                         Looks like you haven’t made your choice yet, <br /> add all your favorite products
                     </p>
-                </div>
-            )}
-
-            {fetchLoading && loading && products.length > 0 && (
-                <div className="fixed inset-0 flex items-end justify-center z-50">
-                    <Image src={"/assets/icons/loading.svg"} alt="loading" height={24} width={24} className=" md:h-8 md:w-8 h-6 w-6 md:mb-2 mb-12" />
                 </div>
             )}
         </div>

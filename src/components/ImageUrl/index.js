@@ -20,7 +20,7 @@ const ImageURL = ({ image, className, height, width, alt }) => {
             {isLoading && (
                 <div className="${className} max-h-full h-auto max-w-full w-auto">
                     <Image
-                        className={` md:h-16 md:w-16 h-8 w-8`}
+                        className={` md:h-12 md:w-12 h-8 w-8`}
                         src="/assets/icons/loading_img.svg" // Path to your loading image
                         alt="Loading"
                         height={24}
