@@ -17,7 +17,7 @@ const SlimNavbarForTopArea = () => {
                         <p>Get App</p>
                     </Link>
                     <div className="h-4 border-l-2"></div>
-                    <Link href={"#"} className="flex items-center gap-2 hover:cursor-pointer">
+                    <Link href="tel:01754343239" target="_blank" className="flex items-center gap-2 hover:cursor-pointer">
                         <HiMiniPhoneArrowUpRight size={18} />
                         <p>01754343239</p>
                     </Link>

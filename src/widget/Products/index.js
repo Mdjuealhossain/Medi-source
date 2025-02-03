@@ -96,7 +96,8 @@ const Products = ({ flas_sell }) => {
                     return <Card handleSelectedItem={() => addToCart(data)} isAdded={isInCart} key={index} id={data.id} image={data.image} alt={data.name} name={data.name} price={data.price} discount={data.discount_price} extraoff={data.discount_percentage} company={data.company && data.company.name} />;
                 })}
             </div>
-            {!fetchLoading && products.length == 0 && (
+
+            {!fetchLoading && !loading && products.length == 0 && (
                 <div className="flex justify-center flex-col items-center ">
                     <div className=" md:h-170 h-100 flex mb-4 md:mb-6 items-center justify-between overflow-hidden">
                         <Image height={400} width={400} src={"/assets/image/home/not_found_product.webp"} alt={"not found"} className=" max-h-full max-w-full h-auto w-auto" />

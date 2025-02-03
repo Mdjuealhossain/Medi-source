@@ -28,8 +28,6 @@ const PcNav = () => {
     const { cartItems, handleCompany, handleSearchProducts, isSearch } = useCart();
     const notifications = useNotifications();
 
-    console.log("notificationsqewfdwegf----", notifications.length);
-
     const pathname = usePathname();
     const router = useRouter();
 
