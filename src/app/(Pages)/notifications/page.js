@@ -15,37 +15,31 @@ const Notifications = () => {
                 <div className=" px-4 flex flex-col gap-2 h">
                     <p className=" ">11 May, 2024</p>
                     <div className=" flex flex-col gap-2">
-                        <Notification />
-                        <Notification />
-                        <Notification />
-                        <Notification />
+                        <Notification title={"notification.title"} description={"notification.body"} />
+                        <Notification title={"notification.title"} description={"notification.body"} />
                     </div>
                 </div>
                 <div className=" px-4 flex flex-col gap-2">
                     <p className=" ">11 May, 2024</p>
                     <div className=" flex flex-col gap-2">
-                        <Notification />
-                        <Notification />
-                        <Notification />
-                        <Notification />
+                        <Notification title={"notification.title"} description={"notification.body"} />
+                        <Notification title={"notification.title"} description={"notification.body"} />
                     </div>
                 </div>
                 <div className=" px-4 flex flex-col gap-2">
                     <p className=" ">11 May, 2024</p>
                     <div className=" flex flex-col gap-2">
-                        <Notification />
-                        <Notification />
-                        <Notification />
-                        <Notification />
+                        <Notification title={"notification.title"} description={"notification.body"} />
+                        <Notification title={"notification.title"} description={"notification.body"} />
                     </div>
                 </div>
                 <div className=" px-4 flex flex-col gap-2">
                     <p className=" ">11 May, 2024</p>
                     <div className=" flex flex-col gap-2">
-                        <Notification />
-                        <Notification />
-                        <Notification />
-                        <Notification />
+                        <Notification title={"notification.title"} description={"notification.body"} />
+                        <Notification title={"notification.title"} description={"notification.body"} />
+                        <Notification title={"notification.title"} description={"notification.body"} />
+                        <Notification title={"notification.title"} description={"notification.body"} />
                     </div>
                 </div>
             </div>

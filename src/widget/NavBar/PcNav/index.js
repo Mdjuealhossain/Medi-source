@@ -19,13 +19,16 @@ import { usePathname, useRouter } from "next/navigation";
 import { getUser } from "@/app/utilities/user";
 import useCompany from "@/app/hooks/useCompany";
 import { useCart } from "@/app/utilities/cartContex";
+import useNotifications from "@/app/hooks/useNotifications";
 
 const PcNav = () => {
     const [isPopupOpen, setIsPopupOpen] = useState(false);
     const [isOpen, setIsOpen] = React.useState(false);
     const [isNoti, setIsNoti] = React.useState(false);
-    const [user, setUser] = useState(null);
     const { cartItems, handleCompany, handleSearchProducts, isSearch } = useCart();
+    const notifications = useNotifications();
+
+    console.log("notificationsqewfdwegf----", notifications.length);
 
     const pathname = usePathname();
     const router = useRouter();
@@ -110,7 +113,7 @@ const PcNav = () => {
                                     <div className=" flex flex-col items-center justify-center text-body2">
                                         <div className=" relative">
                                             <IoIosNotifications className="lg:w-6 lg:h-6 h-4 w-4" />
-                                            <div className=" rounded-full bg-warning_main text-white lg:h-4 lg:w-4 h-3 w-3 absolute -top-1 -right-1 text-xxs flex justify-center items-center">12</div>
+                                            {notifications.length > 0 && <div className=" rounded-full bg-warning_main text-white lg:h-4 lg:w-4 h-3 w-3 absolute -top-1 -right-1 text-xxs flex justify-center items-center">{notifications.length}</div>}
                                         </div>
                                         Notifications
                                     </div>
@@ -156,7 +159,6 @@ const PcNav = () => {
                             <Link href={"/order-history"} className={`flex flex-col items-center justify-center text-caption ${pathname == "/history" ? " text-warning_main" : "text-secondary"}`}>
                                 <div className=" relative">
                                     <MdOutlineWorkHistory className="w-4 h-4" />
-                                    <div className=" rounded-full bg-warning_main text-white h-3 w-3 absolute -top-1 -right-1 text-xxs flex justify-center items-center">12</div>
                                 </div>
                                 History
                             </Link>
@@ -172,7 +174,7 @@ const PcNav = () => {
             </div>
 
             <div className=" hidden md:block">
-                <NotificationDrawer open={isNoti} onClose={toggleNotiDrawer} direction="right" size={450} />
+                <NotificationDrawer notifications={notifications} open={isNoti} onClose={toggleNotiDrawer} direction="right" size={450} />
             </div>
             <CartDrawer open={isOpen} onClose={toggleDrawer} direction="right" />
         </>
