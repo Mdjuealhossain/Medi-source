@@ -1,18 +1,20 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import { MdOutlineShoppingCart } from "react-icons/md";
+import { MdOutlineRemoveShoppingCart } from "react-icons/md";
 import { FiMinus } from "react-icons/fi";
 import { IoAdd } from "react-icons/io5";
 
 import Button from "../Button";
 import ImageURL from "../ImageUrl";
 
-const Card = ({ image, alt, name, price, discount, extraoff, company, isAdded, handleSelectedItem, incrementQuantity, decrementQuantity, quantity, id, productQuantity }) => {
+const Card = ({ handleWarning, status, image, alt, name, price, discount, extraoff, company, isAdded, handleSelectedItem, incrementQuantity, decrementQuantity, quantity, id, productQuantity }) => {
     const previousValue = price + discount;
+
     return (
         <div className="border bg-white border-divider flex flex-col h-full rounded-lg overflow-hidden">
             <div className=" relative">
-                <div className={`lg:h-200 md:h-150 h-100 `}>
+                <div className={`lg:h-200 md:h-150 h-100 flex items-center justify-center overflow-hidden `}>
                     <ImageURL height={200} width={350} alt={alt} image={image} />
                 </div>
                 <div className=" absolute left-0 -top-0">
@@ -46,10 +48,19 @@ const Card = ({ image, alt, name, price, discount, extraoff, company, isAdded, h
                     </button>
                 </div>
             ) : (
-                <Button onClick={handleSelectedItem} className={" bg-warning_main hover:bg-warning_dark text-white !rounded-none"}>
-                    <MdOutlineShoppingCart size={18} />
-                    Add to card
-                </Button>
+                <div className=" w-full">
+                    {status > 0 ? (
+                        <Button onClick={handleSelectedItem} className={" bg-warning_main hover:bg-warning_dark text-white !rounded-none w-full"}>
+                            <MdOutlineShoppingCart />
+                            Add to card
+                        </Button>
+                    ) : (
+                        <Button onClick={handleWarning} className={" capitalize bg-error_main  text-white !rounded-none w-full"}>
+                            <MdOutlineRemoveShoppingCart size={18} />
+                            out of stock
+                        </Button>
+                    )}
+                </div>
             )}
         </div>
     );
