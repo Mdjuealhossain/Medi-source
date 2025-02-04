@@ -9,21 +9,18 @@ import Card from "@/components/Card";
 
 const Products = ({ flas_sell }) => {
     const [activeTab, setActiveTab] = useState(null);
-    const [page, setPage] = useState(1);
     const [products, setProducts] = useState([]);
     const [loading, setLoading] = useState(false);
+    const [page, setPage] = useState(1);
     const { cartItems, addToCart, incrementQuantity, decrementQuantity, productQuantity, companies, setCompanies, isSearch, setIsSearch } = useCart();
-
     const { data: tabs } = useCategories();
 
-    // Initialize activeTab to the first category when tabs data is available
     useEffect(() => {
         if (tabs?.data?.length > 0 && activeTab === null) {
-            setActiveTab(tabs.data[0].id); // Set default tab if none is selected
+            setActiveTab(tabs.data[0].id);
         }
     }, [tabs]);
 
-    // Parameters for fetching products
     const params = {
         categoryId: activeTab,
         search: isSearch,
@@ -35,11 +32,10 @@ const Products = ({ flas_sell }) => {
 
     const { data: fetchedProducts, loading: fetchLoading } = useProducts(params);
 
-    // Reset products, page, and companies when search is triggered
     useEffect(() => {
         if (isSearch) {
             setCompanies([]);
-            setActiveTab(null); // Optional: You can reset the tab if desired
+            setActiveTab(null);
             setPage(1);
             setProducts([]);
         }
@@ -82,11 +78,15 @@ const Products = ({ flas_sell }) => {
     // Handle tab change and reset data
     const handleTabChange = (tabId) => {
         setActiveTab(tabId);
-        setCompanies([]); // Reset selected companies
-        setIsSearch(""); // Clear search keyword
-        setProducts([]); // Clear product list
-        setPage(1); // Reset page to 1
+        setIsSearch("");
+        setProducts([]);
+        setPage(1);
     };
+
+    useEffect(() => {
+        setPage(1);
+        setProducts([]);
+    }, [companies]);
 
     return (
         <div className="relative">
