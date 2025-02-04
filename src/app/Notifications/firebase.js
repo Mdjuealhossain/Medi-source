@@ -1,17 +1,18 @@
-// src/app/Notifications/firebase.js
+// Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { getMessaging, getToken } from "firebase/messaging";
 
 const firebaseConfig = {
-    apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
-    authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
-    projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
-    storageBucket: process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET,
-    messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID,
-    appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
-    measurementId: process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID,
+    apiKey: "AIzaSyAMKiJr1p8JQHEjpV_3tBkjzn1ap_M7gNg",
+    authDomain: "medisource-1ffc0.firebaseapp.com",
+    projectId: "medisource-1ffc0",
+    storageBucket: "medisource-1ffc0.firebasestorage.app",
+    messagingSenderId: "602669597870",
+    appId: "1:602669597870:web:1283755db1554983f8193f",
+    measurementId: "G-L6WY31MZ4T",
 };
 
+// Initialize Firebase
 let messaging;
 
 try {
@@ -25,22 +26,12 @@ try {
 export { messaging };
 
 export const generateToken = async () => {
-    try {
-        const permission = await Notification.requestPermission();
-        if (permission === "granted") {
-            const token = await getToken(messaging, {
-                vapidKey: "BPwQtF0JTfKIarYQ5kmmxZ5v-PMK2L3o-IcOcMmrdy0vkLfktAXOLKp89cBcn00QySZ6Ee-ZNrpfHlTinAu1XbU",
-            });
-            if (token) {
-                console.log("FCM Token:", token);
-                localStorage.setItem("fcmToken", token);
-            } else {
-                console.error("Failed to get token");
-            }
-        } else {
-            console.log("Notification permission denied");
-        }
-    } catch (error) {
-        console.error("Error during token generation:", error);
+    const permission = await Notification.requestPermission();
+    if (permission === "granted") {
+        const token = await getToken(messaging, {
+            vapidKey: "BCZ_GxVGFpNteU6fuyHaClbX00_Vev87iTNW_XhkxyMn8HpvoSdvb6xjsF3Bs_cXLgekugD4yhsgRX0Rp3TPDTM",
+        });
+
+        console.log("first,", token);
     }
 };

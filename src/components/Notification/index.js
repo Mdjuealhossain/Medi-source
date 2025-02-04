@@ -1,5 +1,5 @@
-import Image from "next/image";
 import React from "react";
+import Image from "next/image";
 import { MdNotificationsActive } from "react-icons/md";
 
 const Notification = ({ image, alt, title, description, time }) => {
@@ -18,6 +18,7 @@ const Notification = ({ image, alt, title, description, time }) => {
                     <p className=" text-secondary">{description}</p>
                 </div>
             </div>
+
             <p className=" text-subtitle2 text-warning_main">{time}</p>
         </div>
     );

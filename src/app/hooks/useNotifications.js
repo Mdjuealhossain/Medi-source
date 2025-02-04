@@ -1,38 +1,34 @@
 "use client";
 import { useEffect, useState } from "react";
-
 import { onMessage } from "firebase/messaging";
 import { generateToken, messaging } from "@/app/Notifications/firebase";
 
 const useNotifications = () => {
     const [notifications, setNotifications] = useState([]);
 
+    // Load notifications from localStorage if available
     useEffect(() => {
-        if (typeof window !== "undefined") {
-            const savedNotifications = localStorage.getItem("notifications");
-            setNotifications(savedNotifications ? JSON.parse(savedNotifications) : []);
+        const storedNotifications = localStorage.getItem("notifications");
+        if (storedNotifications) {
+            setNotifications(JSON.parse(storedNotifications));
         }
     }, []);
 
     useEffect(() => {
-        if (typeof window !== "undefined") {
-            generateToken();
+        generateToken();
+        onMessage(messaging, (payload) => {
+            const newNotification = payload.notification;
+            console.log("New Notification:", newNotification);
 
-            if (messaging) {
-                onMessage(messaging, (payload) => {
-                    const newNotification = payload.notification;
-                    console.log("New Notification:", newNotification);
+            setNotifications((prev) => {
+                const updated = [...prev, newNotification];
 
-                    setNotifications((prev) => {
-                        const updated = [...prev, newNotification];
-                        localStorage.setItem("notifications", JSON.stringify(updated));
-                        return updated;
-                    });
-                });
-            } else {
-                console.error("Firebase messaging object is not initialized correctly.");
-            }
-        }
+                // Save updated notifications to localStorage
+                localStorage.setItem("notifications", JSON.stringify(updated));
+
+                return updated;
+            });
+        });
     }, []);
 
     return notifications;
