@@ -12,106 +12,111 @@ const Products = ({ flas_sell }) => {
     const [page, setPage] = useState(1);
     const [products, setProducts] = useState([]);
     const [loading, setLoading] = useState(false);
-    const { cartItems, addToCart, companies, setCompanies, isSearch, setIsSearch } = useCart();
+    const { cartItems, addToCart, incrementQuantity, decrementQuantity, productQuantity, companies, setCompanies, isSearch, setIsSearch } = useCart();
 
     const { data: tabs } = useCategories();
+
+    // Initialize activeTab to the first category when tabs data is available
     useEffect(() => {
-        if (tabs?.data?.length > 0) {
-            setActiveTab(tabs.data[0].id);
+        if (tabs?.data?.length > 0 && activeTab === null) {
+            setActiveTab(tabs.data[0].id); // Set default tab if none is selected
         }
     }, [tabs]);
 
+    // Parameters for fetching products
     const params = {
         categoryId: activeTab,
-        companyIds: companies,
         search: isSearch,
+        companyIds: companies,
         pagination: 8,
         page: page,
         isFlashSale: flas_sell && 1,
     };
 
-    const { data: fetchedProducts, error, loading: fetchLoading } = useProducts(params);
+    const { data: fetchedProducts, loading: fetchLoading } = useProducts(params);
 
+    // Reset products, page, and companies when search is triggered
     useEffect(() => {
-        setProducts([]);
-        setPage(1);
-        // setIsSearch("");
-    }, [activeTab, companies, isSearch]);
+        if (isSearch) {
+            setCompanies([]);
+            setActiveTab(null); // Optional: You can reset the tab if desired
+            setPage(1);
+            setProducts([]);
+        }
+    }, [isSearch, tabs?.data]);
 
+    // Update products when fetched products are available
     useEffect(() => {
         if (fetchedProducts?.data?.data.length) {
             const productsWithQuantity = fetchedProducts.data.data.map((product) => ({
                 ...product,
                 quantity: 1,
-                isCart: false,
             }));
 
             setProducts((prevProducts) => {
-                // Append new products to the existing ones (don't overwrite)
                 const newProducts = productsWithQuantity.filter((product) => !prevProducts.some((p) => p.id === product.id));
                 return [...prevProducts, ...newProducts];
             });
-
             setLoading(false);
         }
     }, [fetchedProducts]);
 
+    // Scroll handler for infinite scrolling
     const handleScroll = () => {
         const scrollPosition = window.innerHeight + document.documentElement.scrollTop;
         const bottomPosition = document.documentElement.offsetHeight;
-        if (scrollPosition >= bottomPosition - 100 && !loading) {
+
+        if (scrollPosition >= bottomPosition - 100 && !loading && fetchedProducts?.data?.data.length > 0) {
             setLoading(true);
             setPage((prevPage) => prevPage + 1);
         }
     };
 
     useEffect(() => {
-        window.addEventListener("scroll", handleScroll);
+        window.addEventListener("scroll", handleScroll); // Add scroll event listener
         return () => {
-            window.removeEventListener("scroll", handleScroll);
+            window.removeEventListener("scroll", handleScroll); // Clean up on unmount
         };
-    }, [loading]);
+    }, [loading, fetchedProducts?.data?.data.length]);
 
     // Handle tab change and reset data
     const handleTabChange = (tabId) => {
         setActiveTab(tabId);
-        setCompanies([]);
-        setIsSearch("");
-        setProducts([]);
-        setPage(1);
+        setCompanies([]); // Reset selected companies
+        setIsSearch(""); // Clear search keyword
+        setProducts([]); // Clear product list
+        setPage(1); // Reset page to 1
     };
 
     return (
-        <div className=" relative">
-            <div className="flex justify-center mb-6 md:mb-12 items-center md:gap-4 gap-2 whitespace-nowrap md:scroll-container overflow-x-auto md:overflow-x-hidden no-scrollbar">
+        <div className="relative">
+            {/* Tab Selection */}
+            <div className={`flex justify-center mb-6 items-center gap-4 overflow-x-auto ${isSearch && " hidden"}`}>
                 {tabs?.data.map((tab) => (
-                    <span key={tab.id} className={`md:py-2 py-1 px-3 md:px-5 capitalize font-medium cursor-pointer text-body1 rounded-lg border border-success_main transition-all duration-400 focus:outline-none ${activeTab === tab.id ? " bg-success_main hover:bg-success_dark text-white" : ` bg-white text-primary`}`} onClick={() => handleTabChange(tab.id)}>
+                    <span key={tab.id} className={`py-2 px-5 capitalize font-medium cursor-pointer rounded-lg ${activeTab === tab.id ? "bg-success_main text-white" : "bg-white text-primary"}`} onClick={() => handleTabChange(tab.id)}>
                         <span>{tab.name}</span>
                     </span>
                 ))}
             </div>
-            <div className=" grid xl:grid-cols-4 sm:grid-cols-3 grid-cols-2 xs:grid-cols-2 lg:gap-8 md:gap-4 gap-2">
-                {products.map((data, index) => {
-                    const isInCart = cartItems.some((item) => item.id === data.id);
-                    return <Card handleSelectedItem={() => addToCart(data)} isAdded={isInCart} key={index} id={data.id} image={data.image} alt={data.name} name={data.name} price={data.price} discount={data.discount_price} extraoff={data.discount_percentage} company={data.company && data.company.name} />;
-                })}
-            </div>
 
-            {fetchLoading && (
-                <div className="  h-full flex items-center justify-center">
-                    <Image src={"/assets/icons/loading_img.svg"} alt="loading" height={24} width={24} className=" md:h-16 md:w-16 h-12 w-12" />
+            {/* Display products in grid layout */}
+            {products.length > 0 && (
+                <div className="grid xl:grid-cols-4 sm:grid-cols-3 grid-cols-2 gap-4">
+                    {products.map((data) => {
+                        const cartItem = cartItems.find((item) => item.id === data.id);
+                        const quantity = cartItem?.quantity || 0;
+
+                        return <Card productQuantity={productQuantity} incrementQuantity={incrementQuantity} decrementQuantity={decrementQuantity} id={data.id} key={data.id} image={data.image} alt={data.name} name={data.name} price={data.price} discount={data.discount_price} extraoff={data.discount_percentage} company={data.company && data.company.name} handleSelectedItem={() => addToCart(data)} quantity={quantity} />;
+                    })}
                 </div>
             )}
 
-            {!fetchLoading && isSearch && companies && products.length === 0 && (
-                <div className="flex justify-center flex-col items-center">
-                    <div className="md:h-170 h-100 flex mb-4 md:mb-6 items-center justify-between overflow-hidden">
-                        <Image height={400} width={400} src={"/assets/image/home/not_found_product.webp"} alt={"not found"} className="max-h-full max-w-full h-auto w-auto" />
-                    </div>
-                    <h4 className="text-H4 font-semibold mb-2 text-center capitalize text-secondary">Product is not available</h4>
-                    <p className="text-center text-secondary">
-                        Looks like you haven’t made your choice yet, <br /> add all your favorite products
-                    </p>
+            {products.length == 0 && !fetchLoading && <div className="text-center py-4">No more products available.</div>}
+
+            {/* Loading spinner */}
+            {fetchLoading && (
+                <div className="h-full flex items-center justify-center">
+                    <Image src={"/assets/icons/loading_img.svg"} alt="loading" height={24} width={24} className="md:h-16 md:w-16 h-12 w-12" />
                 </div>
             )}
         </div>

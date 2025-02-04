@@ -1,5 +1,4 @@
-"use client";
-import React, { useState } from "react";
+import React from "react";
 import { MdDelete } from "react-icons/md";
 import { IoAdd } from "react-icons/io5";
 import { FiMinus } from "react-icons/fi";
@@ -28,7 +27,7 @@ const Cart = ({ company, name, image, alt, price, discount, handleRemoveCart, id
                 </div>
                 <div className=" flex mt-1 w-auto">
                     <div className=" flex border border-divider rounded !h-auto">
-                        <button onClick={() => decrementQuantity(id)} disabled={quantity <= 1} className={`bg-warning_extra_light h-5 w-5 flex items-center justify-center cursor-pointer ${quantity <= 1 ? "cursor-not-allowed" : "cursor-pointer"}`}>
+                        <button onClick={() => decrementQuantity(id)} disabled={quantity <= 1} className={`bg-warning_extra_light h-5 w-5 flex items-center justify-center ${quantity <= 1 ? "cursor-not-allowed" : "cursor-pointer"}`}>
                             <FiMinus size={12} className="text-warning_dark" />
                         </button>
                         <div className=" w-px bg-divider"></div>

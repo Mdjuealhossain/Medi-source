@@ -1,11 +1,13 @@
 "use client";
 import React from "react";
 import { MdOutlineShoppingCart } from "react-icons/md";
+import { FiMinus } from "react-icons/fi";
+import { IoAdd } from "react-icons/io5";
 
 import Button from "../Button";
 import ImageURL from "../ImageUrl";
 
-const Card = ({ image, alt, name, price, discount, extraoff, company, isAdded, handleSelectedItem }) => {
+const Card = ({ image, alt, name, price, discount, extraoff, company, isAdded, handleSelectedItem, incrementQuantity, decrementQuantity, quantity, id, productQuantity }) => {
     const previousValue = price + discount;
     return (
         <div className="border bg-white border-divider flex flex-col h-full rounded-lg overflow-hidden">
@@ -31,10 +33,24 @@ const Card = ({ image, alt, name, price, discount, extraoff, company, isAdded, h
                 </div>
             </div>
 
-            <Button onClick={handleSelectedItem} className={" bg-warning_main hover:bg-warning_dark text-white !rounded-none"}>
-                <MdOutlineShoppingCart size={18} />
-                {isAdded ? "Added" : "Add to card"}
-            </Button>
+            {quantity ? (
+                <div className=" flex bg-warning_extra_light w-full">
+                    <button onClick={() => decrementQuantity(id)} disabled={quantity <= 1} className={` w-1/3 py-2   flex items-center justify-center  ${quantity <= 1 ? "cursor-not-allowed" : "cursor-pointer"}`}>
+                        <FiMinus className="text-warning_dark text-base md:text-[22px]" />
+                    </button>
+                    <div className=" w-px bg-divider"></div>
+                    <input maxLength={3} value={quantity || ""} onChange={(e) => productQuantity(id, e.target.value)} className="w-1/3  bg-transparent appearance-none text-center focus:border-transparent focus:ring-transparent ring-transparent focus:outline-none ring-1" />
+                    <div className=" w-px bg-divider"></div>
+                    <button onClick={() => incrementQuantity(id)} className={`w-1/3 py-2  flex items-center justify-center cursor-pointer`}>
+                        <IoAdd className="text-warning_dark text-base md:text-[22px]" />
+                    </button>
+                </div>
+            ) : (
+                <Button onClick={handleSelectedItem} className={" bg-warning_main hover:bg-warning_dark text-white !rounded-none"}>
+                    <MdOutlineShoppingCart size={18} />
+                    Add to card
+                </Button>
+            )}
         </div>
     );
 };
