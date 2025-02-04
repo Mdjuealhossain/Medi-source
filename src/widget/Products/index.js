@@ -133,7 +133,7 @@ const Products = ({ flas_sell }) => {
                 )}
 
                 {isOpen && (
-                    <div className=" fixed inset-0 flex items-end bottom-10 justify-center z-30">
+                    <div className=" fixed inset-0 flex items-end md:bottom-10 bottom-12 justify-center z-30">
                         <Container>
                             <div className=" py-2 px-4 w-full font-medium bg-black text-white items-center justify-between flex rounded">
                                 <p>This Productis out of stock</p>
