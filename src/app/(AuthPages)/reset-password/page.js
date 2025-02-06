@@ -13,7 +13,7 @@ const ResetPassword = () => {
                 <div className=" flex justify-center items-center ">
                     <div className="shadow-sign max-w-sm w-full rounded bg-white">
                         <div className="pt-4 relative lg:pt-8 pb-3 lg:pb-6 border-b border-divider flex items-center justify-center">
-                            <Link href={"/"} className=" h-10 flex items-center justify-center">
+                            <Link href={"#"} className=" h-10 flex items-center justify-center">
                                 <Image height={40} width={304} alt="logo" src={`/assets/logos/logo.png`} className=" min-w-100 w-auto max-h-full h-10" />
                             </Link>
                             <Link href={"/otp"} className="absolute lg:left-[60px] md:left-7 xs:left-5 left-2">

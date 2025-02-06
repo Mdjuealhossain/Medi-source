@@ -15,6 +15,7 @@ const ForgetForm = () => {
     const { forgetPassword } = useForgetPassword();
     const [message, setMessage] = useState(null);
     const { isOpen, openModal, closeModal } = useModal();
+    const [success, setSuccess] = useState(false);
     const router = useRouter();
 
     const {
@@ -28,10 +29,16 @@ const ForgetForm = () => {
 
     const onSubmit = async (formdata) => {
         const { loading, success, error, responseData } = await forgetPassword(formdata);
-        if (success && responseData.data.otp && responseData.data.phone) {
-            router.push("/otp");
+        if (responseData.data.otp && responseData.data.phone) {
+            localStorage.setItem("phoneNumber", formdata.phone);
+            setMessage(responseData.message);
+            setSuccess(true);
+            openModal();
+            setTimeout(() => {
+                router.push("/otp");
+            }, 2000);
         } else {
-            setMessage(responseData.data.error);
+            setMessage(responseData.data.error || "Invalid phone number");
             openModal();
         }
         reset();
@@ -58,7 +65,7 @@ const ForgetForm = () => {
                     </div>
                 </div>
             </form>
-            <AlartModal isOpen={isOpen} openModal={openModal} closeModal={closeModal} message={message} />
+            <AlartModal isOpen={isOpen} openModal={openModal} closeModal={closeModal} message={message} success={success} />
         </>
     );
 };

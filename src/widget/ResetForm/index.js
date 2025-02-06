@@ -9,7 +9,6 @@ import { yupResolver } from "@hookform/resolvers/yup";
 
 import { reset_validationSchema } from "@/app/staticData/otp";
 import AlartModal from "@/components/ErrorModal";
-import { setUser } from "@/app/utilities/user";
 import useReset from "@/app/hooks/useReset";
 import useModal from "@/app/hooks/useModal";
 import Button from "@/components/Button";
@@ -18,6 +17,7 @@ const ResetForm = () => {
     const [isShowPassword, setIsShowPassword] = useState(false);
     const [isShowConPassword, setIsShowConPassword] = useState(false);
     const [message, setMessage] = useState(null);
+    const [success, setSuccess] = useState(false);
     const { isOpen, openModal, closeModal } = useModal();
     const { resetPassword } = useReset();
     const router = useRouter();
@@ -34,8 +34,12 @@ const ResetForm = () => {
     const onSubmit = async (formdata) => {
         const { loading, success, error, responseData } = await resetPassword(formdata);
         if (success && responseData.data.name && responseData.data.phone) {
-            setUser(JSON.stringify(responseData.data));
-            router.push("/");
+            setMessage(responseData.message);
+            openModal();
+            setSuccess(true);
+            setTimeout(() => {
+                router.push("/");
+            }, 2000);
             reset();
         } else {
             setMessage(responseData.data.error);
@@ -107,7 +111,7 @@ const ResetForm = () => {
                     </div>
                 </div>
             </form>
-            <AlartModal isOpen={isOpen} openModal={openModal} closeModal={closeModal} message={message} />
+            <AlartModal isOpen={isOpen} openModal={openModal} closeModal={closeModal} message={message} success={success} />
         </>
     );
 };

@@ -13,13 +13,13 @@ import useArea from "@/app/hooks/useArea";
 import useGetDistrict from "@/app/hooks/useDistrict";
 import Select from "@/components/Select";
 import Button from "@/components/Button";
-import { setUser } from "@/app/utilities/user";
 import AlartModal from "@/components/ErrorModal";
 import useModal from "@/app/hooks/useModal";
 
 const RegistationForm = () => {
+    const [success, setSuccess] = useState(false);
     const [districtVal, setDistrictVal] = useState({});
-    const [area, setArea] = useState([]);
+    const [area, setArea] = useState({});
     const [isShowPassword, setIsShowPassword] = useState(false);
     const [message, setMessage] = useState(null);
     const { isOpen, openModal, closeModal } = useModal();
@@ -47,13 +47,18 @@ const RegistationForm = () => {
         };
         const { loading, success, error, responseData } = await registation(finalForm);
         if (success && responseData.data.token && responseData.data.token) {
-            router.push("/login");
+            setMessage(responseData.message);
+            setSuccess(true);
+            openModal();
+            setTimeout(() => {
+                router.push("/login");
+            }, 2000);
         } else {
             setMessage(responseData.message);
             openModal();
         }
-        setArea("");
-        setDistrictVal("");
+        setArea({});
+        setDistrictVal({});
         reset();
     };
 
@@ -140,7 +145,7 @@ const RegistationForm = () => {
                     </div>
                 </div>
             </form>
-            <AlartModal isOpen={isOpen} openModal={openModal} closeModal={closeModal} message={message} />
+            <AlartModal isOpen={isOpen} openModal={openModal} closeModal={closeModal} message={message} success={success} />
         </>
     );
 };

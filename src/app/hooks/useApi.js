@@ -1,7 +1,7 @@
 // hooks/useApi.js
 
 import { BASE_URL } from "../utilities/base-url";
-import { getToken, setToken } from "../utilities/token";
+import { getCookie, setCookie } from "../utilities/cookies";
 
 export const useApi = () => {
     const apiRequest = async ({ endpoint, method = "GET", data = null, auth = true }) => {
@@ -19,7 +19,7 @@ export const useApi = () => {
 
             // Add Authorization header if `auth` is true
             if (auth) {
-                const token = getToken();
+                const token = getCookie("authToken");
                 if (token) {
                     headers.Authorization = `Bearer ${token}`;
                 }
@@ -48,7 +48,7 @@ export const useApi = () => {
 
             // If token is returned from API (e.g., login), save it in localStorage
             if (method === "POST" && responseData.data.token) {
-                setToken(responseData.data.token);
+                setCookie("authToken", responseData.data.token, 7);
             }
         } catch (err) {
             error = err.message;

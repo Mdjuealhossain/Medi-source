@@ -12,7 +12,7 @@ const VerifyOTP = () => {
             <Container className={"!max-w-lg flex items-center justify-center "}>
                 <div className="shadow-lg max-w-sm w-full rounded bg-error_extra_light">
                     <div className="pt-4 lg:pt-8 relative pb-3 lg:pb-6 border-b border-divider flex items-center justify-center">
-                        <Link href={"/"} className=" h-10 flex items-center justify-center">
+                        <Link href={"#"} className=" h-10 flex items-center justify-center">
                             <Image height={40} width={304} alt="logo" src={`/assets/logos/logo.png`} className=" min-w-100 w-auto max-h-full h-10" />
                         </Link>
                         <Link href={"/login"} className="absolute lg:left-[60px] md:left-7 xs:left-5 left-2">

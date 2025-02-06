@@ -1,7 +1,6 @@
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { HiOutlineArrowLeft } from "react-icons/hi";
 
 import Divider from "@/components/Divider";
 import Container from "@/components/Container";
@@ -15,7 +14,7 @@ const ForgetPassword = () => {
                 <div className=" flex gap-8 justify-center items-center ">
                     <div className="shadow-sign max-w-sm w-full rounded bg-white">
                         <div className="pt-4 lg:pt-8 pb-3 lg:pb-6 border-b border-divider relative flex items-center justify-center">
-                            <Link href={"/"} className=" h-10 flex items-center justify-center">
+                            <Link href={"#"} className=" h-10 flex items-center justify-center">
                                 <Image height={40} width={304} alt="logo" src={`/assets/logos/logo.png`} className=" min-w-100 w-auto max-h-full h-10" />
                             </Link>
                             <Link href={"/login"} className="absolute lg:left-[60px] md:left-7 xs:left-5 left-2">

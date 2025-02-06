@@ -1,5 +1,6 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
+import { usePathname } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
 import { BsPerson } from "react-icons/bs";
@@ -15,8 +16,6 @@ import GradientText from "@/components/GradiantText";
 import CartDrawer from "@/widget/CartDrawer";
 import Container from "@/components/Container";
 import NotificationDrawer from "@/widget/NotificationDrawer";
-import { usePathname, useRouter } from "next/navigation";
-import { getUser } from "@/app/utilities/user";
 import useCompany from "@/app/hooks/useCompany";
 import { useCart } from "@/app/utilities/cartContex";
 import useNotifications from "@/app/hooks/useNotifications";
@@ -29,7 +28,6 @@ const PcNav = () => {
     const notifications = useNotifications();
 
     const pathname = usePathname();
-    const router = useRouter();
 
     const toggleDrawer = () => {
         setIsOpen((prevState) => !prevState);
@@ -45,14 +43,6 @@ const PcNav = () => {
         const selected = selectedOptions.map((item) => item.id);
         handleCompany(selected);
     };
-
-    useEffect(() => {
-        const storUser = getUser();
-        if (!storUser) {
-            router.push("/login");
-        }
-    }, [router]);
-
     const { data } = useCompany();
 
     return (

@@ -1,24 +1,23 @@
 "use client";
 import { useState } from "react";
+import dynamic from "next/dynamic";
 import Image from "next/image";
 import { CgProfile } from "react-icons/cg";
 import { FaBagShopping } from "react-icons/fa6";
 import { MdOutlineLogin } from "react-icons/md";
 import { RiLockPasswordFill } from "react-icons/ri";
-const Drawer = dynamic(() => import("react-modern-drawer"), { ssr: false });
 import { IoMdClose } from "react-icons/io";
+import { RiListSettingsLine } from "react-icons/ri";
+const Drawer = dynamic(() => import("react-modern-drawer"), { ssr: false });
 
 import Container from "@/components/Container";
 import ProfileDetails from "@/widget/ProfileDetails";
-import { clearToken } from "@/app/utilities/token";
-import { clearUser } from "@/app/utilities/user";
 import { useRouter } from "next/navigation";
 import UpdatePassword from "@/widget/UpdatePassword";
 import PrivacyPolicy from "@/widget/PrivacyPlicy";
 import "react-modern-drawer/dist/index.css";
-import dynamic from "next/dynamic";
-import { RiListSettingsLine } from "react-icons/ri";
 import useMyProfile from "@/app/hooks/useMyProfile";
+import { clearCookie } from "@/app/utilities/cookies";
 
 const UserProfile = () => {
     const [activeTab, setActiveTab] = useState(options[0].name);
@@ -30,8 +29,7 @@ const UserProfile = () => {
     // Update the URL without page reload
 
     const handleLogout = () => {
-        clearToken();
-        clearUser();
+        clearCookie("authToken");
         route.push("/login");
     };
     const handleTab = (name) => {

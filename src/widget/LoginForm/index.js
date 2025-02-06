@@ -3,8 +3,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { FaStarOfLife } from "react-icons/fa";
-import { IoEyeSharp } from "react-icons/io5";
-import { IoEyeOff } from "react-icons/io5";
+import { IoEyeSharp, IoEyeOff } from "react-icons/io5";
 import { BsCheck } from "react-icons/bs";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -19,9 +18,11 @@ const LoginForm = () => {
     const [selectedCheckbox, setSelectedCheckbox] = useState(false);
     const [isShowPassword, setIsShowPassword] = useState(false);
     const [message, setMessage] = useState(null);
+    const [success, setSuccess] = useState(false);
     const { isOpen, openModal, closeModal } = useModal();
     const { signIn } = useSignIn();
     const router = useRouter();
+    const [loading, setLoading] = useState(false); // Loading state
 
     const {
         register,
@@ -33,14 +34,32 @@ const LoginForm = () => {
     });
 
     const onSubmit = async (formdata) => {
-        const { loading, success, error, responseData } = await signIn(formdata);
-        if (responseData.data.otp) {
-            router.push("/verify-otp");
-        } else {
-            setMessage(responseData.message);
-            openModal();
+        setLoading(true);
+        try {
+            const { loading, success, error, responseData } = await signIn(formdata);
+            localStorage.setItem("phoneNumber", formdata.phone);
+            if (selectedCheckbox) {
+                localStorage.setItem("rememberMe", true);
+            }
+
+            if (responseData.data.otp) {
+                setMessage(responseData.message);
+                setSuccess(true);
+                openModal();
+                setTimeout(() => {
+                    router.push("/verify-otp");
+                }, 2000);
+            } else {
+                setMessage(responseData.message);
+                openModal();
+            }
+            reset();
+        } catch (error) {
+            setMessage("Something went wrong. Please try again.");
+            openModal(); // Open error modal
+        } finally {
+            setLoading(false); // End loading
         }
-        reset();
     };
 
     return (
@@ -81,9 +100,9 @@ const LoginForm = () => {
                     </div>
 
                     <div className="flex justify-between items-center mb-6">
-                        <label className="flex items-center hover:cursor-pointer gap-3 text-body2 font-normal leading-normal w-fit h-min" onChange={() => setSelectedCheckbox((prev) => !prev)}>
+                        <label className="flex items-center hover:cursor-pointer gap-3 text-body2 font-normal leading-normal w-fit h-min" onChange={() => setSelectedCheckbox(!selectedCheckbox)}>
                             <div className="relative flex items-center">
-                                <input type="checkbox" className={`rounded h-4 w-4 ${selectedCheckbox == true ? " bg-warning_main text-white" : "bg-white"} border border-warning_main appearance-none`} />
+                                <input type="checkbox" className={`rounded h-4 w-4 ${selectedCheckbox ? "bg-warning_main text-white" : "bg-white"} border border-warning_main appearance-none`} />
                                 <BsCheck size={16} className="absolute top-0 text-white" />
                             </div>
                             <p className="text-body2">Remember Me</p>
@@ -95,13 +114,19 @@ const LoginForm = () => {
                     </div>
 
                     <div className="mb-3 lg:mb-6">
-                        <Button type="submit" className={" bg-warning_main w-full hover:bg-warning_dark text-white"}>
-                            Log In
+                        <Button
+                            type="submit"
+                            className={"bg-warning_main w-full hover:bg-warning_dark text-white"}
+                            disabled={loading} // Disable button when loading
+                        >
+                            {loading ? "Logging in..." : "Log In"}
                         </Button>
                     </div>
                 </div>
             </form>
-            <AlartModal isOpen={isOpen} openModal={openModal} closeModal={closeModal} message={message} />
+
+            {/* alart Modal */}
+            <AlartModal isOpen={isOpen && message} openModal={openModal} closeModal={closeModal} message={message} success={success} />
         </>
     );
 };

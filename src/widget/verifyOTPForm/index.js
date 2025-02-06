@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { FaStarOfLife } from "react-icons/fa";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -7,17 +7,28 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { validationSchema } from "@/app/staticData/otp";
 import useVerifyOTP from "@/app/hooks/useVerifyOTP";
 import AlartModal from "@/components/ErrorModal";
-import { setUser } from "@/app/utilities/user";
 import useModal from "@/app/hooks/useModal";
 import { useRouter } from "next/navigation";
 import Button from "@/components/Button";
 
-const VerifyOTPForm = () => {
+const VerifyOTPForm = ({ forget }) => {
     const [message, setMessage] = useState(null);
+    const [success, setSuccess] = useState(false);
     const { isOpen, openModal, closeModal } = useModal();
     const [otp, setOtp] = useState(new Array(6).fill(""));
     const { verifyPTP } = useVerifyOTP();
     const router = useRouter();
+    const [phoneNumber, setPhoneNumber] = useState(null);
+
+    useEffect(() => {
+        const storedPhone = localStorage.getItem("phoneNumber");
+        if (storedPhone) {
+            setPhoneNumber(storedPhone);
+        } else {
+            setMessage("Phone number not found!");
+            openModal();
+        }
+    }, []);
 
     const {
         register,
@@ -29,14 +40,30 @@ const VerifyOTPForm = () => {
     });
 
     const onSubmit = async (formdata) => {
+        if (!phoneNumber) {
+            setMessage("Phone number is missing!");
+            openModal();
+            return;
+        }
+
         const otpValue = otp.join("");
-        const payload = { ...formdata, otp: otpValue, phone: "01234567890" };
-        const { loading, success, error, responseData } = await verifyPTP(payload);
+        const payload = { ...formdata, otp: otpValue, phone: phoneNumber }; // Use the phone number from localStorage
+        const { loading, success, error, responseData } = await verifyPTP(payload, forget);
         reset();
         setOtp(new Array(6).fill(""));
+
         if (success && responseData.data.name && responseData.data.phone) {
-            setUser(JSON.stringify(responseData.data));
-            router.push("/");
+            localStorage.removeItem("phoneNumber");
+            setMessage(responseData.message);
+            openModal();
+            setSuccess(true);
+            setTimeout(() => {
+                if (forget) {
+                    router.push("/reset-password");
+                } else {
+                    router.push("/");
+                }
+            }, 2000);
         } else {
             setMessage(responseData.data.error);
             openModal();
@@ -57,6 +84,7 @@ const VerifyOTPForm = () => {
             document.getElementById(`otp-${index - 1}`).focus();
         }
     };
+
     return (
         <>
             <form onSubmit={handleSubmit(onSubmit)}>
@@ -85,7 +113,8 @@ const VerifyOTPForm = () => {
                     </div>
                 </div>
             </form>
-            <AlartModal isOpen={isOpen} openModal={openModal} closeModal={closeModal} message={message} />
+
+            <AlartModal isOpen={isOpen} openModal={openModal} closeModal={closeModal} message={message} success={success} />
         </>
     );
 };
