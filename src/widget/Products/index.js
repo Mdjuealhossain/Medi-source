@@ -11,7 +11,7 @@ import Container from "@/components/Container";
 const Products = ({ flas_sell }) => {
     const [activeTab, setActiveTab] = useState(null);
     const [products, setProducts] = useState([]);
-    const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState(true); // Set loading to true initially
     const [isOpen, setIsOpen] = useState(false);
 
     const [page, setPage] = useState(1);
@@ -44,7 +44,6 @@ const Products = ({ flas_sell }) => {
         }
     }, [isSearch, tabs?.data]);
 
-    // Update products when fetched products are available
     useEffect(() => {
         if (fetchedProducts?.data?.data.length) {
             const productsWithQuantity = fetchedProducts.data.data.map((product) => ({
@@ -52,15 +51,19 @@ const Products = ({ flas_sell }) => {
                 quantity: 1,
             }));
 
-            setProducts((prevProducts) => {
-                const newProducts = productsWithQuantity.filter((product) => !prevProducts.some((p) => p.id === product.id));
-                return [...prevProducts, ...newProducts];
-            });
-            setLoading(false);
+            if (page === 1) {
+                setProducts(productsWithQuantity); // Set products only on the first page
+            } else {
+                setProducts((prevProducts) => {
+                    const newProducts = productsWithQuantity.filter((product) => !prevProducts.some((p) => p.id === product.id));
+                    return [...prevProducts, ...newProducts];
+                });
+            }
+
+            setLoading(false); // Set loading to false when data is available
         }
     }, [fetchedProducts]);
 
-    // Scroll handler for infinite scrolling
     const handleScroll = () => {
         const scrollPosition = window.innerHeight + document.documentElement.scrollTop;
         const bottomPosition = document.documentElement.offsetHeight;
@@ -72,13 +75,12 @@ const Products = ({ flas_sell }) => {
     };
 
     useEffect(() => {
-        window.addEventListener("scroll", handleScroll); // Add scroll event listener
+        window.addEventListener("scroll", handleScroll);
         return () => {
-            window.removeEventListener("scroll", handleScroll); // Clean up on unmount
+            window.removeEventListener("scroll", handleScroll);
         };
     }, [loading, fetchedProducts?.data?.data.length]);
 
-    // Handle tab change and reset data
     const handleTabChange = (tabId) => {
         setActiveTab(tabId);
         setIsSearch("");
@@ -94,7 +96,7 @@ const Products = ({ flas_sell }) => {
     useEffect(() => {
         let timer;
         if (isOpen) {
-            timer = setTimeout(() => setIsOpen(), 1500);
+            timer = setTimeout(() => setIsOpen(false), 1500);
         }
         return () => clearTimeout(timer);
     }, [isOpen]);
@@ -111,6 +113,13 @@ const Products = ({ flas_sell }) => {
                     ))}
                 </div>
 
+                {/* Loading Spinner on Initial Page Load */}
+                {loading && (
+                    <div className="h-screen flex items-center justify-center">
+                        <Image src={"/assets/icons/loading_img.svg"} alt="loading" height={24} width={24} className="md:h-16 md:w-16 h-10 w-10" />
+                    </div>
+                )}
+
                 {/* Display products in grid layout */}
                 {products.length > 0 && (
                     <div className="grid xl:grid-cols-4 sm:grid-cols-3 grid-cols-2 md:gap-4 gap-2">
@@ -125,10 +134,10 @@ const Products = ({ flas_sell }) => {
 
                 {products.length == 0 && !fetchLoading && <div className="text-center py-4">No more products available.</div>}
 
-                {/* Loading spinner */}
+                {/* Loading spinner when fetching data */}
                 {fetchLoading && (
-                    <div className="h-full flex items-center justify-center">
-                        <Image src={"/assets/icons/loading_img.svg"} alt="loading" height={24} width={24} className="md:h-16 md:w-16 h-12 w-12" />
+                    <div className="h-full flex items-center justify-center md:mt-5">
+                        <Image src={"/assets/icons/loading_img.svg"} alt="loading" height={24} width={24} className="md:h-16 md:w-16 h-10 w-10" />
                     </div>
                 )}
 
@@ -136,7 +145,7 @@ const Products = ({ flas_sell }) => {
                     <div className=" fixed inset-0 flex items-end md:bottom-10 bottom-12 justify-center z-30">
                         <Container>
                             <div className=" py-2 px-4 w-full font-medium bg-black text-white items-center justify-between flex rounded">
-                                <p>This Productis out of stock</p>
+                                <p>This Product is out of stock</p>
                                 <p onClick={() => setIsOpen(false)} className=" text-info_main font-semibold cursor-pointer">
                                     Close
                                 </p>

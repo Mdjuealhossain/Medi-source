@@ -1,21 +1,23 @@
-"use client";
-import useArea from "@/app/hooks/useArea";
-import useGetDistrict from "@/app/hooks/useDistrict";
-import useModal from "@/app/hooks/useModal";
-import useMyProfile from "@/app/hooks/useMyProfile";
-import useUpdateProfile from "@/app/hooks/useUpdateProfile";
-import Button from "@/components/Button";
-import Select from "@/components/Select";
-import Image from "next/image";
-import React, { useState } from "react";
-import { useForm } from "react-hook-form";
+import React, { useEffect, useState } from "react";
 import { FaStarOfLife } from "react-icons/fa";
 import { HiOutlineArrowLeft } from "react-icons/hi";
+import { IoCameraReverseSharp } from "react-icons/io5";
+import Image from "next/image";
+import { useForm } from "react-hook-form";
+import Button from "@/components/Button";
+import Select from "@/components/Select";
+import useModal from "@/app/hooks/useModal";
+import useUpdateProfile from "@/app/hooks/useUpdateProfile";
+import useArea from "@/app/hooks/useArea";
+import useGetDistrict from "@/app/hooks/useDistrict";
+import useMyProfile from "@/app/hooks/useMyProfile";
+import { useCart } from "@/app/utilities/cartContex";
 
 const ProfileDetails = () => {
     const { isOpen, openModal, closeModal } = useModal();
     const [districtVal, setDistrictVal] = useState({});
     const [area, setArea] = useState([]);
+    const { preview, setPreview } = useCart();
     const { updateProfile } = useUpdateProfile();
 
     const {
@@ -47,13 +49,42 @@ const ProfileDetails = () => {
     const { data: areaData } = useArea();
     const { data: profileData } = useMyProfile();
 
+    // Load profile image from localStorage when the component mounts
+    useEffect(() => {
+        const savedImage = localStorage.getItem("profileImage");
+        if (savedImage) {
+            setPreview(savedImage); // If an image exists in localStorage, set it as preview
+        }
+    }, []);
+
+    // Upload profile photo and save it to localStorage
+    const handleImageChange = (e) => {
+        const file = e.target.files[0];
+        if (file) {
+            const previewUrl = URL.createObjectURL(file);
+            setPreview(previewUrl); // Set preview URL for the image
+            localStorage.setItem("profileImage", previewUrl); // Save the image URL to localStorage
+        }
+    };
+
+    const photo = preview ? preview : "/assets/icons/default.png";
+
     return (
         <>
             <div className=" bg-white  md:p-16 p-8 w-full rounded-lg">
                 <div className=" flex flex-col items-center justify-center gap-2 md:mb-12 mb-6">
-                    <div className="w-24 h-24 rounded-full overflow-hidden">
-                        <Image src="/assets/icons/default.png" height={64} width={64} alt="Avatar" className="w-full h-full object-cover" />
+                    <div className=" relative">
+                        <div className="w-24 h-24 relative rounded-full flex items-center justify-center overflow-hidden border-2 border-warning_main">{/* <Image src={photo} height={64} width={64} alt="Avatar" className=" h-full w-full" /> */}</div>
+                        <button type="button" className=" right-0 bottom-0 absolute p-2 bg-warning_main text-white rounded-full flex">
+                            <label htmlFor="file-upload" className=" cursor-pointer  z-50">
+                                <span className=" relative">
+                                    <IoCameraReverseSharp />
+                                </span>
+                            </label>
+                            <input type="file" id="file-upload" onChange={handleImageChange} accept="image/*" className="hidden" />
+                        </button>
                     </div>
+
                     <h4 className=" text-H4 font-semibold text-center ">{profileData?.data.name ? profileData?.data.name : "Unknown"}</h4>
                 </div>
                 <div className=" max-w-sm mx-auto md:mb-12 mb-6">
@@ -98,13 +129,7 @@ const ProfileDetails = () => {
                                         <FaStarOfLife size={6} className="text-error_main" />
                                     </span>
                                 </label>
-                                <input
-                                    type="text" // Change type to text to allow leading zeros
-                                    {...register("name")}
-                                    defaultValue={profileData?.data.name}
-                                    placeholder="Your full name"
-                                    className="p-2 w-full rounded bg-white ring-warning_main text-black text-body2 focus:ring-1 focus:ring-warning_main focus:outline-none ring-1"
-                                />
+                                <input type="text" {...register("name")} defaultValue={profileData?.data.name} placeholder="Your full name" className="p-2 w-full rounded bg-white ring-warning_main text-black text-body2 focus:ring-1 focus:ring-warning_main focus:outline-none ring-1" />
                             </div>
                             <div className="mb-5">
                                 <label>
@@ -113,13 +138,7 @@ const ProfileDetails = () => {
                                         <FaStarOfLife size={6} className="text-error_main" />
                                     </span>
                                 </label>
-                                <input
-                                    type="number" // Change type to text to allow leading zeros
-                                    {...register("phone")}
-                                    defaultValue={profileData?.data.phone}
-                                    placeholder="Enter your phone number"
-                                    className="p-2 w-full rounded bg-white ring-warning_main text-black text-body2 focus:ring-1 focus:ring-warning_main focus:outline-none ring-1"
-                                />
+                                <input type="number" {...register("phone")} defaultValue={profileData?.data.phone} placeholder="Enter your phone number" className="p-2 w-full rounded bg-white ring-warning_main text-black text-body2 focus:ring-1 focus:ring-warning_main focus:outline-none ring-1" />
                             </div>
                             <div className="mb-5">
                                 <label>
@@ -140,9 +159,9 @@ const ProfileDetails = () => {
                                 <input type="text" defaultValue={profileData?.data.address} placeholder="Enter your address number" {...register("address")} className="p-2 w-full rounded bg-white ring-warning_main text-black text-body2 focus:ring-1 focus:ring-warning_main focus:outline-none ring-1" />
                             </div>
 
-                            <div className="mb-3 lg:mb-6">
-                                <Button type="submit" className={"bg-warning_main w-full hover:bg-warning_dark capitalize text-white"}>
-                                    update
+                            <div className="text-center">
+                                <Button type="submit" className={"bg-warning_main hover:bg-warning_dark capitalize text-white"}>
+                                    Submit
                                 </Button>
                             </div>
                         </form>

@@ -43,6 +43,14 @@ const PcNav = () => {
         const selected = selectedOptions.map((item) => item.id);
         handleCompany(selected);
     };
+
+    // useEffect(() => {
+    //     const savedImage = localStorage.getItem("profileImage");
+    //     if (savedImage) {
+    //         setPhoto(savedImage); // If an image exists in localStorage, set it as preview
+    //     }
+    // }, []);
+
     const { data } = useCompany();
 
     return (
@@ -82,7 +90,9 @@ const PcNav = () => {
                                 </Link>
                                 <Link href={"/user-profile"} className="group md:h-[4.5rem] capitalize flex-col flex justify-center">
                                     <div className=" flex flex-col items-center justify-center text-body2">
-                                        <Image src={"/assets/icons/default.png"} height={24} width={24} alt="person" className="lg:w-6 lg:h-6 h-4 w-4" />
+                                        <div className="lg:w-6 lg:h-6 h-4 w-4 rounded-full overflow-hidden">
+                                            <Image src="/assets/icons/default.png" height={64} width={64} alt="Avatar" className="w-full h-full object-cover" />
+                                        </div>
                                         Profile
                                     </div>
                                     <span className={`  h-px bg-warning_main transition-width duration-300 ease-in-out w-0 group-hover:w-full`}></span>

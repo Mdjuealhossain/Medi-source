@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import dynamic from "next/dynamic";
 import Image from "next/image";
 import { CgProfile } from "react-icons/cg";
@@ -18,11 +18,13 @@ import PrivacyPolicy from "@/widget/PrivacyPlicy";
 import "react-modern-drawer/dist/index.css";
 import useMyProfile from "@/app/hooks/useMyProfile";
 import { clearCookie } from "@/app/utilities/cookies";
+import { useCart } from "@/app/utilities/cartContex";
 
 const UserProfile = () => {
     const [activeTab, setActiveTab] = useState(options[0].name);
     const [isOpen, setIsOpen] = useState(false);
     const { data: profileData } = useMyProfile();
+    const { preview } = useCart;
 
     const route = useRouter();
 
@@ -37,6 +39,8 @@ const UserProfile = () => {
         route.push(`?tab=${name}`, undefined, { shallow: true });
     };
 
+    const photo = preview ? preview : "/assets/icons/default.png";
+
     return (
         <>
             <div className=" mt-12 relative ">
@@ -47,9 +51,7 @@ const UserProfile = () => {
                         </span>
                         <div className=" hidden md:block bg-white w-300 py-8 rounded-lg">
                             <div className=" flex flex-col items-center justify-center gap-1 mb-6">
-                                <div className="w-16 h-16 rounded-full overflow-hidden">
-                                    <Image src="/assets/icons/default.png" height={64} width={64} alt="Avatar" className="w-full h-full object-cover" />
-                                </div>
+                                <div className="w-16 h-16 rounded-full flex items-center justify-center overflow-hidden border-2 border-warning_main">{/* <Image src={photo} height={64} width={64} alt="Avatar" className="w-full h-full object-cover" /> */}</div>
                                 <p className=" text-subtitle1 font-semibold text-center ">{profileData?.data.name ? profileData?.data.name : "Unknown"}</p>
                             </div>
                             {options.map((item) => (

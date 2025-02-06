@@ -7,6 +7,7 @@ export function CartProvider({ children }) {
     const [cartItems, setCartItems] = useState([]);
     const [companies, setCompanies] = useState([]);
     const [isSearch, setIsSearch] = useState("");
+    const [preview, setPreview] = useState(null);
 
     useEffect(() => {
         const storedCart = JSON.parse(localStorage.getItem("cartItems")) || [];
@@ -64,6 +65,8 @@ export function CartProvider({ children }) {
     return (
         <CartContext.Provider
             value={{
+                preview,
+                setPreview,
                 cartItems,
                 setCartItems,
                 addToCart,
