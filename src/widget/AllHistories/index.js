@@ -2,8 +2,9 @@
 import React, { useEffect, useState } from "react";
 
 import useOrderHistory from "@/app/hooks/useOrderHistory";
-import History from "@/components/History";
 import { useCart } from "@/app/utilities/cartContex";
+import History from "@/components/History";
+import Image from "next/image";
 
 const AllHistories = () => {
     const [page, setPage] = useState(1);
@@ -48,11 +49,19 @@ const AllHistories = () => {
     }, [loading]);
 
     return (
-        <div className=" grid sm:grid-cols-2 grid-cols-1  gap-x-6 md:gap-y-3 gap-y-2">
-            {histories.map((order, index) => (
-                <History key={index} orderID={order.order_id} orderDate={order.created_at} deliveryDate={order.delivery_date} amount={order.total} status={order.status} />
-            ))}
-        </div>
+        <>
+            <div className=" grid sm:grid-cols-2 grid-cols-1  gap-x-6 md:gap-y-3 gap-y-2">
+                {histories.map((order, index) => (
+                    <History key={index} orderID={order.order_id} orderDate={order.created_at} deliveryDate={order.delivery_date} amount={order.total} status={order.status} />
+                ))}
+            </div>
+            {/* Loading Spinner */}
+            {loadingHistory && loading && (
+                <div className="fixed inset-0 flex items-end justify-center z-50">
+                    <Image src="/assets/icons/loading_img.svg" alt="loading" height={24} width={24} className="md:h-16 md:w-16 h-10 w-10" />
+                </div>
+            )}
+        </>
     );
 };
 

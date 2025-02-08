@@ -2,8 +2,8 @@
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { useForm } from "react-hook-form";
 import dynamic from "next/dynamic";
+import { useForm } from "react-hook-form";
 import { HiOutlineArrowLeft } from "react-icons/hi";
 const Lottie = dynamic(() => import("lottie-react"), { ssr: false });
 const Drawer = dynamic(() => import("react-modern-drawer"), { ssr: false });
@@ -67,6 +67,7 @@ const CartDrawer = ({ open, onClose, direction, size }) => {
 
             const timer = setTimeout(() => {
                 setCartItems([]);
+                closeSuccess();
             }, 1000);
 
             return () => clearTimeout(timer);

@@ -126,7 +126,7 @@ const LoginForm = () => {
             </form>
 
             {/* alart Modal */}
-            <AlartModal isOpen={isOpen && message} openModal={openModal} closeModal={closeModal} message={message} success={success} />
+            <AlartModal isOpen={isOpen} openModal={openModal} closeModal={closeModal} message={message} success={success} />
         </>
     );
 };

@@ -1,15 +1,17 @@
 "use client";
 import React from "react";
+import Link from "next/link";
+import Image from "next/image";
 import { Swiper, SwiperSlide } from "swiper/react";
+
+import { Autoplay, Pagination, EffectFade } from "swiper/modules";
+
+// Import required Swiper modules directly
+import ImageURL from "@/components/ImageUrl";
+import useSlider from "@/app/hooks/useSlider";
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/effect-fade"; // Import fade effect styles
-
-// Import required Swiper modules directly
-import { Autoplay, Pagination, EffectFade } from "swiper/modules";
-import ImageURL from "@/components/ImageUrl";
-import Link from "next/link";
-import useSlider from "@/app/hooks/useSlider";
 
 const Banner = () => {
     const { data, loading, error } = useSlider();
@@ -42,6 +44,12 @@ const Banner = () => {
                     </SwiperSlide>
                 ))}
             </Swiper>
+            {/* Loading Spinner */}
+            {loading && (
+                <div className="h-screen flex items-center justify-center">
+                    <Image src="/assets/icons/loading_img.svg" alt="loading" height={24} width={24} className="md:h-16 md:w-16 h-10 w-10" />
+                </div>
+            )}
         </>
     );
 };

@@ -15,7 +15,7 @@ const AlartModal = ({ message, isOpen, openModal, closeModal, success = false })
     return (
         <>
             {isOpen && (
-                <div className=" fixed inset-0 flex items-center justify-center z-30">
+                <div className=" fixed inset-0 flex items-center justify-center z-40">
                     <div className="fixed inset-0 bg-[#0006] dark:bg-white/20" onClick={closeModal}></div>
                     <div className=" px-6 py-16 bg-warning_extra_light z-50 rounded-2xl w-350">
                         <div className=" flex items-center justify-center mb-4">

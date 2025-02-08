@@ -26,6 +26,7 @@ const PcNav = () => {
     const [isNoti, setIsNoti] = React.useState(false);
     const { cartItems, handleCompany, handleSearchProducts, isSearch } = useCart();
     const notifications = useNotifications();
+    const { preview } = useCart(); // corrected usage of the hook
 
     const pathname = usePathname();
 
@@ -44,18 +45,12 @@ const PcNav = () => {
         handleCompany(selected);
     };
 
-    // useEffect(() => {
-    //     const savedImage = localStorage.getItem("profileImage");
-    //     if (savedImage) {
-    //         setPhoto(savedImage); // If an image exists in localStorage, set it as preview
-    //     }
-    // }, []);
-
     const { data } = useCompany();
+    const imageSrc = preview || "/assets/icons/default.png";
 
     return (
         <>
-            <div className=" sticky top-0 z-50  w-full shadow-lg">
+            <div className=" sticky top-0 z-30  w-full shadow-lg">
                 <div className="w-full h-full  bg-paper_bg">
                     <Container>
                         <div className="w-full md:h-[4.5rem] py-2 relative flex justify-between items-center gap-1 ">
@@ -91,7 +86,7 @@ const PcNav = () => {
                                 <Link href={"/user-profile"} className="group md:h-[4.5rem] capitalize flex-col flex justify-center">
                                     <div className=" flex flex-col items-center justify-center text-body2">
                                         <div className="lg:w-6 lg:h-6 h-4 w-4 rounded-full overflow-hidden">
-                                            <Image src="/assets/icons/default.png" height={64} width={64} alt="Avatar" className="w-full h-full object-cover" />
+                                            <Image src={imageSrc} height={64} width={64} alt="Avatar" className="w-full h-full object-cover" />
                                         </div>
                                         Profile
                                     </div>

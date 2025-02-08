@@ -7,7 +7,7 @@ export function CartProvider({ children }) {
     const [cartItems, setCartItems] = useState([]);
     const [companies, setCompanies] = useState([]);
     const [isSearch, setIsSearch] = useState("");
-    const [preview, setPreview] = useState(null);
+    const [preview, setPreview] = useState("/assets/icons/default.png");
 
     useEffect(() => {
         const storedCart = JSON.parse(localStorage.getItem("cartItems")) || [];

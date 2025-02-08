@@ -13,7 +13,7 @@ const Cart = ({ company, name, image, alt, price, discount, handleRemoveCart, id
                 <ImageURL image={image} className={" h-auto w-auto max-h-full max-w-full"} height={100} width={150} alt={alt} />
             </div>
             <div className=" flex flex-col gap-0.5">
-                <p className=" text-secondary capitalize text-subtitle2">{company}</p>
+                {company && <p className=" text-secondary capitalize text-subtitle2">{company}</p>}
                 <p className=" font-semibold text-subtitle1">{name}</p>
                 <div className=" flex gap-1 text-subtitle2">
                     <p>৳ {price}</p>
