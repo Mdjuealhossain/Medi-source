@@ -101,9 +101,20 @@ module.exports = {
                 "0%": { backgroundPosition: "0% 50%" },
                 "100%": { backgroundPosition: "200% 50%" },
             },
+            rotateSlideInRight: {
+                "0%": {
+                    transform: "translateX(100%) rotate(45deg)", // Start off-screen to the right, rotating
+                    opacity: 0,
+                },
+                "100%": {
+                    transform: "translateX(0) rotate(0)", // End at original position with no rotation
+                    opacity: 1,
+                },
+            },
         },
         animation: {
             textanim: "textanim 2s linear infinite",
+            rotateSlideInRight: "rotateSlideInRight 1.5s ease-out forwards",
         },
         boxShadow: {
             sm: "0px_4px_4px_0px_rgba(0,0,0,0.08)",

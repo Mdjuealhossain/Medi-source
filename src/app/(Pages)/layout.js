@@ -1,5 +1,4 @@
 import AppLayout from "@/layouts/AppLayout";
-import "../globals.css";
 import { CartProvider } from "../utilities/cartContex";
 
 export default function RootLayout({ children }) {
