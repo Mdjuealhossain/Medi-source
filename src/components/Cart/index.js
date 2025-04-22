@@ -7,6 +7,8 @@ import ImageURL from "../ImageUrl";
 
 const Cart = ({ company, name, image, alt, price, discount, handleRemoveCart, id, productQuantity, incrementQuantity, decrementQuantity, quantity }) => {
     const previousValue = price + discount;
+
+    const isprevValue = previousValue > price || previousValue < price;
     return (
         <div className=" relative flex gap-4 items-center bg-white p-2 rounded-lg">
             <div className=" h-100 overflow-hidden rounded-lg">
@@ -20,10 +22,12 @@ const Cart = ({ company, name, image, alt, price, discount, handleRemoveCart, id
                     <p>
                         ({price} * {quantity})
                     </p>
-                    <span className=" relative text-secondary">
-                        <p>৳ {parseFloat(previousValue.toFixed(2))}</p>
-                        <span className=" h-px bg-secondary w-full absolute top-1/2"></span>
-                    </span>
+                    {isprevValue && (
+                        <span className=" relative text-secondary">
+                            <p>৳ {parseFloat(previousValue.toFixed(2))}</p>
+                            <span className=" h-px bg-secondary w-full absolute top-1/2"></span>
+                        </span>
+                    )}
                 </div>
                 <div className=" flex mt-1 w-auto">
                     <div className=" flex border border-divider rounded !h-auto">
