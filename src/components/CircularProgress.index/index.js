@@ -1,30 +1,40 @@
-// CircularProgress.js
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { useInView } from "react-intersection-observer";
 
 const CircularProgress = ({ percentage }) => {
-    const radius = 15.9155; // Radius of the circle
-    const stroke = 2.8; // Stroke width
-    const normalizedRadius = radius - stroke * 0.5; // Adjusted radius
-    const circumference = normalizedRadius * 2 * Math.PI; // Circumference
-    const strokeDashoffset = circumference - (percentage / 100) * circumference; // Offset based on percentage
+    const stroke = 6;
+    const radius = 36; // adjusted for 82px total
+    const normalizedRadius = radius - stroke / 2;
+    const circumference = normalizedRadius * 2 * Math.PI;
+
+    const [progress, setProgress] = useState(0);
+    const { ref, inView } = useInView({ triggerOnce: true });
+
+    useEffect(() => {
+        if (inView) {
+            let current = 0;
+            const step = percentage / 30;
+            const interval = setInterval(() => {
+                current += step;
+                if (current >= percentage) {
+                    setProgress(percentage);
+                    clearInterval(interval);
+                } else {
+                    setProgress(Math.ceil(current));
+                }
+            }, 16);
+        }
+    }, [inView, percentage]);
+
+    const strokeDashoffset = circumference - (progress / 100) * circumference;
 
     return (
-        <div className="flex items-center justify-center w-48 h-48">
-            <svg className="transform -rotate-90" width="100" height="100">
-                <circle stroke="#e6e6e6" fill="transparent" strokeWidth={stroke} r={normalizedRadius} cx="50" cy="50" />
-                <circle
-                    stroke="#ffa500" // Orange color
-                    fill="transparent"
-                    strokeWidth={stroke}
-                    r={normalizedRadius}
-                    cx="50"
-                    cy="50"
-                    strokeDasharray={circumference + " " + circumference}
-                    strokeDashoffset={strokeDashoffset}
-                    transition="stroke-dashoffset 0.5s ease"
-                />
+        <div ref={ref} className="relative flex items-center justify-center w-[82px] h-[82px]">
+            <svg className="transform -rotate-90" width="82" height="82">
+                <circle stroke="#e6e6e6" fill="transparent" strokeWidth={stroke} r={normalizedRadius} cx="41" cy="41" />
+                <circle stroke="#ffa500" fill="transparent" strokeWidth={stroke} strokeLinecap="round" r={normalizedRadius} cx="41" cy="41" strokeDasharray={`${circumference} ${circumference}`} strokeDashoffset={strokeDashoffset} style={{ transition: "stroke-dashoffset 0.3s ease" }} />
             </svg>
-            <div className="absolute text-lg font-bold text-gray-800">{percentage}%</div>
+            <div className="absolute font-bold text-gray-800">{progress}%</div>
         </div>
     );
 };

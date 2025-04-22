@@ -327,7 +327,9 @@ label {
 
 /* 2. Header */
 .custom-container {
-    max-width: 1650px;
+    max-width: 1320px;
+    padding: 0 16px;
+    margin: 0 auto;
 }
 .transparent-header {
     position: absolute;
@@ -2730,37 +2732,16 @@ body.search-visible {
     bottom: -7%;
 }
 
-/* 12. Fun Fact */
-.fact-area {
-    padding: 150px 0 0;
-}
 .fact-item {
     display: flex;
     align-items: center;
     background: #ffffff;
     border: 1px solid #f4f4f4;
     padding: 25px 30px;
-    margin: 0 0 30px -1px;
+    /* margin: 0 0 30px -1px; */
+    gap: 24px;
 }
-.fact-item .chart {
-    position: relative;
-    width: 70px;
-    flex: 0 0 70px;
-    height: 70px;
-    margin-right: 30px;
-}
-.fact-item .percentage {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    line-height: 1;
-    letter-spacing: 0.02em;
-    text-transform: uppercase;
-    color: #000;
-    font-size: 16px;
-    font-weight: 600;
-}
+
 .fact-item .percentage span {
     font-size: 1em;
 }

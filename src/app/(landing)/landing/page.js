@@ -20,28 +20,25 @@ const Landing = () => {
     const [isOpen, setIsOpen] = useState(false);
     const brandImages = ["/assets/image/brand/brand_01.png", "/assets/image/brand/brand_02.png", "/assets/image/brand/brand_03.png", "/assets/image/brand/brand_04.png", "/assets/image/brand/brand_05.png", "/assets/image/brand/brand_06.png"];
 
-    const imageRef = useRef(null); // Reference for the image element
+    const imageRef = useRef(null);
 
     useEffect(() => {
         const observer = new IntersectionObserver(
             (entries, observer) => {
                 entries.forEach((entry) => {
                     if (entry.isIntersecting) {
-                        // Add the rotating slide-in animation class when the image comes into view
                         entry.target.classList.add("animate-rotateSlideInRight");
-                        observer.unobserve(entry.target); // Stop observing after the animation has triggered
+                        observer.unobserve(entry.target);
                     }
                 });
             },
             { threshold: 0.5 }
-        ); // Trigger when 50% of the image is visible
+        );
 
-        // Start observing the image
         if (imageRef.current) {
             observer.observe(imageRef.current);
         }
 
-        // Cleanup observer on component unmount
         return () => {
             if (imageRef.current) {
                 observer.unobserve(imageRef.current);
@@ -72,7 +69,7 @@ const Landing = () => {
             <header id="home">
                 {/* <div id="header-top-fixed"></div> */}
                 <div id="sticky-header" className="menu-area">
-                    <div className="container custom-container">
+                    <div className="container ">
                         <div className="row">
                             <div className="col-12">
                                 <div className="mobile-nav-toggler">
@@ -171,7 +168,7 @@ const Landing = () => {
 
             <main className="main-area fix">
                 <section className="banner-area">
-                    <div className="container">
+                    <div className="custom-container">
                         <div className=" flex justify-center">
                             <div className=" max-w-[850px] w-full px-4">
                                 <div className="banner-content text-center">
@@ -207,7 +204,7 @@ const Landing = () => {
                 </section>
 
                 <div className="brand-area">
-                    <div className="container">
+                    <div className="custom-container">
                         <div className="row mb-6 md:mb-12">
                             <div className="col-12">
                                 <div className="brand-title text-center mb-50">
@@ -247,7 +244,7 @@ const Landing = () => {
                 </div>
 
                 <section id="features" className="features-area bg-cover bg-center features-bg" style={{ backgroundImage: "url('/assets/image/bg/features_bg.jpg')" }}>
-                    <div className="container">
+                    <div className="custom-container">
                         <div className="grid grid-cols-12 items-center">
                             <div className="col-span-12 lg:col-span-6">
                                 <div className="features-items-wrap">
@@ -269,7 +266,7 @@ const Landing = () => {
                 </section>
 
                 <section id="paroller" className="features-products">
-                    <div className="container">
+                    <div className="custom-container">
                         <div className="features-products-wrap">
                             <div className=" flex flex-col md:flex-row justify-center">
                                 <div className=" md:w-[45%]">
@@ -376,58 +373,82 @@ const Landing = () => {
                     <div className="fp-circle five"></div>
                 </section>
 
-                <section className="fact-area">
-                    <div className="container">
+                <section>
+                    <div className="custom-container">
                         <div className="fact-items-wrapper">
-                            <div className="row g-0 justify-content-center">
-                                <div className="col-lg-4 col-md-6 col-sm-9">
-                                    <div className="fact-item">
-                                        <div className="chart" data-percent="65">
-                                            <span className="percentage">
-                                                65<small>%</small>
-                                            </span>
+                            <div className="grid grid-cols-2 gap-6">
+                                {/* Item 1 */}
+                                <div className="">
+                                    <div className="fact-item text-center">
+                                        <CircularProgress percentage={65} />
+                                        <div className="fact-content mt-2">
+                                            <h4 className="title text-lg font-bold">Active Members</h4>
+                                            <span className="text-sm text-gray-600">Yes we did it asap software</span>
                                         </div>
+                                    </div>
+                                </div>
+
+                                {/* Item 2 */}
+                                <div className="">
+                                    <div className="fact-item text-center">
+                                        <CircularProgress percentage={90} />
+                                        <div className="fact-content mt-2">
+                                            <h4 className="title text-lg font-bold">Projects Done</h4>
+                                            <span className="text-sm text-gray-600">Yes we did it asap software</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                {/* Item 3 - Centered on its own row */}
+                                <div className="col-span-2 flex justify-center">
+                                    <div className="">
+                                        <div className="fact-item text-center">
+                                            <CircularProgress percentage={80} />
+                                            <div className="fact-content mt-2">
+                                                <h4 className="title text-lg font-bold">Get Rewards</h4>
+                                                <span className="text-sm text-gray-600">Yes we did it asap software</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            {/* <div className=" grid grid-cols-3 md:grid-cols-2 place-items-center">
+                                <div>
+                                    <div className="fact-item">
+                                        <CircularProgress percentage={65} />
                                         <div className="fact-content">
                                             <h4 className="title">Active Members</h4>
                                             <span>Yes we did it asap software</span>
                                         </div>
                                     </div>
                                 </div>
-                                <div className="col-lg-4 col-md-6 col-sm-9">
+                                <div>
                                     <div className="fact-item">
-                                        <div className="chart" data-percent="90">
-                                            <span className="percentage">
-                                                90<small>%</small>
-                                            </span>
-                                        </div>
+                                        <CircularProgress percentage={65} />
                                         <div className="fact-content">
                                             <h4 className="title">Projects Done</h4>
                                             <span>Yes we did it asap software</span>
                                         </div>
                                     </div>
                                 </div>
-                                <div className="col-lg-4 col-md-6 col-sm-9">
+                                <div>
                                     <div className="fact-item">
-                                        <div className="chart" data-percent="80">
-                                            <span className="percentage">
-                                                80<small>%</small>
-                                            </span>
-                                        </div>
+                                        <CircularProgress percentage={65} />
                                         <div className="fact-content">
                                             <h4 className="title">Get Rewards</h4>
                                             <span>Yes we did it asap software</span>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div> */}
                         </div>
                     </div>
-                    {/* <CircularProgress percentage={65} /> */}
                 </section>
 
                 {/* <!-- Ingredients-area --> */}
                 <section id="ingredient" className="ingredients-area">
-                    <div className="container">
+                    <div className="custom-container">
                         <div className="row align-items-center justify-content-center">
                             <div className="col-xl-5 col-lg-6 col-md-7">
                                 <div className="ingredients-img">
